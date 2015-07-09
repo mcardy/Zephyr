@@ -1,0 +1,8 @@
+name: Zephyr
+version: ${project.version}
+description: Zephyrus is an all-in-one magic plugin providing magic spells and items that users can use on RPG and survival servers alike
+
+author: minnymin3
+
+main: com.minnymin.zephyr.ZephyrPlugin
+load: STARTUP
