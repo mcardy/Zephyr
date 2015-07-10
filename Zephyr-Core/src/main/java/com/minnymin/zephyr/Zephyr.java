@@ -1,17 +1,26 @@
 package com.minnymin.zephyr;
 
 import com.minnymin.zephyr.spell.SpellManager;
+import com.minnymin.zephyr.user.UserManager;
 
 public class Zephyr {
 
-	private static ZephyrPlugin plugin;
+	private static ZephyrAPI api;
 	
 	public static SpellManager getSpellManager() {
-		return plugin.getSpellManager();
+		return Zephyr.api.getSpellManager();
 	}
 	
-	public static void setZephyrPlugin(ZephyrPlugin plugin) {
-		Zephyr.plugin = plugin;
+	public static UserManager getUserManager() {
+		return Zephyr.api.getUserManager();
+	}
+	
+	public static ZephyrAPI getAPI() {
+		return Zephyr.api;
+	}
+	
+	public static void setAPISingleton(ZephyrAPI api) {
+		Zephyr.api = api;
 	}
 	
 }

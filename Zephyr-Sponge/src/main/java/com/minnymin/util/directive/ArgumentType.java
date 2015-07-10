@@ -180,7 +180,7 @@ public enum ArgumentType {
 			for (Object o : options) {
 				list.add(o);
 			}
-			return list.toArray(new Object[0]);
+			return list.toArray(new Object[list.size()]);
 		}
 
 		private static Object[] constructorArray(String key, Object[] options) {
@@ -189,7 +189,7 @@ public enum ArgumentType {
 			for (Object o : options) {
 				list.add(o);
 			}
-			return list.toArray(new Object[0]);
+			return list.toArray(new Object[list.size()]);
 		}
 
 		private static Class<?>[] argumentArray(boolean game, Class<?>[] options) {
@@ -201,7 +201,7 @@ public enum ArgumentType {
 			for (Class<?> c : options) {
 				list.add(c);
 			}
-			return list.toArray(new Class<?>[0]);
+			return list.toArray(new Class<?>[list.size()]);
 		}
 	}
 

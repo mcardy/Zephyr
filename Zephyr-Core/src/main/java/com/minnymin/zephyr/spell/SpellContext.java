@@ -20,4 +20,8 @@ public class SpellContext {
 		return this.user;
 	}
 	
+	public Object getPlayer() {
+		return this.user.getPlayerObject();
+	}
+	
 }
