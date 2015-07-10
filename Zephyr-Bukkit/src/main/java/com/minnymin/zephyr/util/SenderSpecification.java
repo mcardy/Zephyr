@@ -1,4 +1,4 @@
-package com.minnymin.util.cmd;
+package com.minnymin.zephyr.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,8 +7,13 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface ConsoleOnly {
+public @interface SenderSpecification {
 	
-	public String message() default "This command can only be executed by the console";
+	public SenderType type();
+	public String message();
+	
+	public enum SenderType {
+		CONSOLE, PLAYER, ANY;
+	}
 	
 }

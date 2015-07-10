@@ -1,27 +1,30 @@
-package com.minnymin.util.cmd;
+package com.minnymin.zephyr.util;
 
 import java.lang.reflect.Method;
 
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-public class BukkitExecutor {
+import com.minnymin.zephyr.util.SenderSpecification.SenderType;
+
+class BukkitExecutor {
 
 	private Method executor;
 	private Object owner;
-	
-	public BukkitExecutor(Method m) {
+
+	BukkitExecutor(Method m) {
 		this.executor = m;
 	}
-	
-	public BukkitExecutor(Method m, Object o) {
+
+	BukkitExecutor(Method m, Object o) {
 		this.executor = m;
 		this.owner = o;
 	}
-	
-	public void execute(CommandContext args) {
+
+	void execute(CommandContext args) {
 		if (args instanceof CommandContext) {
 			CommandContext context = (CommandContext) args;
-			
+
 			Permission perm = this.executor.getAnnotation(Permission.class);
 			if (perm != null) {
 				if (!context.getSender().hasPermission(perm.permission())) {
@@ -29,32 +32,25 @@ public class BukkitExecutor {
 					return;
 				}
 			}
-			
-			InGameOnly inGame = this.executor.getAnnotation(InGameOnly.class);
-			if (inGame != null) {
-				if (!(context.getSender() instanceof Player)) {
-					context.getSender().sendMessage(inGame.message());
+
+			SenderSpecification senderSpec = this.executor.getAnnotation(SenderSpecification.class);
+			if (senderSpec != null) {
+				if ((senderSpec.type() == SenderType.PLAYER && !(context.getSender() instanceof Player))
+						|| (senderSpec.type() == SenderType.CONSOLE && !(context.getSender() instanceof ConsoleCommandSender))) {
+					context.getSender().sendMessage(senderSpec.message());
 					return;
 				}
 			}
-			
-			ConsoleOnly console = this.executor.getAnnotation(ConsoleOnly.class);
-			if (console != null) {
-				if (context.getSender() instanceof Player) {
-					context.getSender().sendMessage(console.message());
-					return;
-				}
-			}
-			
+
 			try {
 				this.executor.invoke(this.owner, (CommandContext) args);
 			} catch (Exception ex) {
-				
+
 			}
 		}
 	}
-	
-	public Cmd getCmd() {
+
+	Cmd getCmd() {
 		return this.executor.getAnnotation(Cmd.class);
 	}
 

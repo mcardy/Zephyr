@@ -1,4 +1,4 @@
-package com.minnymin.util.cmd;
+package com.minnymin.zephyr.util;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

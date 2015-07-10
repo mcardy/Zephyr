@@ -2,17 +2,60 @@ package com.minnymin.zephyr.bukkit;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.minnymin.zephyr.Zephyr;
+import com.minnymin.zephyr.ZephyrAPI;
+import com.minnymin.zephyr.bukkit.command.SpellCommand;
+import com.minnymin.zephyr.bukkit.command.UserCommand;
+import com.minnymin.zephyr.bukkit.spell.BukkitSpellManager;
+import com.minnymin.zephyr.bukkit.user.BukkitUserManager;
+import com.minnymin.zephyr.spell.SpellManager;
+import com.minnymin.zephyr.user.UserManager;
+import com.minnymin.zephyr.util.BukkitCommandHandler;
+
 /**
  * Using Bukkit 1.8.7
  * 
  * @author minnymin3
  */
-public class ZephyrPlugin extends JavaPlugin {
+public class ZephyrPlugin extends JavaPlugin implements ZephyrAPI {
 
+	private static ZephyrPlugin INSTANCE;
+	
+	public static ZephyrPlugin getInstance() {
+		return ZephyrPlugin.INSTANCE;
+	}
+	
+	private SpellManager spellManager;
+	private UserManager userManager;
+	
+	public ZephyrPlugin() {
+		ZephyrPlugin.INSTANCE = this;
+	}
+	
+	@Override
 	public void onEnable() {
+		Zephyr.setAPISingleton(this);
+		this.spellManager = new BukkitSpellManager();
+		this.userManager = new BukkitUserManager();
+		
+		BukkitCommandHandler handler = new BukkitCommandHandler(this);
+		handler.registerCommands(UserCommand.class);
+		handler.registerCommands(SpellCommand.class);
+		handler.registerHelp();	
 	}
 
+	@Override
 	public void onDisable() {
+	}
+
+	@Override
+	public SpellManager getSpellManager() {
+		return this.spellManager;
+	}
+
+	@Override
+	public UserManager getUserManager() {
+		return this.userManager;
 	}
 
 }
