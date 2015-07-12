@@ -40,6 +40,7 @@ public abstract class SpellManager {
 		User user = context.getUser();
 		if (spell == null) {
 			user.sendMessage("That spell does not exist...");
+			return;
 		}
 		if (!user.hasMana(spell.getManaCost())) {
 			user.sendMessage("You do not have enough mana to cast " + spell.getName() + "! " + user.getMana() + " / "

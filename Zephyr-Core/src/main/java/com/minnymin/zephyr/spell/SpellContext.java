@@ -2,14 +2,16 @@ package com.minnymin.zephyr.spell;
 
 import com.minnymin.zephyr.user.User;
 
-public class SpellContext {
+public abstract class SpellContext {
 
-	private String[] args;
-	private User user;
+	protected String[] args;
+	protected User user;
+	protected Spell spell;
 	
-	public SpellContext(User user, String[] args) {
+	public SpellContext(Spell spell, User user, String[] args) {
 		this.args = args;
 		this.user = user;
+		this.spell = spell;
 	}
 	
 	public String[] getArguments() {
@@ -20,8 +22,14 @@ public class SpellContext {
 		return this.user;
 	}
 	
-	public Object getPlayer() {
-		return this.user.getPlayerObject();
+	public <T> T getPlayer() {
+		return this.user.<T>getPlayerObject();
 	}
+	
+	public Spell getSpell() {
+		return this.spell;
+	}
+	
+	public abstract <T> TargetHolder<T> getTarget();
 	
 }

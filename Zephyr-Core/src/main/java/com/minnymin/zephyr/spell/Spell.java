@@ -1,5 +1,6 @@
 package com.minnymin.zephyr.spell;
 
+
 public abstract class Spell {
 
 	protected boolean listener = false;

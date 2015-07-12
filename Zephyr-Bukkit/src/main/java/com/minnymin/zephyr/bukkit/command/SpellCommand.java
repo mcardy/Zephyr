@@ -6,8 +6,8 @@ import org.bukkit.entity.Player;
 
 import com.google.common.collect.Lists;
 import com.minnymin.zephyr.Zephyr;
+import com.minnymin.zephyr.bukkit.spell.BukkitSpellContext;
 import com.minnymin.zephyr.spell.Spell;
-import com.minnymin.zephyr.spell.SpellContext;
 import com.minnymin.zephyr.spell.SpellManager;
 import com.minnymin.zephyr.util.Cmd;
 import com.minnymin.zephyr.util.CommandContext;
@@ -29,7 +29,7 @@ public class SpellCommand {
 		List<String> list = Lists.newArrayList(context.getOptions());
 		list.remove(0);
 		String[] args = list.toArray(new String[list.size()]);
-		manager.cast(spell, new SpellContext(Zephyr.getUserManager().getUser(player.getUniqueId()), args));
+		manager.cast(spell, new BukkitSpellContext(spell, Zephyr.getUserManager().getUser(player.getUniqueId()), args));
 	}
 	
 }

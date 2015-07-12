@@ -22,8 +22,12 @@ public class SpongeUser extends User {
 	}
 	
 	@Override
-	public Object getPlayerObject() {
-		return getPlayer();
+	@SuppressWarnings("unchecked")
+	public <T> T getPlayerObject() {
+		if (!(getPlayer() instanceof Player)) {
+			return null;
+		}
+		return (T) getPlayer();
 	}
 
 	@Override

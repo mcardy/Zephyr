@@ -1,21 +1,35 @@
 package com.minnymin.zephyr.user;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
+
+import com.minnymin.zephyr.state.UserState;
 
 public abstract class User {
 
 	private UserData userData;
+	private Map<UserState, Integer> stateMap;
 	
 	private int mana;
 	
 	protected User(UserData data) {
 		this.userData = data;
 		this.mana = data.getMana();
+		this.stateMap = new HashMap<UserState, Integer>();
 	}
 	
 	public abstract UUID getUUID();
-	public abstract Object getPlayerObject();
+	public abstract <T> T getPlayerObject();
 	public abstract void sendMessage(String... message);
+	
+	public void addState(UserState userState, int duration) {
+		if (!this.stateMap.containsKey(userState)) {
+			userState.onApplied(this);
+		}
+		this.stateMap.put(userState, duration);
+	}
 	
 	/**
 	 * Drains mana from user's mana.
@@ -71,6 +85,15 @@ public abstract class User {
 	public void tick() {
 		if (getMana() < getUserData().getMana()) {
 			setMana(getMana() + getUserData().getManaRegeneration());
+		}
+		for (Entry<UserState, Integer> entry : this.stateMap.entrySet()) {
+			if (entry.getValue()-1 != 0) {
+				entry.getKey().tick(this);
+				this.stateMap.put(entry.getKey(), entry.getValue()-1);
+			} else {
+				entry.getKey().onRemoved(this);
+				this.stateMap.remove(entry.getKey());
+			}
 		}
 	}
 	

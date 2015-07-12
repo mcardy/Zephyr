@@ -1,11 +1,15 @@
 package com.minnymin.zephyr.sponge.spell;
 
+import org.spongepowered.api.entity.living.Living;
+
 import com.minnymin.zephyr.spell.CastResult;
 import com.minnymin.zephyr.spell.Spell;
 import com.minnymin.zephyr.spell.SpellContext;
-import com.minnymin.zephyr.sponge.user.SpongeUser;
-import com.minnymin.zephyr.user.User;
+import com.minnymin.zephyr.spell.TargetHolder;
+import com.minnymin.zephyr.spell.Targeted;
+import com.minnymin.zephyr.spell.Targeted.TargetType;
 
+@Targeted(type = TargetType.LIVING)
 public class TestSpell extends Spell {
 
 	public TestSpell() {
@@ -14,10 +18,9 @@ public class TestSpell extends Spell {
 
 	@Override
 	public CastResult cast(SpellContext context) {
-		User user = context.getUser();
-		if (user instanceof SpongeUser) {
-			user.sendMessage("Hello!");
-		}
+		TargetHolder<Living> target = context.<Living>getTarget();
+		Living entity = target.get();
+		context.getUser().sendMessage(entity.getType().getName());
 		return CastResult.SUCCESS;
 	}
 

@@ -10,8 +10,8 @@ import com.minnymin.util.directive.ArgumentType;
 import com.minnymin.util.directive.Directive;
 import com.minnymin.zephyr.Zephyr;
 import com.minnymin.zephyr.spell.Spell;
-import com.minnymin.zephyr.spell.SpellContext;
 import com.minnymin.zephyr.spell.SpellManager;
+import com.minnymin.zephyr.sponge.spell.SpongeSpellContext;
 
 public class SpellCommand {
 
@@ -21,7 +21,7 @@ public class SpellCommand {
 		SpellManager manager = Zephyr.getSpellManager();
 		Spell spell = manager.getSpell(context.<String>getOne("spell").get());
 		Optional<String> options = context.<String>getOne("args");
-		manager.cast(spell, new SpellContext(Zephyr.getUserManager().getUser(player.getUniqueId()), options.isPresent() ? options.get().split(" ") : new String[0]));
+		manager.cast(spell, new SpongeSpellContext(spell, Zephyr.getUserManager().getUser(player.getUniqueId()), options.isPresent() ? options.get().split(" ") : new String[0]));
 		return CommandResult.success();
 	}
 	

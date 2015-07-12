@@ -58,7 +58,7 @@ public class ZephyrPlugin implements ZephyrAPI {
 	public UserManager getUserManager() {
 		return this.userManager;
 	}
-
+	
 	public static ZephyrPlugin getInstance() {
 		return (ZephyrPlugin) Zephyr.getAPI();
 	}
