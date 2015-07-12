@@ -9,6 +9,7 @@ public class SpongeSpellManager extends SpellManager {
 	public SpongeSpellManager() {
 		addSpell(new TestSpell());
 		addSpell(new TestStateSpell());
+		addSpell(new TestContinuousSpell());
 	}
 	
 	@Override

@@ -26,8 +26,14 @@ public class BukkitUser extends User {
 	}
 
 	@Override
-	public Object getPlayerObject() {
-		return getPlayer();
+	@SuppressWarnings("unchecked")
+	public <T> T getPlayerObject() {
+		try {
+			return (T) getPlayer();
+		} catch (ClassCastException ex) {
+			Bukkit.getLogger().warning("[Zephyr] Unable to get player object from user: " + ex.getMessage());
+			return null;
+		}
 	}
 
 	@Override

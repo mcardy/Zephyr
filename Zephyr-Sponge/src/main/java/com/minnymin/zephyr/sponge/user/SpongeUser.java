@@ -24,10 +24,12 @@ public class SpongeUser extends User {
 	@Override
 	@SuppressWarnings("unchecked")
 	public <T> T getPlayerObject() {
-		if (!(getPlayer() instanceof Player)) {
+		try {
+			return (T) getPlayer();
+		} catch (ClassCastException ex) {
+			ZephyrPlugin.getLogger().warn("Unable to get player object from user: " + ex.getMessage());
 			return null;
 		}
-		return (T) getPlayer();
 	}
 
 	@Override

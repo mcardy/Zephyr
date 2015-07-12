@@ -5,9 +5,9 @@ import org.spongepowered.api.entity.living.Living;
 import com.minnymin.zephyr.spell.CastResult;
 import com.minnymin.zephyr.spell.Spell;
 import com.minnymin.zephyr.spell.SpellContext;
-import com.minnymin.zephyr.spell.TargetHolder;
-import com.minnymin.zephyr.spell.Targeted;
-import com.minnymin.zephyr.spell.Targeted.TargetType;
+import com.minnymin.zephyr.spell.target.TargetHolder;
+import com.minnymin.zephyr.spell.target.Targeted;
+import com.minnymin.zephyr.spell.target.Targeted.TargetType;
 
 @Targeted(type = TargetType.LIVING)
 public class TestSpell extends Spell {

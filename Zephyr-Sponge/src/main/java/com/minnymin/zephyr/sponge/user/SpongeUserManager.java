@@ -14,8 +14,7 @@ public class SpongeUserManager extends UserManager {
 
 	public SpongeUserManager() {
 		ZephyrPlugin.getGame().getEventManager().register(ZephyrPlugin.getInstance(), this);
-
-		ZephyrPlugin.getGame().getScheduler().getTaskBuilder().interval(20).execute(new SpongeUserRunnable())
+		ZephyrPlugin.getGame().getScheduler().getTaskBuilder().interval(1).execute(new SpongeUserRunnable())
 				.name("zephyr:usertick").submit(Zephyr.getAPI());
 	}
 

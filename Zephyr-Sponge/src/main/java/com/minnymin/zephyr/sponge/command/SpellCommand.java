@@ -12,17 +12,27 @@ import com.minnymin.zephyr.Zephyr;
 import com.minnymin.zephyr.spell.Spell;
 import com.minnymin.zephyr.spell.SpellManager;
 import com.minnymin.zephyr.sponge.spell.SpongeSpellContext;
+import com.minnymin.zephyr.user.User;
 
 public class SpellCommand {
 
-	@Directive(names = { "cast" }, argumentLabels = {"spell", "args"}, arguments = {ArgumentType.STRING, ArgumentType.OPTIONAL_REMAINING}, inGameOnly = true)
+	@Directive(names = { "cast" }, argumentLabels = {"spell", "args"}, arguments = {ArgumentType.OPTIONAL_STRING, ArgumentType.OPTIONAL_REMAINING}, inGameOnly = true)
 	public static CommandResult onCast(CommandSource src, CommandContext context) {
-		Player player = (Player) src;
+		User user = Zephyr.getUserManager().getUser(((Player)src).getUniqueId());
 		SpellManager manager = Zephyr.getSpellManager();
-		Spell spell = manager.getSpell(context.<String>getOne("spell").get());
-		Optional<String> options = context.<String>getOne("args");
-		manager.cast(spell, new SpongeSpellContext(spell, Zephyr.getUserManager().getUser(player.getUniqueId()), options.isPresent() ? options.get().split(" ") : new String[0]));
-		return CommandResult.success();
+		if (context.getOne("spell").isPresent()) {
+			Spell spell = manager.getSpell(context.<String>getOne("spell").get());
+			Optional<String> options = context.<String>getOne("args");
+			manager.cast(spell, new SpongeSpellContext(spell, user, options.isPresent() ? options.get().split(" ") : new String[0]));
+			return CommandResult.success();
+		} else {
+			if (user.isCasting()) {
+				user.setCasting(null, null);
+			} else {
+				user.sendMessage("Usage: /cast <spell> [args...]");
+			}
+			return CommandResult.success();
+		}
 	}
 	
 }

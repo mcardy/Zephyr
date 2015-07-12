@@ -1,4 +1,4 @@
-package com.minnymin.zephyr.spell;
+package com.minnymin.zephyr.spell.target;
 
 public class TargetHolder<T> {
 

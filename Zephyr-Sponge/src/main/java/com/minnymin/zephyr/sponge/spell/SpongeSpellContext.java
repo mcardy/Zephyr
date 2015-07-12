@@ -4,8 +4,8 @@ import org.spongepowered.api.entity.player.Player;
 
 import com.minnymin.zephyr.spell.Spell;
 import com.minnymin.zephyr.spell.SpellContext;
-import com.minnymin.zephyr.spell.TargetHolder;
-import com.minnymin.zephyr.spell.Targeted;
+import com.minnymin.zephyr.spell.target.TargetHolder;
+import com.minnymin.zephyr.spell.target.Targeted;
 import com.minnymin.zephyr.user.User;
 
 public class SpongeSpellContext extends SpellContext {

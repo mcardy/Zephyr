@@ -15,7 +15,7 @@ public class BukkitUserManager extends UserManager implements Listener {
 
 	public BukkitUserManager() {
 		Bukkit.getPluginManager().registerEvents(this, ZephyrPlugin.getInstance());
-		Bukkit.getScheduler().runTaskTimer(ZephyrPlugin.getInstance(), new BukkitUserRunnable(), 0, 20);
+		Bukkit.getScheduler().runTaskTimer(ZephyrPlugin.getInstance(), new BukkitUserRunnable(), 0, 1);
 	}
 
 	@EventHandler

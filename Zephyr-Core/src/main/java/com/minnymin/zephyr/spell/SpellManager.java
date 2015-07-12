@@ -53,6 +53,23 @@ public abstract class SpellManager {
 		}
 	}
 
+	public void castContinuous(ContinuousSpell spell, SpellContext context) {
+		User user = context.getUser();
+		if (spell == null) {
+			return;
+		}
+		if (!user.hasMana(spell.getManaCostPerTick())) {
+			user.sendMessage("You cannot keep casting " + spell.getName() + "! Mana: " + user.getMana() + " / "
+					+ spell.getManaCostPerTick());
+			user.setCasting(null, null);
+			return;
+		}
+		CastResult result = spell.cast(context);
+		if (result != CastResult.FAILURE) {
+			user.drainMana(spell.getManaCostPerTick());
+		}
+	}
+
 	public abstract void onSpellAdded(Spell spell);
 
 }

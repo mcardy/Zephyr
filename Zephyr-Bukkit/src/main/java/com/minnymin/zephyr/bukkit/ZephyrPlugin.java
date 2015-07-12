@@ -57,5 +57,5 @@ public class ZephyrPlugin extends JavaPlugin implements ZephyrAPI {
 	public UserManager getUserManager() {
 		return this.userManager;
 	}
-
+	
 }

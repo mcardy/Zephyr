@@ -1,5 +1,6 @@
 package com.minnymin.zephyr.spell;
 
+import com.minnymin.zephyr.spell.target.TargetHolder;
 import com.minnymin.zephyr.user.User;
 
 public abstract class SpellContext {

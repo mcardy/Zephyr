@@ -1,4 +1,4 @@
-package com.minnymin.zephyr.spell;
+package com.minnymin.zephyr.spell.target;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

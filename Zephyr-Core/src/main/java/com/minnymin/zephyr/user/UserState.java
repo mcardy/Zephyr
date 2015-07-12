@@ -1,15 +1,16 @@
-package com.minnymin.zephyr.state;
+package com.minnymin.zephyr.user;
 
-import com.minnymin.zephyr.user.User;
 
 public abstract class UserState {
 
 	private String name;
 	private String description;
+	private int tickTime;
 	
-	public UserState(String name, String description) {
+	public UserState(String name, String description, int tickTime) {
 		this.name = name;
 		this.description = description;
+		this.tickTime = tickTime;
 	}
 	
 	public String getName() {
@@ -18,6 +19,10 @@ public abstract class UserState {
 	
 	public String getDescription() {
 		return this.description;
+	}
+	
+	public int getTickTime() {
+		return tickTime;
 	}
 	
 	public abstract void onApplied(User user);

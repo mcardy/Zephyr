@@ -2,7 +2,7 @@ package com.minnymin.zephyr.bukkit.spell;
 
 import com.minnymin.zephyr.spell.Spell;
 import com.minnymin.zephyr.spell.SpellContext;
-import com.minnymin.zephyr.spell.TargetHolder;
+import com.minnymin.zephyr.spell.target.TargetHolder;
 import com.minnymin.zephyr.user.User;
 
 public class BukkitSpellContext extends SpellContext {
