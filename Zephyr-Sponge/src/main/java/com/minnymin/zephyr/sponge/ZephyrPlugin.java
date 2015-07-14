@@ -1,11 +1,14 @@
 package com.minnymin.zephyr.sponge;
 
+import java.io.File;
+
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.event.Subscribe;
 import org.spongepowered.api.event.state.PreInitializationEvent;
 import org.spongepowered.api.event.state.ServerStoppingEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.service.config.ConfigDir;
 
 import com.google.inject.Inject;
 import com.minnymin.util.directive.DirectiveHandler;
@@ -24,7 +27,13 @@ public class ZephyrPlugin implements ZephyrAPI {
 
 	@Inject
 	private Logger logger;
+	
+	@Inject
 	private Game game;
+	
+	@Inject
+	@ConfigDir(sharedRoot = false)
+	private File configDirectory;
 
 	private SpellManager spellManager;
 	private UserManager userManager;
@@ -35,7 +44,6 @@ public class ZephyrPlugin implements ZephyrAPI {
 
 	@Subscribe
 	public void onPreInit(PreInitializationEvent event) {
-		this.game = event.getGame();
 		this.spellManager = new SpongeSpellManager();
 		this.userManager = new SpongeUserManager();
 
@@ -63,6 +71,10 @@ public class ZephyrPlugin implements ZephyrAPI {
 		return (ZephyrPlugin) Zephyr.getAPI();
 	}
 
+	public static File getConfigDirectory() {
+		return ((ZephyrPlugin) Zephyr.getAPI()).configDirectory;
+	}
+	
 	public static Game getGame() {
 		return ((ZephyrPlugin) Zephyr.getAPI()).game;
 	}

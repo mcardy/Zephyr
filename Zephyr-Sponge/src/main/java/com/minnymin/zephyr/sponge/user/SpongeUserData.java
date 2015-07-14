@@ -10,6 +10,7 @@ import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
+import com.minnymin.zephyr.sponge.ZephyrPlugin;
 import com.minnymin.zephyr.user.UserData;
 
 public class SpongeUserData extends UserData {
@@ -18,7 +19,7 @@ public class SpongeUserData extends UserData {
 	private ConfigurationNode root;
 
 	public SpongeUserData(UUID playerId) {
-		File potentialFile = new File(new File("config/zephyr/player"), playerId.toString() + ".cfg");
+		File potentialFile = new File(new File(ZephyrPlugin.getConfigDirectory(), "players"), playerId.toString() + ".cfg");
 		if (!potentialFile.exists()) {
 			potentialFile.getParentFile().mkdirs();
 			try {
