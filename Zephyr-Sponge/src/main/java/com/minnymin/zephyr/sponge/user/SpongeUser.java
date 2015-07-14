@@ -13,7 +13,7 @@ public class SpongeUser extends User {
 	private UUID uuid;
 	
 	public SpongeUser(Player player) {
-		super(new SpongeUserData());
+		super(new SpongeUserData(player.getUniqueId()));
 		this.uuid = player.getUniqueId();
 	}
 	

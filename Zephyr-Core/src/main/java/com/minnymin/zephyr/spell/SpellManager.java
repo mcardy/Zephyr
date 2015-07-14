@@ -58,6 +58,7 @@ public abstract class SpellManager {
 		CastResult result = spell.cast(context);
 		if (result != CastResult.FAILURE) {
 			user.drainMana(spell.getManaCost());
+			user.addLevelProgress(spell.getExperienceGain());
 		}
 	}
 

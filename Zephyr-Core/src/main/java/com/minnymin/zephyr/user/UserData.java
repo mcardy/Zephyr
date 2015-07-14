@@ -1,34 +1,71 @@
 package com.minnymin.zephyr.user;
 
-public interface UserData {
+import java.util.List;
 
-	//public int getLevel();
-	//public void setLevel();
+import com.minnymin.zephyr.spell.Spell;
+
+public abstract class UserData {
+	
+	public int getLevel() {
+		return this.<Integer> getData("level");
+	}
+
+	public void setLevel(int level) {
+		this.setData("level", level);
+	}
+
+	public int addLevelProgress(int progress) {
+		int newProgress = progress + getLevelProgress();
+		setLevelProgress(newProgress);
+		return newProgress;
+	}
+
+	public int getLevelProgress() {
+		return this.<Integer> getData("progress");
+	}
+
+	public void setLevelProgress(int progress) {
+		this.setData("progress", progress);
+	}
+
+	public int getMaximumMana() {
+		return this.<Integer> getData("mana");
+	}
+
+	public void setMaximumMana(int mana) {
+		this.setData("mana", mana);
+	}
+
+	public int getManaRegeneration() {
+		return this.<Integer> getData("regeneration");
+	}
+
+	public void setManaRegeneration(int rate) {
+		this.setData("regeneration", rate);
+	}
+
+	public List<String> getKnownSpells() {
+		return this.<List<String>> getData("learned");
+	}
+
+	public void teachSpell(Spell spell) {
+		List<String> learned = getKnownSpells();
+		learned.add(spell.getName());
+		setData("learned", learned);
+	}
 	
 	/**
-	 * Gets maximum mana
+	 * Gets data from the user's data file
+	 * @param key The key of the data
+	 * @return The result of the data
 	 */
-	public int getMana();
+	public abstract <T> T getData(String key);
 	
 	/**
-	 * Sets maximum mana
+	 * Sets data in the user's data file
+	 * @param key The key of the data
+	 * @param data The data to set
 	 */
-	public void setMana(int mana);
-	
-	/**
-	 * Gets mana regeneration rate per second
-	 */
-	public int getManaRegeneration();
-	
-	/**
-	 * Sets mana regeneration rate per second
-	 */
-	public void setManaRegeneration(int mana);
-	
-	//public List<String> getSpells();
-	//public void addSpell(String spellName);
-	
-	//public String getData(String key);
-	//public void setData(String key, String data);
+	public abstract void setData(String key, Object data);
 	
 }

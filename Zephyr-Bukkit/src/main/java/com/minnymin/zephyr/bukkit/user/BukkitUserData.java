@@ -1,31 +1,56 @@
 package com.minnymin.zephyr.bukkit.user;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.UUID;
 
+import org.bukkit.configuration.file.FileConfiguration;
+
+import com.minnymin.zephyr.bukkit.ZephyrPlugin;
+import com.minnymin.zephyr.bukkit.util.YmlConfigFile;
 import com.minnymin.zephyr.user.UserData;
 
-public class BukkitUserData implements UserData {
+public class BukkitUserData extends UserData {
 
-	public BukkitUserData(UUID uuid) {
-	}
-	
-	@Override
-	public int getMana() {
-		return 100;
-	}
+	private YmlConfigFile data;
 
-	@Override
-	public void setMana(int mana) {
+	public BukkitUserData(UUID playerId) {
+		this.data = new YmlConfigFile(playerId.toString() + ".yml", new File(ZephyrPlugin.getInstance().getDataFolder(),
+				"players"));
 
+		loadDefaultConfiguration();
 	}
 
 	@Override
-	public int getManaRegeneration() {
-		return 1;
+	@SuppressWarnings("unchecked")
+	public <T> T getData(String key) {
+		try {
+			return (T) data.getConfig().get(key);
+		} catch (ClassCastException ex) {
+			return null;
+		}
 	}
 
 	@Override
-	public void setManaRegeneration(int mana) {
+	public void setData(String key, Object value) {
+		data.getConfig().set(key, value);
+		data.saveConfig();
+	}
+
+	private void loadDefaultConfiguration() {
+		FileConfiguration config = this.data.getConfig();
+
+		if (!config.contains("learned") || !config.contains("mana") || !config.contains("regeneration")
+				|| !config.contains("level") || !config.contains("progress")) {
+			
+			this.data.addDefaults("learned", new ArrayList<String>());
+			this.data.addDefaults("mana", 100);
+			this.data.addDefaults("regeneration", 1);
+			this.data.addDefaults("level", 1);
+			this.data.addDefaults("progress", 0);
+			
+			this.data.saveConfig();
+		}
 
 	}
 
