@@ -1,5 +1,6 @@
 package com.minnymin.zephyr.bukkit.command;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -28,6 +29,26 @@ public class UserCommand {
 		builder.append(ChatColor.GRAY + "]");
 
 		context.getSender().sendMessage(builder.toString());
+	}
+	
+	@SuppressWarnings("deprecation")
+	@SenderSpecification(type = SenderType.PLAYER, message = "This command can only be executed by an in-game player")
+	@Cmd(label="mana.restore", description = "Restores sender's mana", usage = "/mana restore [<player>]")
+	public static void onManaRestore(CommandContext context) {
+		User target = null;
+		if (context.getOptions().length == 0) {
+			target = Zephyr.getUserManager().getUser(((Player)context.getSender()).getUniqueId());
+		} else {
+			Player player = null;
+			if ((player = Bukkit.getPlayer(context.getOptions()[0])) != null) {
+				target = Zephyr.getUserManager().getUser(player.getUniqueId());
+			} else {
+				target = Zephyr.getUserManager().getUser(((Player)context.getSender()).getUniqueId());
+			}
+		}
+		
+		target.setMana(target.getMaximumMana());
+		context.getSender().sendMessage(ChatColor.AQUA + "Mana restored!");
 	}
 	
 }

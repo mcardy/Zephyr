@@ -3,6 +3,7 @@ package com.minnymin.zephyr.spell;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.minnymin.zephyr.spell.target.Targeted;
 import com.minnymin.zephyr.user.User;
 
 public abstract class SpellManager {
@@ -41,6 +42,13 @@ public abstract class SpellManager {
 		if (spell == null) {
 			user.sendMessage("That spell does not exist...");
 			return;
+		}
+		if (user.getClass().isAnnotationPresent(Targeted.class)) {
+			Targeted target = user.getClass().getAnnotation(Targeted.class);
+			if (!target.optional() && !context.hasTarget()) {
+				user.sendMessage("You do not have a target!");
+				return;
+			}
 		}
 		if (!user.hasMana(spell.getManaCost())) {
 			user.sendMessage("You do not have enough mana to cast " + spell.getName() + "! " + user.getMana() + " / "

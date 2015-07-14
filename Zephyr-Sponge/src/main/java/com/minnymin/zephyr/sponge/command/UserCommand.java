@@ -8,15 +8,17 @@ import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
 import org.spongepowered.api.util.command.args.CommandContext;
 
+import com.minnymin.util.directive.ArgumentType;
 import com.minnymin.util.directive.Directive;
 import com.minnymin.zephyr.Zephyr;
+import com.minnymin.zephyr.sponge.ZephyrPlugin;
 import com.minnymin.zephyr.user.User;
 
 public class UserCommand {
 
 	@Directive(names = { "mana" }, description = "Displays your mana", inGameOnly = true)
 	public static CommandResult commandMana(CommandSource src, CommandContext context) {
-		User user = Zephyr.getUserManager().getUser(((Player)src).getUniqueId());
+		User user = Zephyr.getUserManager().getUser(((Player) src).getUniqueId());
 
 		TextBuilder builder = Texts.builder("Mana " + user.getMana() + " / " + user.getMaximumMana() + ": [").color(
 				TextColors.GRAY);
@@ -35,6 +37,26 @@ public class UserCommand {
 		builder.append(Texts.of("]")).color(TextColors.GRAY);
 
 		src.sendMessage(builder.build());
+		return CommandResult.success();
+	}
+
+	@Directive(names = { "mana.restore" }, description = "Restores your mana", inGameOnly = true, argumentLabels = { "target" }, arguments = { ArgumentType.OPTIONAL_STRING })
+	public static CommandResult commandManaRestore(CommandSource src, CommandContext context) {
+		User target = null;
+		if (!context.getOne("target").isPresent()) {
+			target = Zephyr.getUserManager().getUser(((Player) src).getUniqueId());
+		} else {
+			Player player = null;
+			if ((player = ZephyrPlugin.getGame().getServer().getPlayer(context.<String> getOne("target").get()).get()) != null) {
+				target = Zephyr.getUserManager().getUser(player.getUniqueId());
+			} else {
+				target = Zephyr.getUserManager().getUser(((Player) src).getUniqueId());
+			}
+		}
+
+		target.setMana(target.getMaximumMana());
+		target.<Player>getPlayerObject().sendMessage(Texts.builder("Mana restored!").color(TextColors.AQUA).build());
+		
 		return CommandResult.success();
 	}
 

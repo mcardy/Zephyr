@@ -3,13 +3,12 @@ package com.minnymin.zephyr.sponge.spell;
 import com.minnymin.zephyr.spell.Spell;
 import com.minnymin.zephyr.spell.SpellManager;
 import com.minnymin.zephyr.sponge.ZephyrPlugin;
+import com.minnymin.zephyr.sponge.spell.attack.PunchSpell;
 
 public class SpongeSpellManager extends SpellManager {
 
 	public SpongeSpellManager() {
-		addSpell(new TestSpell());
-		addSpell(new TestStateSpell());
-		addSpell(new TestContinuousSpell());
+		addSpell(new PunchSpell());
 	}
 	
 	@Override

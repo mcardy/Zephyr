@@ -6,6 +6,7 @@ import java.util.HashSet;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.living.Living;
+import org.spongepowered.api.entity.living.monster.Monster;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.util.blockray.BlockRay;
 import org.spongepowered.api.util.blockray.BlockRayHit;
@@ -17,6 +18,10 @@ final class SpongeTargetUtils {
 
 	protected static Player getTargetPlayer(Player player, int range) {
 		return SpongeTargetUtils.<Player> getTarget(player, range, getNearbyPlayers(player, range));
+	}
+	
+	protected static Monster getTargetMonster(Player player, int range) {
+		return SpongeTargetUtils.<Monster> getTarget(player, range, getNearbyMonsters(player, range));
 	}
 
 	protected static Living getTargetLiving(Player player, int range) {
@@ -68,6 +73,18 @@ final class SpongeTargetUtils {
 			}
 		}
 		return players;
+	}
+	
+	protected static Collection<Monster> getNearbyMonsters(Player player, int radius) {
+		Collection<Entity> entities = getNearbyEntities(player, radius);
+		Collection<Monster> monsters = new HashSet<Monster>();
+
+		for (Entity en : entities) {
+			if (en instanceof Monster) {
+				monsters.add((Monster) en);
+			}
+		}
+		return monsters;
 	}
 
 	protected static Collection<Living> getNearbyLivings(Player player, int radius) {

@@ -11,6 +11,8 @@ public class BukkitSpellManager extends SpellManager {
 
 	public BukkitSpellManager() {
 		addSpell(new FireballSpell());
+		addSpell(new TestContinuousSpell());
+		addSpell(new ButcherSpell());
 	}
 	
 	@Override
