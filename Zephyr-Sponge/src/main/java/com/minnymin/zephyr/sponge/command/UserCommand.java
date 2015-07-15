@@ -8,10 +8,10 @@ import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
 import org.spongepowered.api.util.command.args.CommandContext;
 
-import com.minnymin.util.directive.ArgumentType;
-import com.minnymin.util.directive.Directive;
 import com.minnymin.zephyr.Zephyr;
 import com.minnymin.zephyr.sponge.ZephyrPlugin;
+import com.minnymin.zephyr.sponge.util.directive.ArgumentType;
+import com.minnymin.zephyr.sponge.util.directive.Directive;
 import com.minnymin.zephyr.user.User;
 
 public class UserCommand {
@@ -40,6 +40,31 @@ public class UserCommand {
 		return CommandResult.success();
 	}
 
+	@Directive(names = { "progress" }, description = "Displays your progress", inGameOnly = true)
+	public static CommandResult commandProgress(CommandSource src, CommandContext context) {
+		User user = Zephyr.getUserManager().getUser(((Player) src).getUniqueId());
+
+		TextBuilder builder = Texts.builder(
+				"Progress " + user.getUserData().getLevelProgress() + " / " + user.getRequiredLevelProgress() + ": [")
+				.color(TextColors.GRAY);
+		int percent = (int) (((float) user.getUserData().getLevelProgress() / (float) user.getRequiredLevelProgress()) * 10);
+		TextBuilder tempBuilder = Texts.builder();
+		tempBuilder.color(TextColors.GREEN);
+		for (int i = 1; i <= 10; i++) {
+			tempBuilder.append(Texts.of("="));
+			if (i == percent) {
+				builder.append(tempBuilder.build());
+				tempBuilder = Texts.builder();
+			}
+		}
+		tempBuilder.color(TextColors.DARK_GRAY);
+		builder.append(tempBuilder.build());
+		builder.append(Texts.of("] Level " + user.getUserData().getLevel())).color(TextColors.GRAY);
+
+		src.sendMessage(builder.build());
+		return CommandResult.success();
+	}
+
 	@Directive(names = { "mana.restore" }, description = "Restores your mana", inGameOnly = true, argumentLabels = { "target" }, arguments = { ArgumentType.OPTIONAL_STRING })
 	public static CommandResult commandManaRestore(CommandSource src, CommandContext context) {
 		User target = null;
@@ -55,8 +80,8 @@ public class UserCommand {
 		}
 
 		target.setMana(target.getMaximumMana());
-		target.<Player>getPlayerObject().sendMessage(Texts.builder("Mana restored!").color(TextColors.AQUA).build());
-		
+		target.<Player> getPlayerObject().sendMessage(Texts.builder("Mana restored!").color(TextColors.AQUA).build());
+
 		return CommandResult.success();
 	}
 

@@ -1,4 +1,4 @@
-package com.minnymin.util.directive;
+package com.minnymin.zephyr.sponge.util.directive;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

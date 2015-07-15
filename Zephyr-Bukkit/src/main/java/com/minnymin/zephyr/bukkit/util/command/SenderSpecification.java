@@ -1,4 +1,4 @@
-package com.minnymin.zephyr.util;
+package com.minnymin.zephyr.bukkit.util.command;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

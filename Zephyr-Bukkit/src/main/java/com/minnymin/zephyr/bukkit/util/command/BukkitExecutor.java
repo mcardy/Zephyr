@@ -1,11 +1,11 @@
-package com.minnymin.zephyr.util;
+package com.minnymin.zephyr.bukkit.util.command;
 
 import java.lang.reflect.Method;
 
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import com.minnymin.zephyr.util.SenderSpecification.SenderType;
+import com.minnymin.zephyr.bukkit.util.command.SenderSpecification.SenderType;
 
 class BukkitExecutor {
 

@@ -6,17 +6,17 @@ import org.spongepowered.api.util.command.CommandSource;
 import org.spongepowered.api.util.command.args.CommandContext;
 
 import com.google.common.base.Optional;
-import com.minnymin.util.directive.ArgumentType;
-import com.minnymin.util.directive.Directive;
 import com.minnymin.zephyr.Zephyr;
 import com.minnymin.zephyr.spell.Spell;
 import com.minnymin.zephyr.spell.SpellManager;
 import com.minnymin.zephyr.sponge.spell.SpongeSpellContext;
+import com.minnymin.zephyr.sponge.util.directive.ArgumentType;
+import com.minnymin.zephyr.sponge.util.directive.Directive;
 import com.minnymin.zephyr.user.User;
 
 public class SpellCommand {
 
-	@Directive(names = { "cast" }, argumentLabels = {"spell", "args"}, arguments = {ArgumentType.OPTIONAL_STRING, ArgumentType.OPTIONAL_REMAINING}, inGameOnly = true)
+	@Directive(names = { "cast" }, argumentLabels = {"spell", "args"}, arguments = {ArgumentType.OPTIONAL_SPELL, ArgumentType.OPTIONAL_REMAINING}, inGameOnly = true)
 	public static CommandResult onCast(CommandSource src, CommandContext context) {
 		User user = Zephyr.getUserManager().getUser(((Player)src).getUniqueId());
 		SpellManager manager = Zephyr.getSpellManager();

@@ -8,9 +8,9 @@ import com.minnymin.zephyr.bukkit.command.SpellCommand;
 import com.minnymin.zephyr.bukkit.command.UserCommand;
 import com.minnymin.zephyr.bukkit.spell.BukkitSpellManager;
 import com.minnymin.zephyr.bukkit.user.BukkitUserManager;
+import com.minnymin.zephyr.bukkit.util.command.BukkitCommandHandler;
 import com.minnymin.zephyr.spell.SpellManager;
 import com.minnymin.zephyr.user.UserManager;
-import com.minnymin.zephyr.util.BukkitCommandHandler;
 
 /**
  * Using Bukkit 1.8.7

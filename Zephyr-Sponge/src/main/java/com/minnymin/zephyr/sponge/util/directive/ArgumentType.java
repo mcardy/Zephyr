@@ -1,4 +1,4 @@
-package com.minnymin.util.directive;
+package com.minnymin.zephyr.sponge.util.directive;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -6,13 +6,19 @@ import java.util.List;
 import java.util.Map;
 
 import org.spongepowered.api.Game;
+import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
+import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.util.command.args.ArgumentParseException;
+import org.spongepowered.api.util.command.args.CommandArgs;
+import org.spongepowered.api.util.command.args.CommandContext;
 import org.spongepowered.api.util.command.args.CommandElement;
 import org.spongepowered.api.util.command.args.GenericArguments;
 import org.spongepowered.api.world.DimensionType;
 
 import com.google.common.collect.ImmutableMap;
+import com.minnymin.zephyr.Zephyr;
 
 /**
  * Argument types for specifying arguments in Directive
@@ -38,7 +44,10 @@ public enum ArgumentType {
 	OPTIONAL_PLAYER(ArgumentType.PLAYER),
 	OPTIONAL_REMAINING(ArgumentType.REMAINING),
 	OPTIONAL_STRING(ArgumentType.STRING),
-	OPTIONAL_WORLD(ArgumentType.WORLD);
+	OPTIONAL_WORLD(ArgumentType.WORLD),
+	
+	SPELL(SpellElement.class, false, ArgumentUtils.blankArray()),
+	OPTIONAL_SPELL(ArgumentType.SPELL);
 
 	private Constructor<?> constructor;
 	private boolean needGame;
@@ -104,12 +113,21 @@ public enum ArgumentType {
 		this.needGame = needGame;
 		this.options = options;
 	}
+	
+	/**
+	 * Creates a new ArgumentType with class
+	 * 
+	 * @param cls Class of element
+	 */
+	private ArgumentType(Class<? extends CommandElement> cls) {
+		this(cls, false, ArgumentUtils.blankArray());
+	}
 
 	/**
-	 * Creates a new ArgumentType with class name, optional game, constructor's
+	 * Creates a new ArgumentType with class, optional game, constructor's
 	 * arguments and passed options
 	 * 
-	 * @param className Name of class
+	 * @param cls Class of element
 	 * @param needGame Whether or not game is required
 	 * @param arguments Constructor arguments after Text and optional Game
 	 * @param options Options to pass after Text and optional Game to
@@ -203,6 +221,27 @@ public enum ArgumentType {
 			}
 			return list.toArray(new Class<?>[list.size()]);
 		}
+	}
+	
+	private static class SpellElement extends CommandElement {
+
+		protected SpellElement(Text key) {
+			super(key);
+		}
+
+		@Override
+		protected Object parseValue(CommandSource source, CommandArgs args) throws ArgumentParseException {
+			return args.next();
+		}
+
+		@Override
+		public List<String> complete(CommandSource src, CommandArgs args, CommandContext context) {
+			if (src instanceof Player) {
+				return Zephyr.getUserManager().getUser(((Player)src).getUniqueId()).getUserData().getKnownSpells();
+			}
+			return null;
+		}
+		
 	}
 
 }

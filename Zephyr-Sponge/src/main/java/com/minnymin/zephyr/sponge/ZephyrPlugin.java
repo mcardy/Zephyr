@@ -11,7 +11,6 @@ import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.service.config.ConfigDir;
 
 import com.google.inject.Inject;
-import com.minnymin.util.directive.DirectiveHandler;
 import com.minnymin.zephyr.PluginInfo;
 import com.minnymin.zephyr.Zephyr;
 import com.minnymin.zephyr.ZephyrAPI;
@@ -20,6 +19,7 @@ import com.minnymin.zephyr.sponge.command.SpellCommand;
 import com.minnymin.zephyr.sponge.command.UserCommand;
 import com.minnymin.zephyr.sponge.spell.SpongeSpellManager;
 import com.minnymin.zephyr.sponge.user.SpongeUserManager;
+import com.minnymin.zephyr.sponge.util.directive.DirectiveHandler;
 import com.minnymin.zephyr.user.UserManager;
 
 @Plugin(id = PluginInfo.ARTIFACT_ID, name = PluginInfo.NAME, version = PluginInfo.VERSION)
