@@ -2,12 +2,15 @@ package com.minnymin.zephyr.bukkit.user;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
+import com.minnymin.zephyr.Zephyr;
 import com.minnymin.zephyr.bukkit.ZephyrPlugin;
 import com.minnymin.zephyr.bukkit.util.YmlConfigFile;
+import com.minnymin.zephyr.spell.Spell;
 import com.minnymin.zephyr.user.UserData;
 
 public class BukkitUserData extends UserData {
@@ -43,7 +46,12 @@ public class BukkitUserData extends UserData {
 		if (!config.contains("learned") || !config.contains("mana") || !config.contains("regeneration")
 				|| !config.contains("level") || !config.contains("progress")) {
 			
-			this.data.addDefaults("learned", new ArrayList<String>());
+			List<String> spellList = new ArrayList<String>();
+			for (Spell spell : Zephyr.getSpellManager().getSpellsForLevel(1)) {
+				spellList.add(spell.getName());
+			}
+			
+			this.data.addDefaults("learned", spellList);
 			this.data.addDefaults("mana", 100);
 			this.data.addDefaults("regeneration", 1);
 			this.data.addDefaults("level", 1);

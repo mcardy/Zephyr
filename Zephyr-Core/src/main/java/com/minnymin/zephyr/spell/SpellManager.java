@@ -1,6 +1,8 @@
 package com.minnymin.zephyr.spell;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.minnymin.zephyr.spell.target.Targeted;
@@ -17,6 +19,14 @@ public abstract class SpellManager {
 	public void addSpell(Spell spell) {
 		onSpellAdded(spell);
 		this.spellSet.add(spell);
+	}
+	
+	public List<String> getAllSpells() {
+		List<String> list = new ArrayList<String>();
+		for (Spell spell : this.spellSet) {
+			list.add(spell.getName());
+		}
+		return list;
 	}
 
 	public Spell getSpell(String name) {
@@ -36,6 +46,16 @@ public abstract class SpellManager {
 		}
 		return null;
 	}
+	
+	public List<Spell> getSpellsForLevel(int level) {
+		List<Spell> spells = new ArrayList<Spell>();
+		for (Spell spell : this.spellSet) {
+			if (spell.getRequiredLevel() == level) {
+				spells.add(spell);
+			}
+		}
+		return spells;
+	}
 
 	public void cast(Spell spell, SpellContext context) {
 		User user = context.getUser();
@@ -43,7 +63,11 @@ public abstract class SpellManager {
 			user.sendMessage("That spell does not exist...");
 			return;
 		}
-		if (user.getClass().isAnnotationPresent(Targeted.class)) {
+		if (!user.getUserData().getKnownSpells().contains(spell.getName())) {
+			user.sendMessage("You have not learned that spell!");
+			return;
+		}
+		if (spell.getClass().isAnnotationPresent(Targeted.class)) {
 			Targeted target = user.getClass().getAnnotation(Targeted.class);
 			if (!target.optional() && !context.hasTarget()) {
 				user.sendMessage("You do not have a target!");

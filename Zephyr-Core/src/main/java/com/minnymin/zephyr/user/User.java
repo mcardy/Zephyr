@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import com.minnymin.zephyr.Zephyr;
 import com.minnymin.zephyr.spell.ContinuousSpell;
+import com.minnymin.zephyr.spell.Spell;
 import com.minnymin.zephyr.spell.SpellContext;
 
 public abstract class User {
@@ -53,6 +54,19 @@ public abstract class User {
 			this.getUserData().setLevel(this.getUserData().getLevel()+1);
 			this.getUserData().setLevelProgress(currentProgress);
 			sendMessage("You have levelled up to level " + this.getUserData().getLevel());
+			// Spells on level up
+			StringBuilder spellString = new StringBuilder();
+			for (Spell spell : Zephyr.getSpellManager().getSpellsForLevel(this.userData.getLevel())) {
+				this.getUserData().teachSpell(spell);
+				if (spellString.length() == 0) {
+					spellString.append(spell.getName());
+				} else {
+					spellString.append(", " + spell.getName());
+				}
+			}
+			if (spellString.length() != 0) {
+				sendMessage("You have learned: " + spellString.toString());
+			}
 		}
 		return currentProgress;
 	}
