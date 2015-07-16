@@ -1,4 +1,4 @@
-package com.minnymin.zephyr.bukkit.spell;
+package com.minnymin.zephyr.bukkit.spell.attack;
 
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;

@@ -1,4 +1,4 @@
-package com.minnymin.zephyr.bukkit.spell;
+package com.minnymin.zephyr.bukkit.spell.attack;
 
 import java.util.Collection;
 

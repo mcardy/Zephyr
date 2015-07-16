@@ -4,6 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
 import com.minnymin.zephyr.bukkit.ZephyrPlugin;
+import com.minnymin.zephyr.bukkit.spell.attack.ButcherSpell;
+import com.minnymin.zephyr.bukkit.spell.attack.FireballSpell;
+import com.minnymin.zephyr.bukkit.spell.attack.ProjectileSpell;
 import com.minnymin.zephyr.spell.Spell;
 import com.minnymin.zephyr.spell.SpellManager;
 
@@ -11,8 +14,8 @@ public class BukkitSpellManager extends SpellManager {
 
 	public BukkitSpellManager() {
 		addSpell(new FireballSpell());
-		addSpell(new TestContinuousSpell());
 		addSpell(new ButcherSpell());
+		addSpell(new ProjectileSpell());
 	}
 	
 	@Override

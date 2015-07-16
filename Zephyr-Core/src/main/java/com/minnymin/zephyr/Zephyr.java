@@ -1,11 +1,16 @@
 package com.minnymin.zephyr;
 
+import com.minnymin.zephyr.projectile.ProjectileHandler;
 import com.minnymin.zephyr.spell.SpellManager;
 import com.minnymin.zephyr.user.UserManager;
 
 public class Zephyr {
 
 	private static ZephyrAPI api;
+	
+	public static ProjectileHandler<?> getProjectileHandler() {
+		return Zephyr.api.getProjectileHandler();
+	}
 	
 	public static SpellManager getSpellManager() {
 		return Zephyr.api.getSpellManager();

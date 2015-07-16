@@ -8,7 +8,7 @@ import com.minnymin.zephyr.spell.target.Targeted.TargetType;
 
 @Targeted(type = TargetType.LIVING, range = 10)
 public class PunchSpell extends Spell {
-
+	
 	public PunchSpell() {
 		super("punch", "Punches an entity", 1, 10);
 	}
