@@ -10,10 +10,6 @@ import com.minnymin.zephyr.sponge.ZephyrPlugin;
 
 public class SpongeProjectileHandler extends ProjectileHandler<Entity> {
 
-	public SpongeProjectileHandler() {
-		super();
-	}
-
 	@Override
 	public void trackTask(final Projectile projectile) {
 		Runnable task = new Runnable() {

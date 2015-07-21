@@ -11,8 +11,10 @@ import com.minnymin.zephyr.spell.Spell;
 import com.minnymin.zephyr.spell.SpellManager;
 
 public class BukkitSpellManager extends SpellManager {
-
-	public BukkitSpellManager() {
+	
+	@Override
+	public void onEnable() {
+		super.onEnable();
 		addSpell(new FireballSpell());
 		addSpell(new ButcherSpell());
 		addSpell(new ProjectileSpell());

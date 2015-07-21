@@ -1,20 +1,18 @@
 package com.minnymin.zephyr.bukkit;
 
-import org.bukkit.entity.Entity;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.minnymin.zephyr.Manager;
 import com.minnymin.zephyr.Zephyr;
 import com.minnymin.zephyr.ZephyrAPI;
 import com.minnymin.zephyr.bukkit.aspect.BukkitAspectRegister;
-import com.minnymin.zephyr.bukkit.command.SpellCommand;
-import com.minnymin.zephyr.bukkit.command.UserCommand;
+import com.minnymin.zephyr.bukkit.command.BukkitCommandManager;
 import com.minnymin.zephyr.bukkit.projectile.BukkitProjectileHandler;
 import com.minnymin.zephyr.bukkit.spell.BukkitSpellManager;
 import com.minnymin.zephyr.bukkit.user.BukkitUserManager;
-import com.minnymin.zephyr.bukkit.util.command.BukkitCommandHandler;
-import com.minnymin.zephyr.projectile.ProjectileHandler;
-import com.minnymin.zephyr.spell.SpellManager;
-import com.minnymin.zephyr.user.UserManager;
 
 /**
  * Using Bukkit 1.8.7
@@ -22,53 +20,58 @@ import com.minnymin.zephyr.user.UserManager;
  * @author minnymin3
  */
 public class ZephyrPlugin extends JavaPlugin implements ZephyrAPI {
-
+	
 	private static ZephyrPlugin INSTANCE;
 	
 	public static ZephyrPlugin getInstance() {
 		return ZephyrPlugin.INSTANCE;
 	}
-	
-	private ProjectileHandler<Entity> projectileHandler;
-	private SpellManager spellManager;
-	private UserManager userManager;
-	
+		
+	private List<Manager> managerList = new ArrayList<Manager>();
+
 	public ZephyrPlugin() {
 		ZephyrPlugin.INSTANCE = this;
+		
+		Zephyr.addManager(new BukkitAspectRegister());
+		Zephyr.addManager(new BukkitCommandManager());
+		Zephyr.addManager(new BukkitProjectileHandler());
+		Zephyr.addManager(new BukkitSpellManager());
+		Zephyr.addManager(new BukkitUserManager());
 	}
 	
 	@Override
 	public void onEnable() {
 		Zephyr.setAPISingleton(this);
-		this.projectileHandler = new BukkitProjectileHandler();
-		this.spellManager = new BukkitSpellManager();
-		this.userManager = new BukkitUserManager();
-		
-		BukkitCommandHandler handler = new BukkitCommandHandler(this);
-		handler.registerCommands(UserCommand.class);
-		handler.registerCommands(SpellCommand.class);
-		handler.registerHelp();	
-		
-		new BukkitAspectRegister().addAll();
-	}
-
-	@Override
-	public void onDisable() {
-	}
-
-	@Override
-	public ProjectileHandler<?> getProjectileHandler() {
-		return this.projectileHandler;
+		for (Manager manager : managerList) {
+			manager.onEnable();
+		}
 	}
 	
 	@Override
-	public SpellManager getSpellManager() {
-		return this.spellManager;
+	public void onDisable() {
+		for (Manager manager : managerList) {
+			manager.onDisable();
+		}
+		managerList.clear();
 	}
-
+	
 	@Override
-	public UserManager getUserManager() {
-		return this.userManager;
+	public void addManager(Manager manager) {
+		this.managerList.add(manager);
+		if (this.isEnabled()) {
+			manager.onEnable();
+		}
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public <T extends Manager> T getManager(Class<T> cls) {
+		for (Manager manager : managerList) {
+			if (cls.isAssignableFrom(manager.getClass())) {
+				return (T) manager;
+			}
+		}
+		return null;
 	}
 	
 }

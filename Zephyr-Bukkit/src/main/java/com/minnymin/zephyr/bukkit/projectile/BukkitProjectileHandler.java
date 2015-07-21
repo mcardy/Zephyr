@@ -14,8 +14,9 @@ import com.minnymin.zephyr.projectile.ProjectileHandler;
 
 public class BukkitProjectileHandler extends ProjectileHandler<Entity> implements Listener {
 
-	public BukkitProjectileHandler() {
-		super();
+	@Override
+	public void onEnable() {
+		super.onEnable();
 		Bukkit.getPluginManager().registerEvents(this, ZephyrPlugin.getInstance());
 	}
 	

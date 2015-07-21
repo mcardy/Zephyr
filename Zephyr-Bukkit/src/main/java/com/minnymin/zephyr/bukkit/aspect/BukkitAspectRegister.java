@@ -2,14 +2,16 @@ package com.minnymin.zephyr.bukkit.aspect;
 
 import org.bukkit.Material;
 
+import com.minnymin.zephyr.Manager;
 import com.minnymin.zephyr.aspect.Aspect;
 import com.minnymin.zephyr.aspect.AspectList;
 
-public class BukkitAspectRegister {
-
+public class BukkitAspectRegister implements Manager {
+	
 	//private Set<Material> itemTypeList = new HashSet<Material>();
 	
-	public void addAll() {
+	@Override
+	public void onEnable() {
 		add(Material.ACACIA_STAIRS, Aspect.WOOD, 2);
 		add(Material.ACTIVATOR_RAIL, Aspect.MACHINE, 4, Aspect.METAL, 1);
 		add(Material.ANVIL, Aspect.METAL, 32, Aspect.CONSTRUCT, 8, Aspect.TOOL, 4);
@@ -335,5 +337,8 @@ public class BukkitAspectRegister {
 		Aspect.getAspectMap().put(type.toString(), list);
 		//this.itemTypeList.add(type);
 	}
+	
+	@Override
+	public void onDisable() {}
 	
 }

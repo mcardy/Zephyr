@@ -12,12 +12,14 @@ import com.minnymin.zephyr.user.UserManager;
 
 public class SpongeUserManager extends UserManager {
 
-	public SpongeUserManager() {
+	@Override
+	public void onEnable() {
+		super.onEnable();
 		ZephyrPlugin.getGame().getEventManager().register(ZephyrPlugin.getInstance(), this);
 		ZephyrPlugin.getGame().getScheduler().getTaskBuilder().interval(1).execute(new SpongeUserRunnable())
 				.name("zephyr:usertick").submit(Zephyr.getAPI());
 	}
-
+	
 	@Subscribe
 	public void onUserConnect(PlayerJoinEvent event) {
 		Player player = event.getEntity();

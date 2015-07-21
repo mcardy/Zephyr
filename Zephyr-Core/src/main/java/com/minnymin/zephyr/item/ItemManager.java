@@ -1,5 +1,7 @@
 package com.minnymin.zephyr.item;
 
-public abstract class ItemManager {
+import com.minnymin.zephyr.Manager;
+
+public abstract class ItemManager implements Manager {
 
 }

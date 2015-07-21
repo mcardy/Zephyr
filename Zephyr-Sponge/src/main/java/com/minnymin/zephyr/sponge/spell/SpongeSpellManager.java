@@ -6,8 +6,10 @@ import com.minnymin.zephyr.sponge.ZephyrPlugin;
 import com.minnymin.zephyr.sponge.spell.attack.PunchSpell;
 
 public class SpongeSpellManager extends SpellManager {
-
-	public SpongeSpellManager() {
+	
+	@Override
+	public void onEnable() {
+		super.onEnable();
 		addSpell(new PunchSpell());
 	}
 	

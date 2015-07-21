@@ -3,6 +3,8 @@ package com.minnymin.zephyr.projectile;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import com.minnymin.zephyr.Manager;
+
 /**
  * Implementations of ProjectileHandler should track entity hit events and
  * should tick entities as they move with a runnable
@@ -11,12 +13,16 @@ import java.util.WeakHashMap;
  * 
  * @param <T> Platform's entity type
  */
-public abstract class ProjectileHandler<T> {
+public abstract class ProjectileHandler<T> implements Manager {
 
 	protected Map<T, Projectile> tracking;
 
-	public ProjectileHandler() {
+	@Override
+	public void onEnable() {
 		tracking = new WeakHashMap<T, Projectile>();
+	}
+	
+	public void onDisable() {
 	}
 
 	public void trackProjectile(Projectile projectile) {

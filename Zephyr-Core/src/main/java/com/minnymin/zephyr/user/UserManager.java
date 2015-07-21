@@ -4,12 +4,19 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public abstract class UserManager {
+import com.minnymin.zephyr.Manager;
+
+public abstract class UserManager implements Manager {
 
 	protected Set<User> userSet;
 	
-	public UserManager() {
+	@Override
+	public void onEnable() {
 		this.userSet = new HashSet<User>();
+	}
+	
+	@Override
+	public void onDisable() {
 	}
 	
 	public User getUser(UUID id) {

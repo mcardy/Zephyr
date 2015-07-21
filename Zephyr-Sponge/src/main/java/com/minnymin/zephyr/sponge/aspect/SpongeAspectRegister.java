@@ -7,17 +7,19 @@ import java.util.Set;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
 
+import com.minnymin.zephyr.Manager;
 import com.minnymin.zephyr.aspect.Aspect;
 import com.minnymin.zephyr.aspect.AspectList;
 
-public class SpongeAspectRegister {
+public class SpongeAspectRegister implements Manager {
 
 	private Set<ItemType> itemTypeList = new HashSet<ItemType>();
 	
 	/**
 	 * TODO Implement fully once Sponge implements itemtypes
 	 */
-	public void addAll() {		
+	@Override
+	public void onEnable() {		
 		add(ItemTypes.ACACIA_STAIRS, Aspect.WOOD, 2);
 		add(ItemTypes.ACTIVATOR_RAIL, Aspect.MACHINE, 4, Aspect.METAL, 1);
 		add(ItemTypes.ANVIL, Aspect.METAL, 32, Aspect.CONSTRUCT, 8, Aspect.TOOL, 4);
@@ -333,6 +335,9 @@ public class SpongeAspectRegister {
 		}
 		
 	}
+	
+	@Override
+	public void onDisable() {}
 	
 	private void add(ItemType type, Object... list) {
 		AspectList aspects = new AspectList();

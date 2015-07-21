@@ -13,11 +13,13 @@ import com.minnymin.zephyr.user.UserManager;
 
 public class BukkitUserManager extends UserManager implements Listener {
 
-	public BukkitUserManager() {
+	@Override
+	public void onEnable() {
+		super.onEnable();
 		Bukkit.getPluginManager().registerEvents(this, ZephyrPlugin.getInstance());
 		Bukkit.getScheduler().runTaskTimer(ZephyrPlugin.getInstance(), new BukkitUserRunnable(), 0, 1);
 	}
-
+	
 	@EventHandler
 	public void onUserConnect(PlayerJoinEvent event) {
 		Player player = event.getPlayer();

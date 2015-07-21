@@ -5,15 +5,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.minnymin.zephyr.Manager;
 import com.minnymin.zephyr.spell.target.Targeted;
 import com.minnymin.zephyr.user.User;
 
-public abstract class SpellManager {
+public abstract class SpellManager implements Manager {
 
 	private Set<Spell> spellSet;
 
-	public SpellManager() {
+	@Override
+	public void onEnable() {
 		this.spellSet = new HashSet<Spell>();
+	}
+	
+	public void onDisable() {
 	}
 
 	public void addSpell(Spell spell) {
