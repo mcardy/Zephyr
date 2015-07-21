@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.minnymin.zephyr.Zephyr;
 import com.minnymin.zephyr.ZephyrAPI;
+import com.minnymin.zephyr.bukkit.aspect.BukkitAspectRegister;
 import com.minnymin.zephyr.bukkit.command.SpellCommand;
 import com.minnymin.zephyr.bukkit.command.UserCommand;
 import com.minnymin.zephyr.bukkit.projectile.BukkitProjectileHandler;
@@ -47,6 +48,8 @@ public class ZephyrPlugin extends JavaPlugin implements ZephyrAPI {
 		handler.registerCommands(UserCommand.class);
 		handler.registerCommands(SpellCommand.class);
 		handler.registerHelp();	
+		
+		new BukkitAspectRegister().addAll();
 	}
 
 	@Override

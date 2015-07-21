@@ -56,6 +56,9 @@ public class ZephyrPlugin implements ZephyrAPI {
 		handler.addDirectives(SpellCommand.class);
 		handler.addDirectives(UserCommand.class);
 		handler.registerDirectives();
+		
+		//new AspectManager().addAll();
+
 	}
 
 	@Subscribe
