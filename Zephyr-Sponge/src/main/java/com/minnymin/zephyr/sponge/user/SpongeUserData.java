@@ -11,12 +11,12 @@ import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
-import com.minnymin.zephyr.Zephyr;
-import com.minnymin.zephyr.spell.Spell;
+import com.minnymin.zephyr.api.Zephyr;
+import com.minnymin.zephyr.api.spell.Spell;
+import com.minnymin.zephyr.common.user.AbstractUserData;
 import com.minnymin.zephyr.sponge.ZephyrPlugin;
-import com.minnymin.zephyr.user.UserData;
 
-public class SpongeUserData extends UserData {
+public class SpongeUserData extends AbstractUserData {
 
 	private ConfigurationLoader<CommentedConfigurationNode> loader;
 	private ConfigurationNode root;

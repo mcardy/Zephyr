@@ -3,12 +3,12 @@ package com.minnymin.zephyr.sponge.projectile;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.world.Location;
 
-import com.minnymin.zephyr.Zephyr;
-import com.minnymin.zephyr.projectile.Projectile;
-import com.minnymin.zephyr.projectile.ProjectileHandler;
+import com.minnymin.zephyr.api.Zephyr;
+import com.minnymin.zephyr.api.projectile.Projectile;
+import com.minnymin.zephyr.common.projectile.AbstractProjectileManager;
 import com.minnymin.zephyr.sponge.ZephyrPlugin;
 
-public class SpongeProjectileHandler extends ProjectileHandler<Entity> {
+public class SpongeProjectileHandler extends AbstractProjectileManager<Entity> {
 
 	@Override
 	public void trackTask(final Projectile projectile) {

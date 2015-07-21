@@ -5,12 +5,12 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 
-import com.minnymin.zephyr.Zephyr;
+import com.minnymin.zephyr.api.Zephyr;
+import com.minnymin.zephyr.api.projectile.Projectile;
+import com.minnymin.zephyr.api.user.User;
 import com.minnymin.zephyr.bukkit.nms.packet.PacketEntityDestroy;
 import com.minnymin.zephyr.bukkit.util.ParticleEffects;
 import com.minnymin.zephyr.bukkit.util.ParticleEffects.Particle;
-import com.minnymin.zephyr.projectile.Projectile;
-import com.minnymin.zephyr.user.User;
 
 public class BallProjectile implements Projectile {
 
@@ -34,7 +34,7 @@ public class BallProjectile implements Projectile {
 		for (Player p : user.<Player>getPlayerObject().getWorld().getPlayers()) {
 			packet.send(p);
 		}
-		Zephyr.getProjectileHandler().trackProjectile(this);
+		Zephyr.getProjectileManager().trackProjectile(this);
 	}
 
 	@Override

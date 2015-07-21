@@ -5,10 +5,10 @@ import java.util.UUID;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.text.Texts;
 
+import com.minnymin.zephyr.common.user.AbstractUser;
 import com.minnymin.zephyr.sponge.ZephyrPlugin;
-import com.minnymin.zephyr.user.User;
 
-public class SpongeUser extends User {
+public class SpongeUser extends AbstractUser {
 
 	private UUID uuid;
 	

@@ -5,9 +5,9 @@ import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.world.World;
 
-import com.minnymin.zephyr.Zephyr;
-import com.minnymin.zephyr.projectile.Projectile;
-import com.minnymin.zephyr.user.User;
+import com.minnymin.zephyr.api.Zephyr;
+import com.minnymin.zephyr.api.projectile.Projectile;
+import com.minnymin.zephyr.api.user.User;
 
 public class TestProjectile implements Projectile {
 
@@ -30,7 +30,7 @@ public class TestProjectile implements Projectile {
 		// Best I can do with Sponge as it is now
 		en = world.createEntity(EntityTypes.ARROW, player.getLocation().getPosition()).get();
 		world.spawnEntity(en);
-		Zephyr.getProjectileHandler().trackProjectile(this);
+		Zephyr.getProjectileManager().trackProjectile(this);
 	}
 
 	@Override

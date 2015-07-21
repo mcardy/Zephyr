@@ -18,7 +18,7 @@ import org.spongepowered.api.util.command.args.GenericArguments;
 import org.spongepowered.api.world.DimensionType;
 
 import com.google.common.collect.ImmutableMap;
-import com.minnymin.zephyr.Zephyr;
+import com.minnymin.zephyr.api.Zephyr;
 
 /**
  * Argument types for specifying arguments in Directive

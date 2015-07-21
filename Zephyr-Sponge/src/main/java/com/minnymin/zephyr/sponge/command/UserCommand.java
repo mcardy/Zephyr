@@ -8,11 +8,11 @@ import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
 import org.spongepowered.api.util.command.args.CommandContext;
 
-import com.minnymin.zephyr.Zephyr;
+import com.minnymin.zephyr.api.Zephyr;
+import com.minnymin.zephyr.api.user.User;
 import com.minnymin.zephyr.sponge.ZephyrPlugin;
 import com.minnymin.zephyr.sponge.util.directive.ArgumentType;
 import com.minnymin.zephyr.sponge.util.directive.Directive;
-import com.minnymin.zephyr.user.User;
 
 public class UserCommand {
 

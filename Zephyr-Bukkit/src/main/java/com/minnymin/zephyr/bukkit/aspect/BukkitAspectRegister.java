@@ -2,9 +2,9 @@ package com.minnymin.zephyr.bukkit.aspect;
 
 import org.bukkit.Material;
 
-import com.minnymin.zephyr.Manager;
-import com.minnymin.zephyr.aspect.Aspect;
-import com.minnymin.zephyr.aspect.AspectList;
+import com.minnymin.zephyr.api.Manager;
+import com.minnymin.zephyr.api.aspect.Aspect;
+import com.minnymin.zephyr.api.aspect.AspectList;
 
 public class BukkitAspectRegister implements Manager {
 	

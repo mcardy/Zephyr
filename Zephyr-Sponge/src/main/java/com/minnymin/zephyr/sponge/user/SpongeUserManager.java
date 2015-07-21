@@ -5,12 +5,12 @@ import org.spongepowered.api.event.Subscribe;
 import org.spongepowered.api.event.entity.player.PlayerJoinEvent;
 import org.spongepowered.api.event.entity.player.PlayerQuitEvent;
 
-import com.minnymin.zephyr.Zephyr;
+import com.minnymin.zephyr.api.Zephyr;
+import com.minnymin.zephyr.api.user.User;
+import com.minnymin.zephyr.common.user.AbstractUserManager;
 import com.minnymin.zephyr.sponge.ZephyrPlugin;
-import com.minnymin.zephyr.user.User;
-import com.minnymin.zephyr.user.UserManager;
 
-public class SpongeUserManager extends UserManager {
+public class SpongeUserManager extends AbstractUserManager {
 
 	@Override
 	public void onEnable() {

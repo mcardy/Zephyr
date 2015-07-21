@@ -1,6 +1,6 @@
 package com.minnymin.zephyr.sponge.command;
 
-import com.minnymin.zephyr.Manager;
+import com.minnymin.zephyr.api.Manager;
 import com.minnymin.zephyr.sponge.ZephyrPlugin;
 import com.minnymin.zephyr.sponge.util.directive.DirectiveHandler;
 

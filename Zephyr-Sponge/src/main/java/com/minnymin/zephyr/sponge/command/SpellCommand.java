@@ -6,13 +6,13 @@ import org.spongepowered.api.util.command.CommandSource;
 import org.spongepowered.api.util.command.args.CommandContext;
 
 import com.google.common.base.Optional;
-import com.minnymin.zephyr.Zephyr;
-import com.minnymin.zephyr.spell.Spell;
-import com.minnymin.zephyr.spell.SpellManager;
+import com.minnymin.zephyr.api.Zephyr;
+import com.minnymin.zephyr.api.spell.Spell;
+import com.minnymin.zephyr.api.spell.SpellManager;
+import com.minnymin.zephyr.api.user.User;
 import com.minnymin.zephyr.sponge.spell.SpongeSpellContext;
 import com.minnymin.zephyr.sponge.util.directive.ArgumentType;
 import com.minnymin.zephyr.sponge.util.directive.Directive;
-import com.minnymin.zephyr.user.User;
 
 public class SpellCommand {
 

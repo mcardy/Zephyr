@@ -5,14 +5,14 @@ import java.util.Collection;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 
-import com.minnymin.zephyr.spell.CastResult;
-import com.minnymin.zephyr.spell.Spell;
-import com.minnymin.zephyr.spell.SpellContext;
-import com.minnymin.zephyr.spell.target.Targeted;
-import com.minnymin.zephyr.spell.target.Targeted.TargetType;
+import com.minnymin.zephyr.api.spell.CastResult;
+import com.minnymin.zephyr.api.spell.SpellContext;
+import com.minnymin.zephyr.api.spell.target.Targeted;
+import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
+import com.minnymin.zephyr.common.spell.BaseSpell;
 
 @Targeted(type = TargetType.LIVING_AREA)
-public class ButcherSpell extends Spell {
+public class ButcherSpell extends BaseSpell {
 
 	public ButcherSpell() {
 		super("butcher", "Butchers all enemies around you", 1, 50);

@@ -2,14 +2,14 @@ package com.minnymin.zephyr.sponge.spell;
 
 import org.spongepowered.api.entity.player.Player;
 
-import com.minnymin.zephyr.spell.Spell;
-import com.minnymin.zephyr.spell.SpellContext;
-import com.minnymin.zephyr.spell.target.TargetHolder;
-import com.minnymin.zephyr.spell.target.Targeted;
-import com.minnymin.zephyr.spell.target.Targeted.TargetType;
-import com.minnymin.zephyr.user.User;
+import com.minnymin.zephyr.api.spell.Spell;
+import com.minnymin.zephyr.api.spell.target.TargetHolder;
+import com.minnymin.zephyr.api.spell.target.Targeted;
+import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
+import com.minnymin.zephyr.api.user.User;
+import com.minnymin.zephyr.common.spell.AbstractSpellContext;
 
-public class SpongeSpellContext extends SpellContext {
+public class SpongeSpellContext extends AbstractSpellContext {
 	
 	private Object target;
 	

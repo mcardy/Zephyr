@@ -8,11 +8,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
+import com.minnymin.zephyr.api.projectile.Projectile;
 import com.minnymin.zephyr.bukkit.ZephyrPlugin;
-import com.minnymin.zephyr.projectile.Projectile;
-import com.minnymin.zephyr.projectile.ProjectileHandler;
+import com.minnymin.zephyr.common.projectile.AbstractProjectileManager;
 
-public class BukkitProjectileHandler extends ProjectileHandler<Entity> implements Listener {
+public class BukkitProjectileHandler extends AbstractProjectileManager<Entity> implements Listener {
 
 	@Override
 	public void onEnable() {

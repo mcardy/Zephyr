@@ -2,14 +2,14 @@ package com.minnymin.zephyr.bukkit.spell;
 
 import org.bukkit.entity.Player;
 
-import com.minnymin.zephyr.spell.Spell;
-import com.minnymin.zephyr.spell.SpellContext;
-import com.minnymin.zephyr.spell.target.TargetHolder;
-import com.minnymin.zephyr.spell.target.Targeted;
-import com.minnymin.zephyr.spell.target.Targeted.TargetType;
-import com.minnymin.zephyr.user.User;
+import com.minnymin.zephyr.api.spell.Spell;
+import com.minnymin.zephyr.api.spell.target.TargetHolder;
+import com.minnymin.zephyr.api.spell.target.Targeted;
+import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
+import com.minnymin.zephyr.api.user.User;
+import com.minnymin.zephyr.common.spell.AbstractSpellContext;
 
-public class BukkitSpellContext extends SpellContext {
+public class BukkitSpellContext extends AbstractSpellContext {
 
 	private Object target;
 	

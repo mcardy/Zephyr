@@ -1,9 +1,9 @@
 package com.minnymin.zephyr.sponge.state;
 
-import com.minnymin.zephyr.user.User;
-import com.minnymin.zephyr.user.UserState;
+import com.minnymin.zephyr.api.user.User;
+import com.minnymin.zephyr.common.user.BaseUserState;
 
-public class TestState extends UserState {
+public class TestState extends BaseUserState {
 
 	public TestState() {
 		super("Test State", "A test state", 5);

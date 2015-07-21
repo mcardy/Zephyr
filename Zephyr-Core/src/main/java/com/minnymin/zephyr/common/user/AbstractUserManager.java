@@ -1,0 +1,33 @@
+package com.minnymin.zephyr.common.user;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
+import com.minnymin.zephyr.api.user.User;
+import com.minnymin.zephyr.api.user.UserManager;
+
+public abstract class AbstractUserManager implements UserManager {
+
+	protected Set<AbstractUser> userSet;
+	
+	@Override
+	public void onEnable() {
+		this.userSet = new HashSet<AbstractUser>();
+	}
+	
+	@Override
+	public void onDisable() {
+	}
+	
+	@Override
+	public User getUser(UUID id) {
+		for (User user : this.userSet) {
+			if (user.getUUID().equals(id)) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
+}

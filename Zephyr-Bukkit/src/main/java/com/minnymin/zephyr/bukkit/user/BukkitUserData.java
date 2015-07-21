@@ -7,13 +7,13 @@ import java.util.UUID;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import com.minnymin.zephyr.Zephyr;
+import com.minnymin.zephyr.api.Zephyr;
+import com.minnymin.zephyr.api.spell.Spell;
 import com.minnymin.zephyr.bukkit.ZephyrPlugin;
 import com.minnymin.zephyr.bukkit.util.YmlConfigFile;
-import com.minnymin.zephyr.spell.Spell;
-import com.minnymin.zephyr.user.UserData;
+import com.minnymin.zephyr.common.user.AbstractUserData;
 
-public class BukkitUserData extends UserData {
+public class BukkitUserData extends AbstractUserData {
 
 	private YmlConfigFile data;
 

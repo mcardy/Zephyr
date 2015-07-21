@@ -3,11 +3,11 @@ package com.minnymin.zephyr.bukkit.spell.attack;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 
-import com.minnymin.zephyr.spell.CastResult;
-import com.minnymin.zephyr.spell.Spell;
-import com.minnymin.zephyr.spell.SpellContext;
+import com.minnymin.zephyr.api.spell.CastResult;
+import com.minnymin.zephyr.api.spell.SpellContext;
+import com.minnymin.zephyr.common.spell.BaseSpell;
 
-public class FireballSpell extends Spell {
+public class FireballSpell extends BaseSpell {
 
 	public FireballSpell() {
 		super("fireball", "Shoots a fireball", 1, 20);

@@ -7,11 +7,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import com.minnymin.zephyr.api.user.User;
 import com.minnymin.zephyr.bukkit.ZephyrPlugin;
-import com.minnymin.zephyr.user.User;
-import com.minnymin.zephyr.user.UserManager;
+import com.minnymin.zephyr.common.user.AbstractUserManager;
 
-public class BukkitUserManager extends UserManager implements Listener {
+public class BukkitUserManager extends AbstractUserManager implements Listener {
 
 	@Override
 	public void onEnable() {

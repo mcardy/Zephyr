@@ -5,9 +5,9 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import com.minnymin.zephyr.user.User;
+import com.minnymin.zephyr.common.user.AbstractUser;
 
-public class BukkitUser extends User {
+public class BukkitUser extends AbstractUser {
 
 	private UUID uuid;
 	

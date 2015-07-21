@@ -14,10 +14,10 @@ import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.service.config.ConfigDir;
 
 import com.google.inject.Inject;
-import com.minnymin.zephyr.Manager;
-import com.minnymin.zephyr.PluginInfo;
-import com.minnymin.zephyr.Zephyr;
-import com.minnymin.zephyr.ZephyrAPI;
+import com.minnymin.zephyr.api.Manager;
+import com.minnymin.zephyr.api.Zephyr;
+import com.minnymin.zephyr.api.ZephyrAPI;
+import com.minnymin.zephyr.common.PluginInfo;
 import com.minnymin.zephyr.sponge.aspect.SpongeAspectRegister;
 import com.minnymin.zephyr.sponge.command.SpongeCommandManager;
 import com.minnymin.zephyr.sponge.projectile.SpongeProjectileHandler;

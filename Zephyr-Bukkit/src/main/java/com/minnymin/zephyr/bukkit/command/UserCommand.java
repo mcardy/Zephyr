@@ -4,12 +4,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.minnymin.zephyr.Zephyr;
+import com.minnymin.zephyr.api.Zephyr;
+import com.minnymin.zephyr.api.user.User;
 import com.minnymin.zephyr.bukkit.util.command.Cmd;
 import com.minnymin.zephyr.bukkit.util.command.CommandContext;
 import com.minnymin.zephyr.bukkit.util.command.SenderSpecification;
 import com.minnymin.zephyr.bukkit.util.command.SenderSpecification.SenderType;
-import com.minnymin.zephyr.user.User;
 
 public class UserCommand {
 

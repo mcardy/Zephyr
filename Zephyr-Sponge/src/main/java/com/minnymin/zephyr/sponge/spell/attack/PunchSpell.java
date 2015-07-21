@@ -1,13 +1,13 @@
 package com.minnymin.zephyr.sponge.spell.attack;
 
-import com.minnymin.zephyr.spell.CastResult;
-import com.minnymin.zephyr.spell.Spell;
-import com.minnymin.zephyr.spell.SpellContext;
-import com.minnymin.zephyr.spell.target.Targeted;
-import com.minnymin.zephyr.spell.target.Targeted.TargetType;
+import com.minnymin.zephyr.api.spell.CastResult;
+import com.minnymin.zephyr.api.spell.SpellContext;
+import com.minnymin.zephyr.api.spell.target.Targeted;
+import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
+import com.minnymin.zephyr.common.spell.BaseSpell;
 
 @Targeted(type = TargetType.LIVING, range = 10)
-public class PunchSpell extends Spell {
+public class PunchSpell extends BaseSpell {
 	
 	public PunchSpell() {
 		super("punch", "Punches an entity", 1, 10);

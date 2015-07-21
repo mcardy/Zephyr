@@ -1,6 +1,6 @@
 package com.minnymin.zephyr.bukkit.command;
 
-import com.minnymin.zephyr.Manager;
+import com.minnymin.zephyr.api.Manager;
 import com.minnymin.zephyr.bukkit.ZephyrPlugin;
 import com.minnymin.zephyr.bukkit.util.command.BukkitCommandHandler;
 

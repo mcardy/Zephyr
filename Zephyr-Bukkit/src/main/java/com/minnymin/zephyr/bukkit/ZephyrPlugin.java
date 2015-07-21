@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.minnymin.zephyr.Manager;
-import com.minnymin.zephyr.Zephyr;
-import com.minnymin.zephyr.ZephyrAPI;
+import com.minnymin.zephyr.api.Manager;
+import com.minnymin.zephyr.api.Zephyr;
+import com.minnymin.zephyr.api.ZephyrAPI;
 import com.minnymin.zephyr.bukkit.aspect.BukkitAspectRegister;
 import com.minnymin.zephyr.bukkit.command.BukkitCommandManager;
 import com.minnymin.zephyr.bukkit.projectile.BukkitProjectileHandler;

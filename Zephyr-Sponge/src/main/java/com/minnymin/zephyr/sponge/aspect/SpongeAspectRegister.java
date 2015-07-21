@@ -7,9 +7,9 @@ import java.util.Set;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
 
-import com.minnymin.zephyr.Manager;
-import com.minnymin.zephyr.aspect.Aspect;
-import com.minnymin.zephyr.aspect.AspectList;
+import com.minnymin.zephyr.api.Manager;
+import com.minnymin.zephyr.api.aspect.Aspect;
+import com.minnymin.zephyr.api.aspect.AspectList;
 
 public class SpongeAspectRegister implements Manager {
 
