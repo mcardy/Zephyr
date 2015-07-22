@@ -84,7 +84,7 @@ public abstract class AbstractSpellManager implements SpellManager {
 			return;
 		}
 		if (spell.getClass().isAnnotationPresent(Targeted.class)) {
-			Targeted target = user.getClass().getAnnotation(Targeted.class);
+			Targeted target = spell.getClass().getAnnotation(Targeted.class);
 			if (!target.optional() && !context.hasTarget()) {
 				user.sendMessage("You do not have a target!");
 				return;

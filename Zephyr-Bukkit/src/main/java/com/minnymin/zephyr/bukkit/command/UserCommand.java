@@ -1,15 +1,20 @@
 package com.minnymin.zephyr.bukkit.command;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.google.common.collect.Lists;
 import com.minnymin.zephyr.api.Zephyr;
 import com.minnymin.zephyr.api.item.Item;
 import com.minnymin.zephyr.api.item.WandItem;
 import com.minnymin.zephyr.api.spell.Spell;
+import com.minnymin.zephyr.api.spell.SpellManager;
 import com.minnymin.zephyr.api.user.User;
+import com.minnymin.zephyr.bukkit.spell.BukkitSpellContext;
 import com.minnymin.zephyr.bukkit.util.command.Cmd;
 import com.minnymin.zephyr.bukkit.util.command.CommandContext;
 import com.minnymin.zephyr.bukkit.util.command.SenderSpecification;
@@ -102,6 +107,50 @@ public class UserCommand {
 			return;
 		}
 		wand.bindSpell(hand, spell);
+	}
+
+	@SenderSpecification(type = SenderType.PLAYER, message = "This command can only be executed by an in-game player")
+	@Cmd(label = "alias", aliases = { "shortcut", "c.set" }, description = "Bind a spell to a shortcut", usage = "/alias <key> <spell>")
+	public static void onAlias(CommandContext context) {
+		User user = Zephyr.getUserManager().getUser(((Player) context.getSender()).getUniqueId());
+		if (context.getOptions().length < 2) {
+			context.getSender().sendMessage("Usage: /alias <key> <spell>");
+			return;
+		}
+		String key = context.getOptions()[0];
+		String spellName = context.getOptions()[1];
+		if (Zephyr.getSpellManager().getSpell(spellName) == null
+				|| !user.getUserData().getKnownSpells().contains(spellName)) {
+			context.getSender().sendMessage("You do not know a spell by that name");
+			return;
+		}
+		user.addAlias(key, Zephyr.getSpellManager().getSpell(spellName));
+		user.sendMessage("Alias added: '/c " + key + "' will now cast " + spellName);
+	}
+
+	@SenderSpecification(type = SenderType.PLAYER, message = "This command can only be executed by an in-game player")
+	@Cmd(label = "c", description = "Cast a spell via shortcut set with /alias", usage = "/c <spell>")
+	public static void onCastShortcut(CommandContext context) {
+		User user = Zephyr.getUserManager().getUser(((Player) context.getSender()).getUniqueId());
+		if (context.getOptions().length == 0) {
+			if (user.isCasting()) {
+				user.setCasting(null, null);
+			} else {
+				context.getSender().sendMessage("Not enough arguments! /c <spell>");
+				return;
+			}
+		}
+		SpellManager manager = Zephyr.getSpellManager();
+		Spell spell = manager.getSpell(user.getAliases().get(context.getOptions()[0]));
+		if (spell == null) {
+			context.getSender().sendMessage("That alias was not found. Set it with /alias <key> <spell>");
+			return;
+		}
+		List<String> list = Lists.newArrayList(context.getOptions());
+		list.remove(0);
+		String[] args = list.toArray(new String[list.size()]);
+		manager.cast(spell, new BukkitSpellContext(spell, user, args));
+		context.getSender().sendMessage("Spell cast!");
 	}
 
 }

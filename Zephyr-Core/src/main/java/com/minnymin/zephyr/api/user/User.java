@@ -1,12 +1,20 @@
 package com.minnymin.zephyr.api.user;
 
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import com.minnymin.zephyr.api.spell.ContinuousSpell;
+import com.minnymin.zephyr.api.spell.Spell;
 import com.minnymin.zephyr.api.spell.SpellContext;
 
 public interface User {
 
+	/**
+	 * Adds a new alias for the given spell
+	 */
+	public void addAlias(String key, Spell value);
+	
 	/**
 	 * Adds level progress and levels up the player if required
 	 */
@@ -22,6 +30,16 @@ public interface User {
 	 */
 	public void drainMana(int toDrain);
 
+	/**
+	 * Gets a list of spell cast shortcuts
+	 */
+	public Map<String, String> getAliases();
+	
+	/**
+	 * Gets all states currently applied to the user
+	 */
+	public Set<UserState> getAppliedStates();
+	
 	/**
 	 * Gets the user's mana
 	 */
@@ -41,7 +59,7 @@ public interface User {
 	 * Gets the progress required for the user to level up
 	 */
 	public int getRequiredLevelProgress();
-
+	
 	/**
 	 * Get user's UserData
 	 */
@@ -64,6 +82,11 @@ public interface User {
 	 */
 	public boolean isCasting();
 
+	/**
+	 * Removes a user's state
+	 */
+	public void removeState(UserState state);
+	
 	/**
 	 * Sends a message to the user
 	 */

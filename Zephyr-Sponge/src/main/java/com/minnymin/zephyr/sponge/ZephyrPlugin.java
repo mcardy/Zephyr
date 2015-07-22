@@ -60,7 +60,8 @@ public class ZephyrPlugin implements ZephyrAPI {
 	private List<Manager> managers = new ArrayList<Manager>();
 
 	public ZephyrPlugin() {
-		Zephyr.addManager(new SpongeAspectRegister());
+		// TODO implement once Inventory API is complete
+		// Zephyr.addManager(new SpongeAspectRegister());
 		Zephyr.addManager(new SpongeCommandManager());
 		Zephyr.addManager(new SpongeProjectileHandler());
 		Zephyr.addManager(new SpongeSpellManager());

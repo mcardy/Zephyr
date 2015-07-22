@@ -8,9 +8,13 @@ import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
 import org.spongepowered.api.util.command.args.CommandContext;
 
+import com.google.common.base.Optional;
 import com.minnymin.zephyr.api.Zephyr;
+import com.minnymin.zephyr.api.spell.Spell;
+import com.minnymin.zephyr.api.spell.SpellManager;
 import com.minnymin.zephyr.api.user.User;
 import com.minnymin.zephyr.sponge.ZephyrPlugin;
+import com.minnymin.zephyr.sponge.spell.SpongeSpellContext;
 import com.minnymin.zephyr.sponge.util.directive.ArgumentType;
 import com.minnymin.zephyr.sponge.util.directive.Directive;
 
@@ -84,5 +88,40 @@ public class UserCommand {
 
 		return CommandResult.success();
 	}
-
+	
+	@Directive(names = {"c.set", "alias"}, description = "Sets an alias", inGameOnly = true, argumentLabels = {"key", "spell"}, arguments = {ArgumentType.STRING, ArgumentType.STRING})
+	public static CommandResult commandAliasSet(CommandSource src, CommandContext context) {
+		User user = Zephyr.getUserManager().getUser(((Player)src).getUniqueId());
+		String key = context.<String>getOne("alias").get();
+		String spellName = context.<String>getOne("spell").get();
+		if (Zephyr.getSpellManager().getSpell(spellName) == null
+				|| !user.getUserData().getKnownSpells().contains(spellName)) {
+			user.sendMessage("You do not know a spell by that name");
+			return CommandResult.success();
+		}
+		user.addAlias(key, Zephyr.getSpellManager().getSpell(spellName));
+		user.sendMessage("Alias added: '/c " + key + "' will now cast " + spellName);
+		return CommandResult.success();
+	}
+	
+	@Directive(names = {"c"}, description = "Cast an alias", inGameOnly = true, argumentLabels = {"alias"}, arguments = {ArgumentType.OPTIONAL_STRING})
+	public static CommandResult commandAliasCast(CommandSource src, CommandContext context) {
+		User user = Zephyr.getUserManager().getUser(((Player)src).getUniqueId());
+		SpellManager manager = Zephyr.getSpellManager();
+		String key = context.<String>getOne("spell").get();
+		if (context.getOne("spell").isPresent() && user.getAliases().containsKey(key)) {
+			Spell spell = manager.getSpell(user.getAliases().get(key));
+			Optional<String> options = context.<String>getOne("args");
+			manager.cast(spell, new SpongeSpellContext(spell, user, options.isPresent() ? options.get().split(" ") : new String[0]));
+			return CommandResult.success();
+		} else {
+			if (user.isCasting()) {
+				user.setCasting(null, null);
+			} else {
+				user.sendMessage("Usage: /cast <spell> [args...]");
+			}
+			return CommandResult.success();
+		}
+	}
+	
 }

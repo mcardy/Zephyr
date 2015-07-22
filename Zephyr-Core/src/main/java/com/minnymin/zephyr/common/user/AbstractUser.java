@@ -1,8 +1,11 @@
 package com.minnymin.zephyr.common.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.minnymin.zephyr.api.Zephyr;
 import com.minnymin.zephyr.api.spell.ContinuousSpell;
@@ -30,9 +33,20 @@ public abstract class AbstractUser implements User {
 		this.stateMap = new HashMap<UserState, Integer>();
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.minnymin.zephyr.api.user.User#addLevelProgress(int)
-	 */
+	@Override
+	public void addAlias(String key, Spell value) {
+		List<String> aliases = this.userData.<List<String>>getData("aliases");
+		aliases = (aliases == null) ? new ArrayList<String>() : aliases;
+		for (String s : aliases) {
+			if (s.startsWith(key)) {
+				aliases.remove(s);
+				break;
+			}
+		}
+		aliases.add(key + " " + value.getName());
+		this.userData.setData("aliases", aliases);
+	}
+	
 	@Override
 	public int addLevelProgress(int progress) {
 		int currentProgress = this.getUserData().addLevelProgress(progress);
@@ -59,9 +73,6 @@ public abstract class AbstractUser implements User {
 		return currentProgress;
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.minnymin.zephyr.api.user.User#addState(com.minnymin.zephyr.api.user.UserState, int)
-	 */
 	@Override
 	public void addState(UserState userState, int duration) {
 		if (!this.stateMap.containsKey(userState)) {
@@ -70,9 +81,6 @@ public abstract class AbstractUser implements User {
 		this.stateMap.put(userState, duration);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.minnymin.zephyr.api.user.User#drainMana(int)
-	 */
 	@Override
 	public void drainMana(int toDrain) {
 		if (mana < 0) {
@@ -81,67 +89,67 @@ public abstract class AbstractUser implements User {
 		setMana(getMana() - toDrain);
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.minnymin.zephyr.api.user.User#getMana()
-	 */
+	@Override
+	public Map<String, String> getAliases() {
+		List<String> aliases = this.userData.<List<String>>getData("aliases");
+		aliases = (aliases == null) ? new ArrayList<String>() : aliases;
+		Map<String, String> aliasMap = new HashMap<String, String>();
+		for (String entry : aliases) {
+			String[] split = entry.split(" ");
+			String key = split[0];
+			String value = split[1];
+			aliasMap.put(key, value);
+		}
+		return aliasMap;
+	}
+	
+	@Override
+	public Set<UserState> getAppliedStates() {
+		return this.stateMap.keySet();
+	}
+	
 	@Override
 	public int getMana() {
 		return this.mana;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.minnymin.zephyr.api.user.User#getMaximumMana()
-	 */
+
 	@Override
 	public int getMaximumMana() {
 		return this.userData.getMaximumMana();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.minnymin.zephyr.api.user.User#getRequiredLevelProgress()
-	 */
 	@Override
 	public int getRequiredLevelProgress() {
 		return this.getUserData().getLevel() ^ 2 * 10 + 100;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.minnymin.zephyr.api.user.User#getUserData()
-	 */
 	@Override
 	public UserData getUserData() {
 		return this.userData;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.minnymin.zephyr.api.user.User#hasMana(int)
-	 */
 	@Override
 	public boolean hasMana(int toDrain) {
 		return getMana() - toDrain >= 0;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.minnymin.zephyr.api.user.User#isCasting()
-	 */
 	@Override
 	public boolean isCasting() {
 		return this.currentlyCasting != null;
 	}
+
+	@Override
+	public void removeState(UserState state) {
+		this.stateMap.remove(state);
+		state.onRemoved(this);
+	}
 	
-	/* (non-Javadoc)
-	 * @see com.minnymin.zephyr.api.user.User#setCasting(com.minnymin.zephyr.api.spell.ContinuousSpell, com.minnymin.zephyr.api.spell.SpellContext)
-	 */
 	@Override
 	public void setCasting(ContinuousSpell spell, SpellContext context) {
 		this.currentlyCasting = spell;
 		this.currentlyCastingContext = context;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.minnymin.zephyr.api.user.User#setMana(int)
-	 */
 	@Override
 	public void setMana(int mana) {
 		if (mana > getUserData().getMaximumMana()) {
@@ -150,10 +158,7 @@ public abstract class AbstractUser implements User {
 			this.mana = mana;
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.minnymin.zephyr.api.user.User#tick()
-	 */
+
 	@Override
 	public void tick() {
 		tickTime++;
@@ -170,8 +175,7 @@ public abstract class AbstractUser implements User {
 				if (entry.getValue() - 1 != 0) {
 					this.stateMap.put(entry.getKey(), entry.getValue() - 1);
 				} else {
-					entry.getKey().onRemoved(this);
-					this.stateMap.remove(entry.getKey());
+					this.removeState(entry.getKey());
 				}
 			}
 		}

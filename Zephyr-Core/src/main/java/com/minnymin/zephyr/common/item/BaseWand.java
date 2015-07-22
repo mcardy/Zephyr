@@ -1,7 +1,5 @@
 package com.minnymin.zephyr.common.item;
 
-import java.util.List;
-
 import com.minnymin.zephyr.api.item.WandItem;
 import com.minnymin.zephyr.api.util.ColorCode;
 

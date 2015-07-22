@@ -35,6 +35,9 @@ public @interface Directive {
 	 */
 	public boolean inGameOnly() default false;
 	
+	// TODO Factor out arguments into seperate annotation 
+	// (figure out how to order arguments through annotations?)
+	
 	/**
 	 * Argument label for help, defaulted to args
 	 */
