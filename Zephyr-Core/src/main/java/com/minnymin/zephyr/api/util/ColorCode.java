@@ -5,7 +5,7 @@ package com.minnymin.zephyr.api.util;
  *
  * @author minnymin3
  */
-public enum Colour {
+public enum ColorCode {
 
 	BLACK('0'),
 	DARK_BLUE('1'),
@@ -28,7 +28,7 @@ public enum Colour {
 	private final char code;
 	private final String string;
 	
-	private Colour(char code) {
+	private ColorCode(char code) {
 		this.code = code;
 		this.string = new String(new char[] {COLOR_CHAR, code});
 	}

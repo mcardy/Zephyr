@@ -58,7 +58,6 @@ public class ZephyrPlugin implements ZephyrAPI {
 	private File configDirectory;
 	
 	private List<Manager> managers = new ArrayList<Manager>();
-	private boolean loaded = false;
 
 	public ZephyrPlugin() {
 		Zephyr.addManager(new SpongeAspectRegister());
@@ -78,7 +77,6 @@ public class ZephyrPlugin implements ZephyrAPI {
 		for (Manager manager : managers) {
 			manager.onEnable();
 		}
-		loaded = true;
 	}
 
 	@Subscribe
@@ -92,9 +90,6 @@ public class ZephyrPlugin implements ZephyrAPI {
 	@Override
 	public void addManager(Manager manager) {
 		managers.add(manager);
-		if (this.loaded) {
-			manager.onEnable();
-		}
 	}
 
 	@SuppressWarnings("unchecked")

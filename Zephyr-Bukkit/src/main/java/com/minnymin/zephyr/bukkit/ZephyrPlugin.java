@@ -10,6 +10,7 @@ import com.minnymin.zephyr.api.Zephyr;
 import com.minnymin.zephyr.api.ZephyrAPI;
 import com.minnymin.zephyr.bukkit.aspect.BukkitAspectRegister;
 import com.minnymin.zephyr.bukkit.command.BukkitCommandManager;
+import com.minnymin.zephyr.bukkit.item.BukkitItemManager;
 import com.minnymin.zephyr.bukkit.projectile.BukkitProjectileHandler;
 import com.minnymin.zephyr.bukkit.spell.BukkitSpellManager;
 import com.minnymin.zephyr.bukkit.user.BukkitUserManager;
@@ -34,6 +35,7 @@ public class ZephyrPlugin extends JavaPlugin implements ZephyrAPI {
 		
 		Zephyr.addManager(new BukkitAspectRegister());
 		Zephyr.addManager(new BukkitCommandManager());
+		Zephyr.addManager(new BukkitItemManager());
 		Zephyr.addManager(new BukkitProjectileHandler());
 		Zephyr.addManager(new BukkitSpellManager());
 		Zephyr.addManager(new BukkitUserManager());
@@ -58,9 +60,6 @@ public class ZephyrPlugin extends JavaPlugin implements ZephyrAPI {
 	@Override
 	public void addManager(Manager manager) {
 		this.managerList.add(manager);
-		if (this.isEnabled()) {
-			manager.onEnable();
-		}
 	}
 	
 	@Override
