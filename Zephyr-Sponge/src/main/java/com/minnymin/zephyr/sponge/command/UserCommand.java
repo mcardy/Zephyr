@@ -92,7 +92,7 @@ public class UserCommand {
 	@Directive(names = {"c.set", "alias"}, description = "Sets an alias", inGameOnly = true, argumentLabels = {"key", "spell"}, arguments = {ArgumentType.STRING, ArgumentType.STRING})
 	public static CommandResult commandAliasSet(CommandSource src, CommandContext context) {
 		User user = Zephyr.getUserManager().getUser(((Player)src).getUniqueId());
-		String key = context.<String>getOne("alias").get();
+		String key = context.<String>getOne("key").get();
 		String spellName = context.<String>getOne("spell").get();
 		if (Zephyr.getSpellManager().getSpell(spellName) == null
 				|| !user.getUserData().getKnownSpells().contains(spellName)) {
@@ -104,15 +104,19 @@ public class UserCommand {
 		return CommandResult.success();
 	}
 	
-	@Directive(names = {"c"}, description = "Cast an alias", inGameOnly = true, argumentLabels = {"alias"}, arguments = {ArgumentType.OPTIONAL_STRING})
+	@Directive(names = {"c"}, description = "Cast an alias", inGameOnly = true, argumentLabels = {"spell", "args"}, arguments = {ArgumentType.OPTIONAL_STRING, ArgumentType.OPTIONAL_REMAINING})
 	public static CommandResult commandAliasCast(CommandSource src, CommandContext context) {
 		User user = Zephyr.getUserManager().getUser(((Player)src).getUniqueId());
 		SpellManager manager = Zephyr.getSpellManager();
 		String key = context.<String>getOne("spell").get();
-		if (context.getOne("spell").isPresent() && user.getAliases().containsKey(key)) {
-			Spell spell = manager.getSpell(user.getAliases().get(key));
-			Optional<String> options = context.<String>getOne("args");
-			manager.cast(spell, new SpongeSpellContext(spell, user, options.isPresent() ? options.get().split(" ") : new String[0]));
+		if (context.getOne("spell").isPresent()) {
+			if (user.getAliases().containsKey(key)) {
+				Spell spell = manager.getSpell(user.getAliases().get(key));
+				Optional<String> options = context.<String>getOne("args");
+				manager.cast(spell, new SpongeSpellContext(spell, user, options.isPresent() ? options.get().split(" ") : new String[0]));
+			} else {
+				user.sendMessage("That alias was not found. Set it with /alias <key> <spell>");
+			}
 			return CommandResult.success();
 		} else {
 			if (user.isCasting()) {
