@@ -31,7 +31,6 @@ public class BukkitItemManager implements ItemManager, Listener {
 	
 	@Override
 	public void onEnable() {	
-		System.out.println("Called onenable");
 		itemMap = new HashMap<String, Item>();
 		actionMap = new HashMap<String, ActionItem>();
 		

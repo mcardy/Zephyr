@@ -2,11 +2,8 @@ package com.minnymin.zephyr.common.spell;
 
 import com.minnymin.zephyr.api.spell.CastResult;
 import com.minnymin.zephyr.api.spell.SpellContext;
-import com.minnymin.zephyr.api.spell.target.Targeted;
-import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
 import com.minnymin.zephyr.api.user.UserState;
 
-@Targeted(type = TargetType.SELF)
 public abstract class BaseStateSpell extends BaseSpell {
 
 	private UserState state;

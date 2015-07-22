@@ -9,12 +9,12 @@ public abstract class AbstractUserData implements UserData {
 	
 	@Override
 	public int getLevel() {
-		return this.<Integer> getData("level");
+		return this.<Integer> get("level");
 	}
 
 	@Override
 	public void setLevel(int level) {
-		this.setData("level", level);
+		this.set("level", level);
 	}
 
 	@Override
@@ -26,44 +26,44 @@ public abstract class AbstractUserData implements UserData {
 
 	@Override
 	public int getLevelProgress() {
-		return this.<Integer> getData("progress");
+		return this.<Integer> get("progress");
 	}
 
 	@Override
 	public void setLevelProgress(int progress) {
-		this.setData("progress", progress);
+		this.set("progress", progress);
 	}
 
 	@Override
 	public int getMaximumMana() {
-		return this.<Integer> getData("mana");
+		return this.<Integer> get("mana");
 	}
 
 	@Override
 	public void setMaximumMana(int mana) {
-		this.setData("mana", mana);
+		this.set("mana", mana);
 	}
 
 	@Override
 	public int getManaRegeneration() {
-		return this.<Integer> getData("regeneration");
+		return this.<Integer> get("regeneration");
 	}
 
 	@Override
 	public void setManaRegeneration(int rate) {
-		this.setData("regeneration", rate);
+		this.set("regeneration", rate);
 	}
 
 	@Override
 	public List<String> getKnownSpells() {
-		return this.<List<String>> getData("learned");
+		return this.<List<String>> get("learned");
 	}
 
 	@Override
 	public void teachSpell(Spell spell) {
 		List<String> learned = getKnownSpells();
 		learned.add(spell.getName());
-		setData("learned", learned);
+		set("learned", learned);
 	}
 	
 }

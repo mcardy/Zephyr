@@ -43,7 +43,7 @@ public class SpongeUserData extends AbstractUserData {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T getData(String key) {
+	public <T> T get(String key) {
 		try {
 			Object[] path = key.split("\\.");
 			return (T) root.getNode(path).getValue();
@@ -51,9 +51,14 @@ public class SpongeUserData extends AbstractUserData {
 			return null;
 		}
 	}
+	
+	@Override
+	public boolean has(String key) {
+		return this.root.getChildrenMap().containsKey(key);
+	}
 
 	@Override
-	public void setData(String key, Object data) {
+	public void set(String key, Object data) {
 		Object[] path = key.split("\\.");
 		this.root.getNode(path).setValue(data);
 		try {
@@ -62,27 +67,29 @@ public class SpongeUserData extends AbstractUserData {
 			e.printStackTrace();
 		}
 	}
-
-	private void loadDefaultConfiguration() {
-		if (root.getChildrenMap().containsKey("learned") || root.getNode("mana").isVirtual()
-				|| root.getNode("regeneration").isVirtual() || root.getNode("level").isVirtual()
-				|| root.getNode("progress").isVirtual()) {			
-			List<String> spellList = new ArrayList<String>();
-			for (Spell spell : Zephyr.getSpellManager().getSpellsForLevel(1)) {
-				spellList.add(spell.getName());
-			}
-			this.root.getNode("learned").setValue(spellList);
-			this.root.getNode("mana").setValue(100);
-			this.root.getNode("regeneration").setValue(1);
-			this.root.getNode("level").setValue(1);
-			this.root.getNode("progress").setValue(0);
-
+	
+	@Override
+	public void setDefault(String key, Object value) {
+		if (!root.getChildrenMap().containsKey(key)) {
+			root.getNode(key).setValue(value);
 			try {
 				this.loader.save(root);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private void loadDefaultConfiguration() {	
+		List<String> spellList = new ArrayList<String>();
+		for (Spell spell : Zephyr.getSpellManager().getSpellsForLevel(1)) {
+			spellList.add(spell.getName());
+		}
+		setDefault("learned", spellList);
+		setDefault("mana", 100);
+		setDefault("regeneration", 1);
+		setDefault("level", 1);
+		setDefault("progress", 1);
 	}
 
 }

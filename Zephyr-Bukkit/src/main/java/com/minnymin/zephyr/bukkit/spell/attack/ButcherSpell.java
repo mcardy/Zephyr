@@ -26,5 +26,5 @@ public class ButcherSpell extends BaseSpell {
 		}
 		return CastResult.SUCCESS;
 	}
-
+	
 }

@@ -35,7 +35,7 @@ public abstract class AbstractUser implements User {
 	
 	@Override
 	public void addAlias(String key, Spell value) {
-		List<String> aliases = this.userData.<List<String>>getData("aliases");
+		List<String> aliases = this.userData.<List<String>>get("aliases");
 		aliases = (aliases == null) ? new ArrayList<String>() : aliases;
 		for (String s : aliases) {
 			if (s.startsWith(key)) {
@@ -44,7 +44,7 @@ public abstract class AbstractUser implements User {
 			}
 		}
 		aliases.add(key + " " + value.getName());
-		this.userData.setData("aliases", aliases);
+		this.userData.set("aliases", aliases);
 	}
 	
 	@Override
@@ -91,7 +91,7 @@ public abstract class AbstractUser implements User {
 	
 	@Override
 	public Map<String, String> getAliases() {
-		List<String> aliases = this.userData.<List<String>>getData("aliases");
+		List<String> aliases = this.userData.<List<String>>get("aliases");
 		aliases = (aliases == null) ? new ArrayList<String>() : aliases;
 		Map<String, String> aliasMap = new HashMap<String, String>();
 		for (String entry : aliases) {
@@ -162,16 +162,17 @@ public abstract class AbstractUser implements User {
 	@Override
 	public void tick() {
 		tickTime++;
+		boolean reset = tickTime%20 == 0;
 		
 		if (isCasting() && tickTime%currentlyCasting.getUpdateTime()==0) {
 			Zephyr.getSpellManager().castContinuous(currentlyCasting, currentlyCastingContext);
 		}
-		
+				
 		for (Entry<UserState, Integer> entry : this.stateMap.entrySet()) {
 			if (entry.getKey().getTickTime() != 0 && tickTime%entry.getKey().getTickTime()==0) {
 				entry.getKey().tick(this);
 			}
-			if (tickTime%20==0) {
+			if (reset) {
 				if (entry.getValue() - 1 != 0) {
 					this.stateMap.put(entry.getKey(), entry.getValue() - 1);
 				} else {
@@ -180,7 +181,7 @@ public abstract class AbstractUser implements User {
 			}
 		}
 				
-		if (tickTime%20==0) {
+		if (reset) {
 			tickTime = 0;
 			if (getMana() < getUserData().getMaximumMana()) {
 				setMana(getMana() + getUserData().getManaRegeneration());

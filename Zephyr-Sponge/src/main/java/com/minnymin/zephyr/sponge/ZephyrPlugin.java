@@ -18,7 +18,6 @@ import com.minnymin.zephyr.api.Manager;
 import com.minnymin.zephyr.api.Zephyr;
 import com.minnymin.zephyr.api.ZephyrAPI;
 import com.minnymin.zephyr.common.PluginInfo;
-import com.minnymin.zephyr.sponge.aspect.SpongeAspectRegister;
 import com.minnymin.zephyr.sponge.command.SpongeCommandManager;
 import com.minnymin.zephyr.sponge.projectile.SpongeProjectileHandler;
 import com.minnymin.zephyr.sponge.spell.SpongeSpellManager;

@@ -1,6 +1,7 @@
 package com.minnymin.zephyr.common.spell;
 
 import com.minnymin.zephyr.api.spell.Spell;
+import com.minnymin.zephyr.api.util.Configuration;
 
 
 public abstract class BaseSpell implements Spell {
@@ -54,6 +55,14 @@ public abstract class BaseSpell implements Spell {
 	
 	public boolean isListener() {
 		return this.listener;
+	}
+	
+	@Override
+	public void defaultConfiguration(Configuration config) {		
+	}
+	
+	@Override
+	public void loadConfiguration(Configuration config) {		
 	}
 		
 }

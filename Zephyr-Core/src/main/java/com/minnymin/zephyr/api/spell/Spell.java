@@ -1,11 +1,13 @@
 package com.minnymin.zephyr.api.spell;
 
+import com.minnymin.zephyr.api.util.Configurable;
+
 /**
  * Represents a castable spell
  *
  * @author minnymin3
  */
-public interface Spell {
+public interface Spell extends Configurable {
 
 	/**
 	 * Casts the spell

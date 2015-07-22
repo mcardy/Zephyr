@@ -47,19 +47,6 @@ public class YmlConfigFile {
 	}
 
 	/**
-	 * Adds a default to the config
-	 * 
-	 * @param path The path of the value
-	 * @param value The value to set
-	 */
-	public void addDefaults(String path, Object value) {
-		if (!getConfig().contains(path)) {
-			getConfig().set(path, value);
-			saveConfig();
-		}
-	}
-
-	/**
 	 * Gets the configuration
 	 * 
 	 * @return A FileConfiguration object pointing to the config file

@@ -26,18 +26,31 @@ public class BukkitUserData extends AbstractUserData {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <T> T getData(String key) {
+	public <T> T get(String key) {
 		try {
 			return (T) data.getConfig().get(key);
 		} catch (ClassCastException ex) {
 			return null;
 		}
 	}
+	
+	@Override
+	public boolean has(String key) {
+		return data.getConfig().contains(key);
+	}
 
 	@Override
-	public void setData(String key, Object value) {
+	public void set(String key, Object value) {
 		data.getConfig().set(key, value);
 		data.saveConfig();
+	}
+	
+	@Override
+	public void setDefault(String key, Object value) {
+		if (!data.getConfig().contains(key)) {
+			data.getConfig().set(key, value);
+			data.saveConfig();
+		}
 	}
 
 	private void loadDefaultConfiguration() {
@@ -51,11 +64,11 @@ public class BukkitUserData extends AbstractUserData {
 				spellList.add(spell.getName());
 			}
 			
-			this.data.addDefaults("learned", spellList);
-			this.data.addDefaults("mana", 100);
-			this.data.addDefaults("regeneration", 1);
-			this.data.addDefaults("level", 1);
-			this.data.addDefaults("progress", 0);
+			this.setDefault("learned", spellList);
+			this.setDefault("mana", 100);
+			this.setDefault("regeneration", 1);
+			this.setDefault("level", 1);
+			this.setDefault("progress", 0);
 			
 			this.data.saveConfig();
 		}
