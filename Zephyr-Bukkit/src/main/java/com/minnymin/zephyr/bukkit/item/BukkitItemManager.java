@@ -23,6 +23,9 @@ import com.minnymin.zephyr.api.item.ItemManager;
 import com.minnymin.zephyr.api.item.ItemRecipe;
 import com.minnymin.zephyr.api.item.ItemRecipe.ItemRecipeIngredient;
 import com.minnymin.zephyr.bukkit.ZephyrPlugin;
+import com.minnymin.zephyr.bukkit.item.wand.AdeptWand;
+import com.minnymin.zephyr.bukkit.item.wand.MasterWand;
+import com.minnymin.zephyr.bukkit.item.wand.NoviceWand;
 
 public class BukkitItemManager implements ItemManager, Listener {
 
@@ -34,7 +37,11 @@ public class BukkitItemManager implements ItemManager, Listener {
 		itemMap = new HashMap<String, Item>();
 		actionMap = new HashMap<String, ActionItem>();
 		
-		registerItem(new Wand());
+		registerItem(new NoviceWand());
+		registerItem(new AdeptWand());
+		registerItem(new MasterWand());
+		
+		registerItem(new SpellTome());
 		
 		Bukkit.getPluginManager().registerEvents(this, ZephyrPlugin.getInstance());
 	}
@@ -50,10 +57,12 @@ public class BukkitItemManager implements ItemManager, Listener {
 		}
 		ItemStack stack = (ItemStack) obj;
 		String name = getDisplayName(stack);
-		if (!itemMap.containsKey(name)) {
-			return null;
+		for (String key : this.itemMap.keySet()) {
+			if (key.startsWith(name)) {
+				return itemMap.get(key);
+			}
 		}
-		return itemMap.get(name);
+		return null;
 	}
 	
 	public ActionItem getActionItem(Object stack) {
@@ -61,10 +70,12 @@ public class BukkitItemManager implements ItemManager, Listener {
 			return null;
 		}
 		String name = getDisplayName((ItemStack)stack);
-		if (!actionMap.containsKey(name)) {
-			return null;
+		for (String key : this.actionMap.keySet()) {
+			if (name.startsWith(key)) {
+				return actionMap.get(key);
+			}
 		}
-		return actionMap.get(name);
+		return null;
 	}
 
 	@Override

@@ -39,6 +39,11 @@ public interface Spell extends Configurable {
 	/**
 	 * @return The required level to learn the spell
 	 */
-	public int getRequiredLevel();
+	public int getLevel();
+	
+	/**
+	 * Gets the spell recipe required to craft
+	 */
+	public SpellRecipe getRecipe();
 
 }

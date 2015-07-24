@@ -2,6 +2,7 @@ package com.minnymin.zephyr.bukkit.spell.attack;
 
 import com.minnymin.zephyr.api.spell.CastResult;
 import com.minnymin.zephyr.api.spell.SpellContext;
+import com.minnymin.zephyr.api.spell.SpellRecipe;
 import com.minnymin.zephyr.bukkit.projectile.BallProjectile;
 import com.minnymin.zephyr.common.spell.BaseSpell;
 
@@ -15,6 +16,11 @@ public class ProjectileSpell extends BaseSpell {
 	public CastResult cast(SpellContext context) {
 		new BallProjectile().launch(context.getUser());
 		return CastResult.SUCCESS;
+	}
+	
+	@Override
+	public SpellRecipe getRecipe() {
+		return null;
 	}
 
 }

@@ -5,22 +5,22 @@ import java.util.List;
 
 import com.minnymin.zephyr.api.item.Item;
 import com.minnymin.zephyr.api.item.ItemRecipe;
-import com.minnymin.zephyr.api.util.ColorCode;
+import com.minnymin.zephyr.api.util.ColorCharacter;
 
 public abstract class BaseItem implements Item {
 
 	private List<String> lore;
 	private String name;
-	private ColorCode color;
+	private ColorCharacter color;
 	
 	private int id;
 	private int data;
 	
-	public BaseItem(int id, String name, ColorCode color, String... lore) {
+	public BaseItem(int id, String name, ColorCharacter color, String... lore) {
 		this(id, 0, name, color, lore);
 	}
 	
-	public BaseItem(int id, int data, String name, ColorCode color, String... lore) {
+	public BaseItem(int id, int data, String name, ColorCharacter color, String... lore) {
 		this.id = id;
 		this.data = data;
 		this.name = name;
@@ -52,7 +52,7 @@ public abstract class BaseItem implements Item {
 	}
 	
 	@Override
-	public ColorCode getItemNameColor() {
+	public ColorCharacter getItemNameColor() {
 		return this.color;
 	}
 	

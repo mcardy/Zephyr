@@ -2,6 +2,7 @@ package com.minnymin.zephyr.api.aspect;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Represents a list of aspects
@@ -36,7 +37,11 @@ public class AspectList {
 	 * @return this for chaining
 	 */
 	public AspectList add(Aspect aspect, int amount) {
-		values.put(aspect, amount);
+		if (values.containsKey(aspect)) {
+			values.put(aspect, amount + values.get(aspect));
+		} else {
+			values.put(aspect, amount);
+		}
 		return this;
 	}
 	
@@ -52,12 +57,34 @@ public class AspectList {
 	}
 	
 	/**
+	 * Returns the map of aspects
+	 * @return
+	 */
+	public Map<Aspect, Integer> getAspects() {
+		return this.values;
+	}
+	
+	/**
 	 * Checks if this aspect list equals another aspect list
 	 * @param list
 	 * @return
 	 */
 	public boolean isEqual(AspectList list) {
 		return this.values.equals(list.values);
+	}
+	
+	/**
+	 * Adds the given list into this list
+	 * @param list The list to combine
+	 */
+	public void merge(AspectList list) {
+		for (Entry<Aspect, Integer> entry : list.values.entrySet()) {
+			if (this.values.containsKey(entry.getKey())) {
+				this.values.put(entry.getKey(), entry.getValue() + this.values.get(entry.getKey()));
+			} else {
+				this.values.put(entry.getKey(), entry.getValue());
+			}
+		}
 	}
 	
 }

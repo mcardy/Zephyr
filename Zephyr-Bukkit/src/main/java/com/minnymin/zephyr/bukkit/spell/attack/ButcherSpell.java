@@ -5,8 +5,11 @@ import java.util.Collection;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 
+import com.minnymin.zephyr.api.aspect.Aspect;
+import com.minnymin.zephyr.api.aspect.AspectList;
 import com.minnymin.zephyr.api.spell.CastResult;
 import com.minnymin.zephyr.api.spell.SpellContext;
+import com.minnymin.zephyr.api.spell.SpellRecipe;
 import com.minnymin.zephyr.api.spell.target.Targeted;
 import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
 import com.minnymin.zephyr.common.spell.BaseSpell;
@@ -25,6 +28,11 @@ public class ButcherSpell extends BaseSpell {
 			m.damage(m.getHealth(), context.<Player>getPlayer());;
 		}
 		return CastResult.SUCCESS;
+	}
+	
+	@Override
+	public SpellRecipe getRecipe() {
+		return new SpellRecipe(AspectList.build(Aspect.BEAST, 8).add(Aspect.WEAPON, 8));
 	}
 	
 }

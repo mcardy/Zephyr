@@ -65,7 +65,7 @@ public abstract class AbstractSpellManager implements SpellManager {
 	public List<Spell> getSpellsForLevel(int level) {
 		List<Spell> spells = new ArrayList<Spell>();
 		for (Spell spell : this.spellSet) {
-			if (spell.getRequiredLevel() == level) {
+			if (spell.getLevel() == level) {
 				spells.add(spell);
 			}
 		}

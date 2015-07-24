@@ -3,7 +3,7 @@ package com.minnymin.zephyr.api.aspect;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.minnymin.zephyr.api.util.ColorCode;
+import com.minnymin.zephyr.api.util.ColorCharacter;
 
 /**
  * Represents all of the types of aspects available.
@@ -15,37 +15,34 @@ import com.minnymin.zephyr.api.util.ColorCode;
  */
 public enum Aspect {
 	
-	// TODO Comments on each aspect?
-	BEAST("Bestia", "Animal, Beast", ColorCode.DARK_GREEN),
-	CLEAR("Vetro", "Clear, Glass", ColorCode.WHITE),
-	CONSTRUCT("Costruire", "Construction, Build", ColorCode.GRAY),
-	DARKNESS("Tenebre", "Darkness, Hidden, Obscured", ColorCode.BLACK),
-	DEFENSE("Difesa", "Defense, Protection", ColorCode.DARK_BLUE),
-	DESTRUCTION("Contritio", "Destruction, Fractured", ColorCode.DARK_GRAY),
-	EARTH("Terra", "Earth, Dirt", ColorCode.DARK_GREEN),
-	ENDER("Endrich", "Ender, Strange", ColorCode.DARK_PURPLE),
-	ENERGY("Energia", "Energy, Power", ColorCode.GRAY),
-	EVIL("Malum", "Evil", ColorCode.DARK_RED),
-	FIRE("Ignis", "Fire, Heat", ColorCode.RED),
-	FLESH("Carnem", "Flesh, Bones", ColorCode.RED),
-	ICE("Glaciem", "Ice, Cold", ColorCode.AQUA),
-	KNOWLEDGE("Cognitio", "Knowledge", ColorCode.GOLD),
-	LIFE("Vita", "Life, Sustanance", ColorCode.GREEN),
-	LIGHT("Lucem", "Light, Brightness", ColorCode.YELLOW),
-	MACHINE("Apparatus", "Machine, Device", ColorCode.DARK_AQUA),
-	METAL("Metallum", "Metal, Ore", ColorCode.GRAY),
-	MOVEMENT("Motus", "Movement, Motion", ColorCode.WHITE),
-	MYSTICAL("Magicis", "Magic, Mystical", ColorCode.LIGHT_PURPLE),
-	PLANT("Herba", "Herb, Plant", ColorCode.GREEN),
-	STONE("Lapideas", "Stone, Rock", ColorCode.DARK_GRAY),
-	TIME("Tempus", "Time", ColorCode.YELLOW),
-	TOOL("Strumento", "Instrument, Tool", ColorCode.GREEN),
-	VALUE("Valore", "Value, Expensive", ColorCode.GOLD),
-	VOID("Vuoto", "Void, Empty", ColorCode.BLACK),
-	WATER("Aqua", "Water", ColorCode.BLUE),
-	WEAPON("Impetum", "Attack, Harmful, Weapon", ColorCode.RED),
-	WIND("Ventum", "Wind, Air", ColorCode.WHITE),
-	WOOD("Legno", "Wooden, Solid", ColorCode.DARK_GREEN);
+	// TODO Comments on each aspect
+	BEAST("Bestia", "Animal, Beast", ColorCharacter.DARK_GREEN),
+	CLEAR("Vetro", "Clear, Glass", ColorCharacter.WHITE),
+	CONSTRUCT("Costruire", "Construction, Build", ColorCharacter.GRAY),
+	DARKNESS("Tenebre", "Darkness, Hidden, Obscured", ColorCharacter.BLACK),
+	DEATH("Mortem", "Death", ColorCharacter.DARK_RED),
+	DEFENSE("Difesa", "Defense, Protection", ColorCharacter.DARK_BLUE),
+	DESTRUCTION("Contritio", "Destruction, Fractured", ColorCharacter.DARK_GRAY),
+	EARTH("Terra", "Earth, Dirt", ColorCharacter.DARK_GREEN),
+	ENDER("Endrich", "Ender, Strange", ColorCharacter.DARK_PURPLE),
+	FIRE("Ignis", "Fire, Heat", ColorCharacter.RED),
+	ICE("Glaciem", "Ice, Cold", ColorCharacter.AQUA),
+	KNOWLEDGE("Cognitio", "Knowledge", ColorCharacter.GOLD),
+	LIFE("Vita", "Life, Sustanance", ColorCharacter.GREEN),
+	LIGHT("Lucem", "Light, Brightness", ColorCharacter.YELLOW),
+	MACHINE("Apparatus", "Machine, Device", ColorCharacter.DARK_AQUA),
+	MAGIC("Magicis", "Magic, Mystical", ColorCharacter.LIGHT_PURPLE),
+	METAL("Metallum", "Metal, Ore", ColorCharacter.GRAY),
+	MOVEMENT("Motus", "Movement, Motion", ColorCharacter.WHITE),
+	STONE("Lapideas", "Stone, Rock", ColorCharacter.DARK_GRAY),
+	TIME("Tempus", "Time", ColorCharacter.YELLOW),
+	TOOL("Strumento", "Instrument, Tool", ColorCharacter.GREEN),
+	VALUE("Valore", "Value, Expensive", ColorCharacter.GOLD),
+	VOID("Vuoto", "Void, Empty", ColorCharacter.BLACK),
+	WATER("Aqua", "Water", ColorCharacter.BLUE),
+	WEAPON("Impetum", "Attack, Harmful, Weapon", ColorCharacter.RED),
+	WIND("Ventum", "Wind, Air", ColorCharacter.WHITE),
+	WOOD("Legno", "Wooden, Solid", ColorCharacter.DARK_GREEN);
 
 	private static Map<String, AspectList> aspectMap;
 	
@@ -64,11 +61,11 @@ public enum Aspect {
 	 * Aspect class below
 	 */
 	
-	private ColorCode color;
+	private ColorCharacter color;
 	private String description;
 	private String name;
 
-	Aspect(String name, String description, ColorCode color) {
+	Aspect(String name, String description, ColorCharacter color) {
 		this.name = name;
 		this.description = description;
 		this.color = color;
@@ -77,7 +74,7 @@ public enum Aspect {
 	/**
 	 * Gets the ChatColor of the aspect
 	 */
-	public ColorCode getColour() {
+	public ColorCharacter getColour() {
 		return color;
 	}
 

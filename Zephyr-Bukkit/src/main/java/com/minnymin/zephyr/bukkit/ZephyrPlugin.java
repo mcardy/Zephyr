@@ -22,6 +22,8 @@ import com.minnymin.zephyr.bukkit.user.BukkitUserManager;
  */
 public class ZephyrPlugin extends JavaPlugin implements ZephyrAPI {
 	
+	public static boolean DEBUG = true;
+	
 	private static ZephyrPlugin INSTANCE;
 	
 	public static ZephyrPlugin getInstance() {

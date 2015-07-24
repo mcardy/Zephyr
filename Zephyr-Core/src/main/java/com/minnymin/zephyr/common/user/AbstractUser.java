@@ -120,7 +120,7 @@ public abstract class AbstractUser implements User {
 
 	@Override
 	public int getRequiredLevelProgress() {
-		return this.getUserData().getLevel() ^ 2 * 10 + 100;
+		return (int) ((Math.pow(this.getUserData().getLevel(), 2)) * 10 + 100);
 	}
 
 	@Override

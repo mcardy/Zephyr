@@ -2,6 +2,7 @@ package com.minnymin.zephyr.sponge.spell.attack;
 
 import com.minnymin.zephyr.api.spell.CastResult;
 import com.minnymin.zephyr.api.spell.SpellContext;
+import com.minnymin.zephyr.api.spell.SpellRecipe;
 import com.minnymin.zephyr.api.spell.target.Targeted;
 import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
 import com.minnymin.zephyr.common.spell.BaseSpell;
@@ -18,6 +19,11 @@ public class PunchSpell extends BaseSpell {
 		// Living target = context.<Living> getTarget().get();
 		// TODO Wait for Sponge to implement more entity data stuff
 		return CastResult.SUCCESS;
+	}
+	
+	@Override
+	public SpellRecipe getRecipe() {
+		return null;
 	}
 
 }

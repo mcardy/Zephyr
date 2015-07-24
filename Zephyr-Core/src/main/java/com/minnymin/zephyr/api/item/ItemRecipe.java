@@ -10,12 +10,9 @@ public class ItemRecipe {
 	private boolean isShapeless;
 	
 	public ItemRecipe() {
-		this(false);
-	}
-	
-	public ItemRecipe(boolean shapeless) {
-		this.isShapeless = shapeless;
 		this.recipe = new HashMap<Character, ItemRecipeIngredient>();
+		this.shape = new String[] {};
+		this.isShapeless = false;
 	}
 	
 	public String[] getShape() {
@@ -42,6 +39,11 @@ public class ItemRecipe {
 	
 	public ItemRecipe setShape(String... shape) {
 		this.shape = shape;
+		return this;
+	}
+	
+	public ItemRecipe setShapeless(boolean bool) {
+		this.isShapeless = bool;
 		return this;
 	}
 	

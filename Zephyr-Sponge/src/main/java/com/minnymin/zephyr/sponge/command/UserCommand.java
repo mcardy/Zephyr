@@ -51,12 +51,12 @@ public class UserCommand {
 		TextBuilder builder = Texts.builder(
 				"Progress " + user.getUserData().getLevelProgress() + " / " + user.getRequiredLevelProgress() + ": [")
 				.color(TextColors.GRAY);
-		int percent = (int) (((float) user.getUserData().getLevelProgress() / (float) user.getRequiredLevelProgress()) * 10);
+		float percent = ((float) user.getUserData().getLevelProgress() / (float) user.getRequiredLevelProgress()) * 10;
 		TextBuilder tempBuilder = Texts.builder();
 		tempBuilder.color(TextColors.GREEN);
-		for (int i = 1; i <= 10; i++) {
+		for (int i = 0; i < 10; i++) {
 			tempBuilder.append(Texts.of("="));
-			if (i == percent) {
+			if (i == (int)percent) {
 				builder.append(tempBuilder.build());
 				tempBuilder = Texts.builder();
 			}

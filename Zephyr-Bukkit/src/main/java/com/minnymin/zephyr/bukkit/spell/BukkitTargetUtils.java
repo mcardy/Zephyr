@@ -12,25 +12,25 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BlockIterator;
 
-final class BukkitTargetUtils {
+public final class BukkitTargetUtils {
 
-	protected static Player getTargetPlayer(Player player, int range) {
+	public static Player getTargetPlayer(Player player, int range) {
 		return BukkitTargetUtils.<Player>getTarget(player, range, getNearbyPlayers(player, range));
 	}
 	
-	protected static Monster getTargetMonster(Player player, int range) {
+	public static Monster getTargetMonster(Player player, int range) {
 		return BukkitTargetUtils.<Monster>getTarget(player, range, getNearbyMonsters(player, range));
 	}
 	
-	protected static LivingEntity getTargetLiving(Player player, int range) {
+	public static LivingEntity getTargetLiving(Player player, int range) {
 		return BukkitTargetUtils.<LivingEntity>getTarget(player, range, getNearbyLivings(player, range));
 	}
 	
-	protected static Entity getTargetEntity(Player player, int range) {
+	public static Entity getTargetEntity(Player player, int range) {
 		return BukkitTargetUtils.<Entity>getTarget(player, range, getNearbyEntities(player, range));
 	}
 	
-	protected static <T extends Entity> T getTarget(Player player, int range, Collection<T> entities) {
+	public static <T extends Entity> T getTarget(Player player, int range, Collection<T> entities) {
 		BlockIterator iterator = new BlockIterator(player);
 		while (iterator.hasNext()) {
 			Block block = iterator.next();

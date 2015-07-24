@@ -4,6 +4,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.minnymin.zephyr.api.spell.SpellContext;
+import com.minnymin.zephyr.api.spell.SpellRecipe;
 import com.minnymin.zephyr.bukkit.spell.PotionEffectSpell;
 
 public class RegenerationSpell extends PotionEffectSpell {
@@ -15,6 +16,11 @@ public class RegenerationSpell extends PotionEffectSpell {
 	@Override
 	public PotionEffect getPotionEffect(SpellContext context) {
 		return new PotionEffect(PotionEffectType.REGENERATION, 100 * context.getPower(), 1);
+	}
+	
+	@Override
+	public SpellRecipe getRecipe() {
+		return null;
 	}
 	
 }

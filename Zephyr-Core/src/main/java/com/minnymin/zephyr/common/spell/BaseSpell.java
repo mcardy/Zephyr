@@ -44,7 +44,7 @@ public abstract class BaseSpell implements Spell {
 	}
 	
 	@Override
-	public int getRequiredLevel() {
+	public int getLevel() {
 		return this.requiredLevel;
 	}
 	
