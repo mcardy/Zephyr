@@ -1,5 +1,6 @@
 package com.minnymin.zephyr.api.user;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -8,6 +9,7 @@ import com.minnymin.zephyr.api.spell.ContinuousSpell;
 import com.minnymin.zephyr.api.spell.Spell;
 import com.minnymin.zephyr.api.spell.SpellContext;
 
+// TODO Re-write javadocs here
 public interface User {
 
 	/**
@@ -39,6 +41,16 @@ public interface User {
 	 * Gets all states currently applied to the user
 	 */
 	public Set<UserState> getAppliedStates();
+	
+	/**
+	 * Gets a list of known spells
+	 */
+	public List<String> getKnownSpells();
+	
+	/**
+	 * Gets the level of the player
+	 */
+	public int getLevel();
 	
 	/**
 	 * Gets the user's mana
@@ -83,6 +95,11 @@ public interface User {
 	public boolean isCasting();
 
 	/**
+	 * Checks if a spell is known
+	 */
+	public boolean isSpellKnown(Spell spell);
+	
+	/**
 	 * Removes a user's state
 	 */
 	public void removeState(UserState state);
@@ -102,6 +119,11 @@ public interface User {
 	 */
 	public void setMana(int mana);
 
+	/**
+	 * 
+	 */
+	public void teachSpell(Spell spell);
+	
 	public void tick();
 
 }

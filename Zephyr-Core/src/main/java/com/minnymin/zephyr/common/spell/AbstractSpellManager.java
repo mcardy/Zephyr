@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.minnymin.zephyr.api.aspect.AspectList;
 import com.minnymin.zephyr.api.spell.CastResult;
 import com.minnymin.zephyr.api.spell.ContinuousSpell;
 import com.minnymin.zephyr.api.spell.Spell;
@@ -15,11 +16,10 @@ import com.minnymin.zephyr.api.user.User;
 
 public abstract class AbstractSpellManager implements SpellManager {
 
-	private Set<Spell> spellSet;
+	private Set<Spell> spellSet = new HashSet<Spell>();
 
 	@Override
 	public void onEnable() {
-		this.spellSet = new HashSet<Spell>();
 	}
 	
 	@Override
@@ -73,13 +73,24 @@ public abstract class AbstractSpellManager implements SpellManager {
 	}
 
 	@Override
+	public List<Spell> getSpellsForRecipe(AspectList list) {
+		List<Spell> set = new ArrayList<Spell>();
+		for (Spell spell : this.spellSet) {
+			if (spell.getRecipe() != null && spell.getRecipe().isSatisfied(list)) {
+				set.add(spell);
+			}
+		}
+		return set;
+	}
+	
+	@Override
 	public void cast(Spell spell, SpellContext context) {
 		User user = context.getUser();
 		if (spell == null) {
 			user.sendMessage("That spell does not exist...");
 			return;
 		}
-		if (!user.getUserData().getKnownSpells().contains(spell.getName())) {
+		if (!user.getKnownSpells().contains(spell.getName())) {
 			user.sendMessage("You have not learned that spell!");
 			return;
 		}

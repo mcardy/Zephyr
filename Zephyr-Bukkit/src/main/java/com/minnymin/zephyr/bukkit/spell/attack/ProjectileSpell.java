@@ -1,5 +1,7 @@
 package com.minnymin.zephyr.bukkit.spell.attack;
 
+import com.minnymin.zephyr.api.aspect.Aspect;
+import com.minnymin.zephyr.api.aspect.AspectList;
 import com.minnymin.zephyr.api.spell.CastResult;
 import com.minnymin.zephyr.api.spell.SpellContext;
 import com.minnymin.zephyr.api.spell.SpellRecipe;
@@ -9,7 +11,7 @@ import com.minnymin.zephyr.common.spell.BaseSpell;
 public class ProjectileSpell extends BaseSpell {
 
 	public ProjectileSpell() {
-		super("projectile", "Launch a projectile", 1, 10);
+		super("projectile", "Launch a projectile", 5, 10);
 	}
 
 	@Override
@@ -20,7 +22,7 @@ public class ProjectileSpell extends BaseSpell {
 	
 	@Override
 	public SpellRecipe getRecipe() {
-		return null;
+		return new SpellRecipe(AspectList.build(Aspect.FIRE, 8));
 	}
 
 }

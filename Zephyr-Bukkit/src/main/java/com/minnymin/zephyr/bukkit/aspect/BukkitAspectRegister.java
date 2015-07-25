@@ -25,11 +25,13 @@ public class BukkitAspectRegister implements Manager {
 	
 	@Override
 	public void onEnable() {
+		ZephyrPlugin.logger().info("Calculating aspects...");
+		
 		addBaseItems();
 		addModificationItems();
 		predictItems();
 	}
-
+	
 	// Adds base items (wood, stone, etc.)
 	private void addBaseItems() {
 		// Adding non-craftable items starting from id 1

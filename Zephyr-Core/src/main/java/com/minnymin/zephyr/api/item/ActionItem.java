@@ -4,6 +4,7 @@ import com.minnymin.zephyr.api.user.User;
 
 public interface ActionItem extends Item {
 
-	public void onInteract(User user);
-	
+	public void onLeftClick(User user);
+	public void onRightClick(User user);
+		
 }

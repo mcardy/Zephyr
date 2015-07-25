@@ -24,7 +24,7 @@ public class SpellCommand {
 		if (context.getOptions().length == 0) {
 			if (user.isCasting()) {
 				user.setCasting(null, null);
-			} else {
+			} else { 
 				context.getSender().sendMessage("Not enough arguments! /cast <spell>");
 				return;
 			}

@@ -2,6 +2,7 @@ package com.minnymin.zephyr.bukkit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -29,9 +30,13 @@ public class ZephyrPlugin extends JavaPlugin implements ZephyrAPI {
 	public static ZephyrPlugin getInstance() {
 		return ZephyrPlugin.INSTANCE;
 	}
+	
+	public static Logger logger() {
+		return getInstance().getLogger();
+	}
 		
 	private List<Manager> managerList = new ArrayList<Manager>();
-
+	
 	public ZephyrPlugin() {
 		ZephyrPlugin.INSTANCE = this;
 		
@@ -45,18 +50,38 @@ public class ZephyrPlugin extends JavaPlugin implements ZephyrAPI {
 	
 	@Override
 	public void onEnable() {
+		logger().info("Starting Zephyrus load...");
 		Zephyr.setAPISingleton(this);
-		for (Manager manager : managerList) {
-			manager.onEnable();
-		}
+		loadManagers();
 	}
 	
 	@Override
 	public void onDisable() {
-		for (Manager manager : managerList) {
-			manager.onDisable();
-		}
+		logger().info("Starting Zephyrus unload...");
+		unloadManagers();
 		managerList.clear();
+	}
+	
+	public void loadManagers() {
+		for (Manager manager : managerList) {
+			try {
+				manager.onEnable();
+			} catch (Exception ex) {
+				getLogger().warning("Error while enabling manager " + manager.getClass().getName());
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	public void unloadManagers() {
+		for (Manager manager : managerList) {
+			try {
+				manager.onDisable();
+			} catch (Exception ex) {
+				getLogger().warning("Error while disabling manager " + manager.getClass().getName());
+				ex.printStackTrace();
+			}
+		}
 	}
 	
 	@Override

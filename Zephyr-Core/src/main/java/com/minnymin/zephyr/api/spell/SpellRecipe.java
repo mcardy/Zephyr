@@ -1,5 +1,8 @@
 package com.minnymin.zephyr.api.spell;
 
+import java.util.Map.Entry;
+
+import com.minnymin.zephyr.api.aspect.Aspect;
 import com.minnymin.zephyr.api.aspect.AspectList;
 
 public class SpellRecipe {
@@ -26,6 +29,15 @@ public class SpellRecipe {
 	
 	public boolean hasPrerequisite() {
 		return this.prerequisite != null;
+	}
+	
+	public boolean isSatisfied(AspectList check) {
+		for (Entry<Aspect, Integer> e : this.list.getAspects().entrySet()) {
+			if (!check.getAspects().containsKey(e.getKey())|| check.getAspects().get(e.getKey()) < e.getValue()) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }

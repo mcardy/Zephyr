@@ -87,4 +87,14 @@ public class AspectList {
 		}
 	}
 	
+	/**
+	 * Multiplies all aspect values for itemstack
+	 * @param times The amount of times to multiply, ex. 5 wood planks = 5 times
+	 */
+	public void mult(int times) {
+		for (Entry<Aspect, Integer> en : this.values.entrySet()) {
+			this.values.put(en.getKey(), en.getValue()*times);
+		}
+	}
+	
 }

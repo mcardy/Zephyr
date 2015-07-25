@@ -52,15 +52,15 @@ public class UserCommand {
 		User user = Zephyr.getUserManager().getUser(((Player) context.getSender()).getUniqueId());
 		StringBuffer builder = new StringBuffer(ChatColor.GRAY + "Progress " + user.getUserData().getLevelProgress()
 				+ " / " + user.getRequiredLevelProgress() + ": [");
-		float percent = ((float)user.getUserData().getLevelProgress() / (float)user.getRequiredLevelProgress())*10;
+		float percent = ((float) user.getUserData().getLevelProgress() / (float) user.getRequiredLevelProgress()) * 10;
 		builder.append(ChatColor.GREEN);
 		for (int i = 0; i < 10; i++) {
 			builder.append("=");
-			if (i == (int)percent) {
+			if (i == (int) percent) {
 				builder.append(ChatColor.DARK_GRAY);
 			}
 		}
-		builder.append(ChatColor.GRAY + "] Level " + user.getUserData().getLevel());
+		builder.append(ChatColor.GRAY + "] Level " + user.getLevel());
 
 		context.getSender().sendMessage(builder.toString());
 	}
@@ -106,7 +106,7 @@ public class UserCommand {
 		WandItem wand = (WandItem) item;
 		Spell spell = Zephyr.getSpellManager().getSpell(context.getOptions()[0]);
 		if (spell == null
-				|| !Zephyr.getUserManager().getUser(player.getUniqueId()).getUserData().getKnownSpells()
+				|| !Zephyr.getUserManager().getUser(player.getUniqueId()).getKnownSpells()
 						.contains(spell.getName())) {
 			context.getSender().sendMessage("You don't know that spell!");
 			return;
@@ -125,7 +125,7 @@ public class UserCommand {
 		String key = context.getOptions()[0];
 		String spellName = context.getOptions()[1];
 		if (Zephyr.getSpellManager().getSpell(spellName) == null
-				|| !user.getUserData().getKnownSpells().contains(spellName)) {
+				|| !user.getKnownSpells().contains(spellName)) {
 			context.getSender().sendMessage("You do not know a spell by that name");
 			return;
 		}
@@ -157,47 +157,57 @@ public class UserCommand {
 		manager.cast(spell, new BukkitSpellContext(spell, user, args));
 		context.getSender().sendMessage("Spell cast!");
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Cmd(label = "aspect", description = "Checks the aspects on an item id", usage = "/aspects <id>")
 	public static void onAspectCommand(CommandContext context) {
-		if (context.getOptions().length == 0) {
-			context.getSender().sendMessage("Not enough arguments! /aspects <id>");
-			return;
-		}
+		Material mat;
 		AspectList list;
-		Material aspect;
-		try {
-			aspect = Material.getMaterial(Integer.parseInt(context.getOptions()[0]));
-		} catch (NumberFormatException e) {
-			aspect = Material.getMaterial(context.getOptions()[0].toUpperCase());
+
+		if (context.getOptions().length == 0) {
+			if (!context.isPlayer()) {
+				context.getSender().sendMessage("Not enough arguments! /aspects <id>");
+				return;
+			}
+			Player player = (Player) context.getSender();
+			if (player.getItemInHand() == null) {
+				context.getSender().sendMessage("Must be holding an item to check aspects on");
+				return;
+			}
+			mat = player.getItemInHand().getType();
+		} else {
+			try {
+				mat = Material.getMaterial(Integer.parseInt(context.getOptions()[0]));
+			} catch (NumberFormatException e) {
+				mat = Material.getMaterial(context.getOptions()[0].toUpperCase());
+			}
+			if (mat == null) {
+				context.getSender().sendMessage("Item not found!");
+				return;
+			}
 		}
-		if (aspect == null) {
-			context.getSender().sendMessage("Item not found!");
-			return;
-		}
-		
-		list = Aspect.getAspects(aspect.toString());
+
+		list = Aspect.getAspects(mat.toString());
 		if (list == null) {
-			context.getSender().sendMessage(aspect.toString() + "'s aspects were not found!");
+			context.getSender().sendMessage(mat.toString() + "'s aspects were not found!");
 			return;
 		}
-		
+
 		StringBuilder builder = null;
 		for (Entry<Aspect, Integer> e : list.getAspects().entrySet()) {
 			if (builder != null)
 				builder.append(", ");
-			else 
+			else
 				builder = new StringBuilder("Aspects: ");
 			builder.append(e.getKey().getColour() + e.getKey().getDefaultName() + " " + e.getValue());
 		}
-		context.getSender().sendMessage("Aspects on " + aspect.toString());
+		context.getSender().sendMessage("Aspects on " + mat.toString());
 		context.getSender().sendMessage(builder.toString());
-		
+
 	}
-	
+
 	@SenderSpecification(type = SenderType.PLAYER, message = "This command can only be executed by an in-game player")
-	@Cmd(label = "spelltome", description = "Gives a spelltome", usage="/spelltome <spell>")
+	@Cmd(label = "spelltome", description = "Gives a spelltome", usage = "/spelltome <spell>")
 	public static void onSpelltome(CommandContext context) {
 		if (context.getOptions().length == 0) {
 			context.getSender().sendMessage("Not enough arguments! /spelltome <spell>");
@@ -209,8 +219,9 @@ public class UserCommand {
 			context.getSender().sendMessage("That spell does not exist");
 			return;
 		}
-		ItemStack item = SpellTome.getSpellTome(spell);
-		Player player = (Player)context.getSender();
+		ItemStack item = SpellTome.getSpellTome(spell,
+				Zephyr.getUserManager().getUser(((Player) context.getSender()).getUniqueId()));
+		Player player = (Player) context.getSender();
 		player.getInventory().addItem(item);
 		player.sendMessage("Gave spelltome");
 	}

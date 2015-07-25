@@ -16,11 +16,10 @@ import com.minnymin.zephyr.api.projectile.ProjectileManager;
  */
 public abstract class AbstractProjectileManager<T> implements ProjectileManager {
 
-	protected Map<T, Projectile> tracking;
+	protected Map<T, Projectile> tracking = new WeakHashMap<T, Projectile>();
 
 	@Override
 	public void onEnable() {
-		tracking = new WeakHashMap<T, Projectile>();
 	}
 	
 	@Override

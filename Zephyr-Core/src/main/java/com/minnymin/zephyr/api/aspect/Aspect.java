@@ -57,6 +57,12 @@ public enum Aspect {
 		return getAspectMap().get(itemId);
 	}
 	
+	public static AspectList getAspects(String itemId, int amount) {
+		AspectList list = getAspects(itemId);
+		list.mult(amount);
+		return list;
+	}
+	
 	/**
 	 * Aspect class below
 	 */

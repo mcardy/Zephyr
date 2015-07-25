@@ -10,11 +10,10 @@ import com.minnymin.zephyr.api.user.UserState;
 
 public abstract class AbstractUserManager implements UserManager {
 
-	protected Set<AbstractUser> userSet;
+	protected Set<User> userSet = new HashSet<User>();
 	
 	@Override
 	public void onEnable() {
-		this.userSet = new HashSet<AbstractUser>();
 	}
 	
 	@Override

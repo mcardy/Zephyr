@@ -109,6 +109,11 @@ public abstract class AbstractUser implements User {
 	}
 	
 	@Override
+	public int getLevel() {
+		return this.userData.getLevel();
+	}
+	
+	@Override
 	public int getMana() {
 		return this.mana;
 	}
@@ -118,6 +123,11 @@ public abstract class AbstractUser implements User {
 		return this.userData.getMaximumMana();
 	}
 
+	@Override
+	public List<String> getKnownSpells() {
+		return this.userData.getKnownSpells();
+	}
+	
 	@Override
 	public int getRequiredLevelProgress() {
 		return (int) ((Math.pow(this.getUserData().getLevel(), 2)) * 10 + 100);
@@ -136,6 +146,11 @@ public abstract class AbstractUser implements User {
 	@Override
 	public boolean isCasting() {
 		return this.currentlyCasting != null;
+	}
+	
+	@Override
+	public boolean isSpellKnown(Spell spell) {
+		return getKnownSpells().contains(spell.getName());
 	}
 
 	@Override
@@ -159,6 +174,11 @@ public abstract class AbstractUser implements User {
 		}
 	}
 
+	@Override
+	public void teachSpell(Spell spell) {
+		this.getUserData().teachSpell(spell);
+	}
+	
 	@Override
 	public void tick() {
 		tickTime++;

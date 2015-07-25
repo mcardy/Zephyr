@@ -13,6 +13,7 @@ public class BukkitCommandManager implements Manager {
 		handler = new BukkitCommandHandler(ZephyrPlugin.getInstance());
 		handler.registerCommands(SpellCommand.class);
 		handler.registerCommands(UserCommand.class);
+		handler.registerCommands(ZephyrCommand.class);
 		handler.registerHelp();
 	}
 

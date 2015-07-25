@@ -21,6 +21,7 @@ public class BukkitSpellManager extends AbstractSpellManager {
 	
 	@Override
 	public void onEnable() {
+		ZephyrPlugin.logger().info("Registering spells...");
 		super.onEnable();
 		
 		this.spellFile = new YmlConfigFile("spells.yml");

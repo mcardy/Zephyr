@@ -3,6 +3,7 @@ package com.minnymin.zephyr.api.spell;
 import java.util.List;
 
 import com.minnymin.zephyr.api.Manager;
+import com.minnymin.zephyr.api.aspect.AspectList;
 
 /**
  * Represents a manager used to register and retrieve spells
@@ -51,6 +52,13 @@ public interface SpellManager extends Manager {
 	 * @return A list of spells that have the same required level as the given level
 	 */
 	public List<Spell> getSpellsForLevel(int level);
+	
+	/**
+	 * Gets all the aspects for a given AspectList
+	 * @param list The list of aspects to check
+	 * @return A list full of all spells satisfied by the list
+	 */
+	public List<Spell> getSpellsForRecipe(AspectList list);
 
 	/**
 	 * Add a {@link Spell} to this spell manager instance
