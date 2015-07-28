@@ -11,6 +11,8 @@ public class BukkitCommandManager implements Manager {
 	@Override
 	public void onEnable() {
 		handler = new BukkitCommandHandler(ZephyrPlugin.getInstance());
+		handler.registerCommands(BindCommand.class);
+		handler.registerCommands(ItemCommand.class);
 		handler.registerCommands(SpellCommand.class);
 		handler.registerCommands(UserCommand.class);
 		handler.registerCommands(ZephyrCommand.class);

@@ -37,7 +37,9 @@ import com.minnymin.zephyr.common.item.BaseActionItem;
 
 public abstract class BukkitWand extends BaseActionItem implements WandItem {
 
-	private static final String boundLabel = ColorCharacter.GRAY + "Bound spell";
+	private static final String leftBound = ColorCharacter.GRAY + "Left click bound spell";
+	private static final String rightBound = ColorCharacter.GRAY + "Right click bound spell";
+	private static final String seperator = ": ";
 
 	private int maxLevel;
 
@@ -126,11 +128,26 @@ public abstract class BukkitWand extends BaseActionItem implements WandItem {
 				user.setCasting(null, null);
 			} else {
 				SpellManager manager = Zephyr.getSpellManager();
-				String spellName = getBoundSpell(player.getItemInHand());
+				String spellName = getRightBoundSpell(player.getItemInHand());
 				Spell spell = manager.getSpell(spellName);
 				if (spell != null) {
 					manager.cast(spell, new BukkitSpellContext(spell, user, new String[0]));
 				}
+			}
+		}
+	}
+
+	@Override
+	public void onLeftClick(User user) {
+		Player player = user.<Player> getPlayerObject();
+		if (user.isCasting()) {
+			user.setCasting(null, null);
+		} else {
+			SpellManager manager = Zephyr.getSpellManager();
+			String spellName = getLeftBoundSpell(player.getItemInHand());
+			Spell spell = manager.getSpell(spellName);
+			if (spell != null) {
+				manager.cast(spell, new BukkitSpellContext(spell, user, new String[0]));
 			}
 		}
 	}
@@ -148,49 +165,88 @@ public abstract class BukkitWand extends BaseActionItem implements WandItem {
 		};
 	}
 
-	@Override
-	public void bindSpell(Object obj, Spell spell, User user) {
-		if (!(obj instanceof ItemStack)) {
-			user.sendMessage("You can only bind spells to wands!");
-			return;
-		}
-		ItemStack stack = (ItemStack) obj;
+	private void bind(ItemStack stack, Spell spell, User user, String label) {
 		String name = stack.hasItemMeta() && stack.getItemMeta().hasDisplayName() ? stack.getItemMeta()
 				.getDisplayName() : null;
 		List<String> lore = stack.hasItemMeta() && stack.getItemMeta().hasLore() ? stack.getItemMeta().getLore() : null;
 		if (name == null || !ChatColor.stripColor(name).equals(this.getName()) || lore == null) {
-			user.sendMessage("You can only bind spells to wands!");
+			user.sendMessage(ChatColor.RED + "You must be holding a wand!");
 			return;
 		}
-		if (spell.getLevel() > this.maxLevel) {
-			user.sendMessage(ColorCharacter.RED + "Your wand is too low level to bind " + spell.getName() + " to");
-			return;
+
+		for (int i = 0; i < lore.size(); i++) {
+			if (lore.get(i).startsWith(label)) {
+				lore.remove(i);
+				break;
+			}
 		}
-		if (lore.get(lore.size() - 1).split(": ")[0].equals(boundLabel)) {
-			lore.remove(lore.size() - 1);
-		}
+
 		if (spell != null) {
-			lore.add(boundLabel + ": " + spell.getName());
+			if (spell.getLevel() > this.maxLevel) {
+				user.sendMessage(ColorCharacter.RED + "Your wand is too low level to bind " + spell.getName() + " to");
+				return;
+			}
+			lore.add(label + seperator + spell.getName());
 		}
+
 		ItemMeta meta = stack.getItemMeta();
 		meta.setLore(lore);
 		stack.setItemMeta(meta);
-		user.sendMessage(ColorCharacter.BLUE + "Bound " + spell.getName() + " to your wand!");
+
+		if (spell != null) {
+			user.sendMessage(ColorCharacter.BLUE + "Bound " + spell.getName() + " to the "
+					+ (label == rightBound ? "right" : "left") + " click of your wand!");
+		} else {
+			user.sendMessage(ColorCharacter.BLUE + "Unbound " + (label == rightBound ? "right" : "left")
+					+ " click spell from your wand!");
+		}
 	}
 
 	@Override
-	public String getBoundSpell(Object obj) {
+	public void bindLeftClick(Object obj, Spell spell, User user) {
 		if (!(obj instanceof ItemStack)) {
+			user.sendMessage(ChatColor.RED + "You must be holding a wand!");
+			return;
+		}
+		bind((ItemStack) obj, spell, user, leftBound);
+	}
+
+	@Override
+	public void bindRightClick(Object obj, Spell spell, User user) {
+		if (!(obj instanceof ItemStack)) {
+			user.sendMessage(ChatColor.RED + "You must be holding a wand!");
+			return;
+		}
+		bind((ItemStack) obj, spell, user, rightBound);
+	}
+
+	@Override
+	public String getLeftBoundSpell(Object itemStack) {
+		if (!(itemStack instanceof ItemStack)) {
 			return null;
 		}
-		ItemStack stack = (ItemStack) obj;
+		return getBoundSpell((ItemStack) itemStack, leftBound);
+	}
+
+	@Override
+	public String getRightBoundSpell(Object itemStack) {
+		if (!(itemStack instanceof ItemStack)) {
+			return null;
+		}
+		return getBoundSpell((ItemStack) itemStack, rightBound);
+	}
+
+	private String getBoundSpell(ItemStack stack, String label) {
 		List<String> lore = stack.hasItemMeta() && stack.getItemMeta().hasLore() ? stack.getItemMeta().getLore() : null;
 		if (lore == null) {
 			return null;
 		}
 		String spell = "";
-		if (lore.get(lore.size() - 1).split(": ")[0].equals(boundLabel)) {
-			spell = lore.get(lore.size() - 1).split(": ")[1];
+		for (String s : lore) {
+			if (s.startsWith(label)) {
+				spell = s.split(seperator)[1];
+				break;
+			}
 		}
 		return spell;
 	}
