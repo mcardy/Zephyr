@@ -18,6 +18,10 @@ public class BukkitUserManager extends AbstractUserManager implements Listener {
 		super.onEnable();
 		Bukkit.getPluginManager().registerEvents(this, ZephyrPlugin.getInstance());
 		Bukkit.getScheduler().runTaskTimer(ZephyrPlugin.getInstance(), new BukkitUserRunnable(), 0, 1);
+		
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			this.userSet.add(new BukkitUser(player));
+		}
 	}
 	
 	@EventHandler
@@ -28,8 +32,9 @@ public class BukkitUserManager extends AbstractUserManager implements Listener {
 
 	@EventHandler
 	public void onUserDisconnect(PlayerQuitEvent event) {
-		Player player = event.getPlayer();
-		this.userSet.remove(this.getUser(player.getUniqueId()));
+		User user = this.getUser(event.getPlayer().getUniqueId());
+		user.logout();
+		this.userSet.remove(user);
 	}
 
 	private class BukkitUserRunnable implements Runnable {

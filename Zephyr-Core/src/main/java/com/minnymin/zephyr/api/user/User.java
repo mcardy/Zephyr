@@ -93,11 +93,21 @@ public interface User {
 	 * Checks if user is currently casting a spell
 	 */
 	public boolean isCasting();
+	
+	/**
+	 * Checks if the user is on cooldown
+	 */
+	public boolean isCooling();
 
 	/**
 	 * Checks if a spell is known
 	 */
 	public boolean isSpellKnown(Spell spell);
+	
+	/**
+	 * Should only be called when user logs out or server is shut down
+	 */
+	public void logout();
 	
 	/**
 	 * Removes a user's state
@@ -114,6 +124,11 @@ public interface User {
 	 */
 	public void setCasting(ContinuousSpell spell, SpellContext context);
 
+	/**
+	 * Sets if the user is cooling
+	 */
+	public void setCooling(boolean cooling);
+	
 	/**
 	 * Sets the user's mana
 	 */

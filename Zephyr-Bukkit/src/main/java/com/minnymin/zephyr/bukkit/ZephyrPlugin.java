@@ -39,7 +39,10 @@ public class ZephyrPlugin extends JavaPlugin implements ZephyrAPI {
 	
 	public ZephyrPlugin() {
 		ZephyrPlugin.INSTANCE = this;
-		
+	}
+	
+	@Override
+	public void onLoad() {
 		Zephyr.addManager(new BukkitAspectRegister());
 		Zephyr.addManager(new BukkitCommandManager());
 		Zephyr.addManager(new BukkitItemManager());

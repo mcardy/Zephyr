@@ -122,11 +122,15 @@ public abstract class BukkitWand extends BaseActionItem implements WandItem {
 				gui.open(player);
 			}
 		} else {
-			SpellManager manager = Zephyr.getSpellManager();
-			String spellName = getBoundSpell(player.getItemInHand());
-			Spell spell = manager.getSpell(spellName);
-			if (spell != null) {
-				manager.cast(spell, new BukkitSpellContext(spell, user, new String[0]));
+			if (user.isCasting()) {
+				user.setCasting(null, null);
+			} else {
+				SpellManager manager = Zephyr.getSpellManager();
+				String spellName = getBoundSpell(player.getItemInHand());
+				Spell spell = manager.getSpell(spellName);
+				if (spell != null) {
+					manager.cast(spell, new BukkitSpellContext(spell, user, new String[0]));
+				}
 			}
 		}
 	}

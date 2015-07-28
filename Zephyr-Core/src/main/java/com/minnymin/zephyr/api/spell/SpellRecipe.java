@@ -2,6 +2,7 @@ package com.minnymin.zephyr.api.spell;
 
 import java.util.Map.Entry;
 
+import com.minnymin.zephyr.api.Zephyr;
 import com.minnymin.zephyr.api.aspect.Aspect;
 import com.minnymin.zephyr.api.aspect.AspectList;
 
@@ -23,8 +24,8 @@ public class SpellRecipe {
 		return this.list;
 	}
 	
-	public Class<? extends Spell> getPrerequisite() {
-		return this.prerequisite;
+	public Spell getPrerequisite() {
+		return Zephyr.getSpellManager().getSpell(this.prerequisite);
 	}
 	
 	public boolean hasPrerequisite() {

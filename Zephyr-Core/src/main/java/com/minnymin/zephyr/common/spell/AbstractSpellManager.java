@@ -86,6 +86,9 @@ public abstract class AbstractSpellManager implements SpellManager {
 	@Override
 	public void cast(Spell spell, SpellContext context) {
 		User user = context.getUser();
+		if (user.isCooling()) {
+			return;
+		}
 		if (spell == null) {
 			user.sendMessage("That spell does not exist...");
 			return;
@@ -111,6 +114,7 @@ public abstract class AbstractSpellManager implements SpellManager {
 			user.drainMana(spell.getManaCost());
 			user.addLevelProgress(spell.getExperienceGain());
 		}
+		user.setCooling(true);
 	}
 
 	@Override

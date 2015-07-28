@@ -16,7 +16,7 @@ public abstract class BaseSpell implements Spell {
 	private int experienceReward;
 	
 	public BaseSpell(String name, String description, int requiredLevel, int manaCost) {
-		this(name, description, requiredLevel, manaCost, manaCost/4);
+		this(name, description, requiredLevel, manaCost, manaCost/5);
 	}
 	
 	public BaseSpell(String name, String description, int requiredLevel, int manaCost, int experienceReward) {

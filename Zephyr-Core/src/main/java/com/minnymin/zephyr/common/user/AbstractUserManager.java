@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import com.minnymin.zephyr.api.user.User;
 import com.minnymin.zephyr.api.user.UserManager;
-import com.minnymin.zephyr.api.user.UserState;
 
 public abstract class AbstractUserManager implements UserManager {
 
@@ -19,9 +18,7 @@ public abstract class AbstractUserManager implements UserManager {
 	@Override
 	public void onDisable() {
 		for (User user : this.userSet) {
-			for (UserState state : user.getAppliedStates()) {
-				user.removeState(state);
-			}
+			user.logout();
 		}
 	}
 	

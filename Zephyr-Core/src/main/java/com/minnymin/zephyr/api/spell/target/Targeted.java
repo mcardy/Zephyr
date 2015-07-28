@@ -84,7 +84,7 @@ public @interface Targeted {
 	/**
 	 * @return The range of the target
 	 */
-	public int range() default 5;
+	public int range() default 10;
 
 	/**
 	 * @return The type of target

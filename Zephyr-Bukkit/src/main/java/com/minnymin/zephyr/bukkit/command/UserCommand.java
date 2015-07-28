@@ -35,7 +35,7 @@ public class UserCommand {
 				+ user.getMaximumMana() + ": [");
 		int percent = (int) (((float) user.getMana() / (float) user.getMaximumMana()) * 10);
 		builder.append(ChatColor.AQUA);
-		for (int i = 1; i <= 10; i++) {
+		for (int i = 0; i < 10; i++) {
 			builder.append("=");
 			if (i == percent) {
 				builder.append(ChatColor.DARK_GRAY);
@@ -224,6 +224,13 @@ public class UserCommand {
 		Player player = (Player) context.getSender();
 		player.getInventory().addItem(item);
 		player.sendMessage("Gave spelltome");
+	}
+	
+	@SenderSpecification(type = SenderType.PLAYER, message = "This command can only be executed by an in-game player")
+	@Cmd(label = "levelup", description = "Levels up the user", usage = "/levelup")
+	public static void onProgressAdd(CommandContext context) {
+		User user = Zephyr.getUserManager().getUser(((Player)context.getSender()).getUniqueId());
+		user.addLevelProgress(user.getRequiredLevelProgress()-user.getUserData().getLevelProgress());
 	}
 
 }

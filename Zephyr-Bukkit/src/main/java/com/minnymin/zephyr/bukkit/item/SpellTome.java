@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.BookMeta;
 import com.google.common.collect.Lists;
 import com.minnymin.zephyr.api.Zephyr;
 import com.minnymin.zephyr.api.spell.Spell;
+import com.minnymin.zephyr.api.spell.SpellRecipe;
 import com.minnymin.zephyr.api.user.User;
 import com.minnymin.zephyr.api.util.ColorCharacter;
 import com.minnymin.zephyr.common.item.BaseActionItem;
@@ -34,10 +35,10 @@ public class SpellTome extends BaseActionItem {
 						+ user.getLevel() + " / " + spell.getLevel());
 				return;
 			}
+			SpellRecipe recipe;
 			Spell prerequisite;
-			if (spell.getRecipe().hasPrerequisite()
-					&& !user.isSpellKnown(prerequisite = Zephyr.getSpellManager().getSpell(
-							spell.getRecipe().getPrerequisite()))) {
+			if ((recipe = spell.getRecipe()).hasPrerequisite()
+					&& !user.isSpellKnown(prerequisite = recipe.getPrerequisite())) {
 				player.sendMessage(ChatColor.RED + "You must know " + prerequisite.getName() + " before you can learn "
 						+ spell.getName());
 				return;

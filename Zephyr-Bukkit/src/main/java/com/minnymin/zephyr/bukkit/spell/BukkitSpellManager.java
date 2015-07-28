@@ -6,10 +6,23 @@ import org.bukkit.event.Listener;
 import com.minnymin.zephyr.api.spell.Spell;
 import com.minnymin.zephyr.api.util.Configuration;
 import com.minnymin.zephyr.bukkit.ZephyrPlugin;
-import com.minnymin.zephyr.bukkit.spell.attack.ButcherSpell;
+import com.minnymin.zephyr.bukkit.spell.attack.ArrowRainSpell;
+import com.minnymin.zephyr.bukkit.spell.attack.ArrowSpell;
+import com.minnymin.zephyr.bukkit.spell.attack.ArrowStormSpell;
+import com.minnymin.zephyr.bukkit.spell.attack.BoltSpell;
 import com.minnymin.zephyr.bukkit.spell.attack.FireballSpell;
-import com.minnymin.zephyr.bukkit.spell.attack.ProjectileSpell;
-import com.minnymin.zephyr.bukkit.spell.buff.RegenerationSpell;
+import com.minnymin.zephyr.bukkit.spell.attack.FirechargeSpell;
+import com.minnymin.zephyr.bukkit.spell.attack.HomingArrowSpell;
+import com.minnymin.zephyr.bukkit.spell.attack.PoisonCloudSpell;
+import com.minnymin.zephyr.bukkit.spell.attack.PoisonSpell;
+import com.minnymin.zephyr.bukkit.spell.mobility.BlinkSpell;
+import com.minnymin.zephyr.bukkit.spell.mobility.HomeSpell;
+import com.minnymin.zephyr.bukkit.spell.mobility.PhaseSpell;
+import com.minnymin.zephyr.bukkit.spell.restoration.FeedSpell;
+import com.minnymin.zephyr.bukkit.spell.restoration.FeederSpell;
+import com.minnymin.zephyr.bukkit.spell.restoration.HealSpell;
+import com.minnymin.zephyr.bukkit.spell.restoration.HealerSpell;
+import com.minnymin.zephyr.bukkit.spell.world.ProspectSpell;
 import com.minnymin.zephyr.bukkit.util.BukkitConfiguration;
 import com.minnymin.zephyr.bukkit.util.YmlConfigFile;
 import com.minnymin.zephyr.common.spell.AbstractSpellManager;
@@ -26,11 +39,30 @@ public class BukkitSpellManager extends AbstractSpellManager {
 		
 		this.spellFile = new YmlConfigFile("spells.yml");
 		
+		// Attack spells
+		registerSpell(new ArrowSpell());
+		registerSpell(new ArrowStormSpell());
+		registerSpell(new ArrowRainSpell());
+		registerSpell(new BoltSpell());
 		registerSpell(new FireballSpell());
-		registerSpell(new ButcherSpell());
-		registerSpell(new ProjectileSpell());
+		registerSpell(new FirechargeSpell());
+		registerSpell(new HomingArrowSpell());
+		registerSpell(new PoisonCloudSpell());
+		registerSpell(new PoisonSpell());
 		
-		registerSpell(new RegenerationSpell());
+		// Mobility spells
+		registerSpell(new BlinkSpell());
+		registerSpell(new HomeSpell());
+		registerSpell(new PhaseSpell());
+		
+		// Restoration spells
+		registerSpell(new FeederSpell());
+		registerSpell(new FeedSpell());
+		registerSpell(new HealerSpell());
+		registerSpell(new HealSpell());
+		
+		// World spells
+		registerSpell(new ProspectSpell());
 	}
 	
 	@Override

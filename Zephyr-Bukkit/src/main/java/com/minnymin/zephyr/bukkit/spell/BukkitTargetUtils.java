@@ -31,7 +31,7 @@ public final class BukkitTargetUtils {
 	}
 	
 	public static <T extends Entity> T getTarget(Player player, int range, Collection<T> entities) {
-		BlockIterator iterator = new BlockIterator(player);
+		BlockIterator iterator = new BlockIterator(player, range);
 		while (iterator.hasNext()) {
 			Block block = iterator.next();
 			for (T entity : entities) {
@@ -39,7 +39,7 @@ public final class BukkitTargetUtils {
 				for (int offX = -accuracy; offX < accuracy; offX++) {
 					for (int offY = -accuracy; offY < accuracy; offY++) {
 						for (int offZ = -accuracy; offZ < accuracy; offZ++) {
-							if (entity.getLocation().getBlock().equals(block)) {
+							if (entity.getLocation().getBlock().getRelative(offX, offY, offZ).equals(block)) {
 								return entity;
 							}
 						}
@@ -94,6 +94,34 @@ public final class BukkitTargetUtils {
 		Set<Material> set = new HashSet<Material>();
 		set.add(Material.AIR);
 		return player.getTargetBlock(set, range);
+	}
+	
+	private static HashSet<Material> transparent;
+	
+	public static Set<Material> getTransparent() {
+		if (transparent == null) {
+			transparent = new HashSet<Material>();
+			transparent.add(Material.AIR);
+			transparent.add(Material.WATER);
+			transparent.add(Material.STATIONARY_WATER);
+			transparent.add(Material.POWERED_RAIL);
+			transparent.add(Material.DETECTOR_RAIL);
+			transparent.add(Material.WEB);
+			transparent.add(Material.LONG_GRASS);
+			transparent.add(Material.DEAD_BUSH);
+			transparent.add(Material.YELLOW_FLOWER);
+			transparent.add(Material.RED_ROSE);
+			transparent.add(Material.BROWN_MUSHROOM);
+			transparent.add(Material.RED_MUSHROOM);
+			transparent.add(Material.LADDER);
+			transparent.add(Material.RAILS);
+			transparent.add(Material.SNOW);
+			transparent.add(Material.SUGAR_CANE_BLOCK);
+			transparent.add(Material.VINE);
+			transparent.add(Material.CARPET);
+			transparent.add(Material.ACTIVATOR_RAIL);
+		}
+		return transparent;
 	}
 	
 }

@@ -12,9 +12,14 @@ import com.minnymin.zephyr.bukkit.nms.packet.PacketEntityDestroy;
 import com.minnymin.zephyr.bukkit.util.ParticleEffects;
 import com.minnymin.zephyr.bukkit.util.ParticleEffects.Particle;
 
-public class BallProjectile implements Projectile {
+public abstract class BallProjectile implements Projectile {
 
 	private Snowball snowball;
+	private Particle effect;
+	
+	public BallProjectile(Particle effect) {
+		this.effect = effect;
+	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -43,11 +48,15 @@ public class BallProjectile implements Projectile {
 			return;
 		}
 		Location loc = (Location) obj;
-		ParticleEffects.sendParticle(Particle.FIRE, loc, 10);
+		ParticleEffects.sendParticle(this.effect, loc, 10);
 	}
 
 	@Override
 	public void onBlockHit(Object obj) {
+		if (!(obj instanceof Location)) {
+			return;
+		}
+		onBlockHit((Location)obj);
 	}
 
 	@Override
@@ -55,8 +64,10 @@ public class BallProjectile implements Projectile {
 		if (!(obj instanceof LivingEntity)) {
 			return;
 		}
-		LivingEntity target = (LivingEntity) obj;
-		target.setFireTicks(100);
+		onEntityHit((LivingEntity)obj);
 	}
+	
+	public abstract void onEntityHit(LivingEntity en);
+	public abstract void onBlockHit(Location loc);
 
 }
