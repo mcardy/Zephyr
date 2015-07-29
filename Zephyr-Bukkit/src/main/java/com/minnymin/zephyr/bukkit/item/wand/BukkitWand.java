@@ -51,7 +51,7 @@ public abstract class BukkitWand extends BaseActionItem implements WandItem {
 
 	@Override
 	public void onRightClick(User user) {
-		Player player = user.<Player> getPlayerObject();
+		Player player = user.<Player> getPlayer();
 		Block shelf = null;
 		// Checks if targeting a bookshelf
 		if ((shelf = BukkitTargetUtils.getTargetBlock(player, 5)) != null && shelf.getType() == Material.BOOKSHELF) {
@@ -139,7 +139,7 @@ public abstract class BukkitWand extends BaseActionItem implements WandItem {
 
 	@Override
 	public void onLeftClick(User user) {
-		Player player = user.<Player> getPlayerObject();
+		Player player = user.<Player> getPlayer();
 		if (user.isCasting()) {
 			user.setCasting(null, null);
 		} else {

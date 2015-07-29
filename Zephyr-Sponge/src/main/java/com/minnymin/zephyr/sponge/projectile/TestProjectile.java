@@ -25,7 +25,7 @@ public class TestProjectile implements Projectile {
 
 	@Override
 	public void launch(User user) {
-		Player player = user.<Player> getPlayerObject();
+		Player player = user.<Player> getPlayer();
 		World world = player.getWorld();
 		// Best I can do with Sponge as it is now
 		en = world.createEntity(EntityTypes.ARROW, player.getLocation().getPosition()).get();

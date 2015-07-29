@@ -84,7 +84,7 @@ public class UserCommand {
 		}
 
 		target.setMana(target.getMaximumMana());
-		target.<Player> getPlayerObject().sendMessage(Texts.builder("Mana restored!").color(TextColors.AQUA).build());
+		target.<Player> getPlayer().sendMessage(Texts.builder("Mana restored!").color(TextColors.AQUA).build());
 
 		return CommandResult.success();
 	}

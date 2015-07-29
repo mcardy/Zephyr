@@ -15,10 +15,6 @@ public class BukkitUser extends AbstractUser {
 		super(new BukkitUserData(player.getUniqueId()));
 		this.uuid = player.getUniqueId();
 	}
-	
-	public Player getPlayer() {
-		return Bukkit.getPlayer(this.uuid);
-	}
 
 	@Override
 	public UUID getUUID() {
@@ -27,9 +23,9 @@ public class BukkitUser extends AbstractUser {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <T> T getPlayerObject() {
+	public <T> T getPlayer() {
 		try {
-			return (T) getPlayer();
+			return (T) Bukkit.getPlayer(this.uuid);
 		} catch (ClassCastException ex) {
 			Bukkit.getLogger().warning("[Zephyr] Unable to get player object from user: " + ex.getMessage());
 			return null;
@@ -39,7 +35,7 @@ public class BukkitUser extends AbstractUser {
 	@Override
 	public void sendMessage(String... message) {
 		for (int i = 0; i < message.length; i++) {
-			getPlayer().sendMessage(message);
+			this.<Player>getPlayer().sendMessage(message);
 		}
 	}
 	

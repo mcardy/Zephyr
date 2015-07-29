@@ -25,7 +25,7 @@ public class SpellTome extends BaseActionItem {
 
 	@Override
 	public void onLeftClick(User user) {
-		Player player = user.<Player> getPlayerObject();
+		Player player = user.<Player> getPlayer();
 		ItemStack stack = player.getItemInHand();
 		String displayName = stack.getItemMeta().getDisplayName();
 		Spell spell = Zephyr.getSpellManager().getSpell(displayName.split(SEPERATOR)[1].toLowerCase());
@@ -65,7 +65,7 @@ public class SpellTome extends BaseActionItem {
 		page.append("Learn this spell by left clicking the book");
 
 		meta.setPages(page.toString());
-		meta.setAuthor(user.<Player> getPlayerObject().getName());
+		meta.setAuthor(user.<Player> getPlayer().getName());
 		meta.setDisplayName(ChatColor.GOLD + "Spell Tome" + ChatColor.GRAY + SEPERATOR
 				+ WordUtils.capitalize(spell.getName()));
 		meta.setLore(Lists.newArrayList(ChatColor.GRAY + "Learn by left clicking"));

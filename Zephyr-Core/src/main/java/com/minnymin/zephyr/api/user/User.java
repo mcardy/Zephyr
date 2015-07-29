@@ -65,7 +65,7 @@ public interface User {
 	/**
 	 * Gets the player object from the implementation
 	 */
-	public <T> T getPlayerObject();
+	public <T> T getPlayer();
 
 	/**
 	 * Gets the progress required for the user to level up

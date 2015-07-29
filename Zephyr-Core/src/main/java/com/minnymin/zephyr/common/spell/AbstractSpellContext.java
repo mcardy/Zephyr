@@ -30,7 +30,7 @@ public abstract class AbstractSpellContext implements SpellContext {
 	
 	@Override
 	public <T> T getPlayer() {
-		return this.user.<T>getPlayerObject();
+		return this.user.<T>getPlayer();
 	}
 	
 	@Override

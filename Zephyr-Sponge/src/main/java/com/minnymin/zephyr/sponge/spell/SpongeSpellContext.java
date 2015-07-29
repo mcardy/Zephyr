@@ -17,7 +17,7 @@ public class SpongeSpellContext extends AbstractSpellContext {
 		super(spell, user, args);
 		
 		if (this.spell.getClass().isAnnotationPresent(Targeted.class)) {
-			Player player = user.<Player> getPlayerObject();
+			Player player = user.<Player> getPlayer();
 			int range = this.spell.getClass().getAnnotation(Targeted.class).range();
 			this.target = getTarget(this.spell.getClass().getAnnotation(Targeted.class).type(), player, range);	
 		} else {

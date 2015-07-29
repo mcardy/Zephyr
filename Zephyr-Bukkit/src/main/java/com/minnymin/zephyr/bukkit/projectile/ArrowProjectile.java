@@ -23,7 +23,7 @@ public class ArrowProjectile implements Projectile {
 
 	@Override
 	public void launch(User user) {
-		this.arrow = user.<Player>getPlayerObject().launchProjectile(Arrow.class);
+		this.arrow = user.<Player>getPlayer().launchProjectile(Arrow.class);
 		Zephyr.getProjectileManager().trackProjectile(this);
 	}
 

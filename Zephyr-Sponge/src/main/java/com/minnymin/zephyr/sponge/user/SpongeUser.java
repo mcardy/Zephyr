@@ -17,15 +17,11 @@ public class SpongeUser extends AbstractUser {
 		this.uuid = player.getUniqueId();
 	}
 	
-	public Player getPlayer() {
-		return ZephyrPlugin.getGame().getServer().getPlayer(uuid).get();
-	}
-	
 	@Override
 	@SuppressWarnings("unchecked")
-	public <T> T getPlayerObject() {
+	public <T> T getPlayer() {
 		try {
-			return (T) getPlayer();
+			return (T) ZephyrPlugin.getGame().getServer().getPlayer(uuid).get();
 		} catch (ClassCastException ex) {
 			ZephyrPlugin.getLogger().warn("Unable to get player object from user: " + ex.getMessage());
 			return null;
@@ -40,7 +36,7 @@ public class SpongeUser extends AbstractUser {
 	@Override
 	public void sendMessage(String... message) {
 		for (int i = 0; i < message.length; i++) {
-			ZephyrPlugin.getGame().getServer().getPlayer(uuid).get().sendMessage(Texts.of(message[i]));
+			this.<Player>getPlayer().sendMessage(Texts.of(message[i]));
 		}
 	}
 	

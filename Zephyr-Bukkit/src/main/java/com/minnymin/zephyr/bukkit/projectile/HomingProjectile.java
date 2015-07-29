@@ -32,7 +32,7 @@ public class HomingProjectile implements Projectile {
 
 	@Override
 	public void launch(User user) {	
-		this.entity = user.<Player>getPlayerObject().launchProjectile(this.projectile);
+		this.entity = user.<Player>getPlayer().launchProjectile(this.projectile);
 		Zephyr.getProjectileManager().trackProjectile(this);
 	}
 

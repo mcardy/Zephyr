@@ -33,10 +33,10 @@ public abstract class BallProjectile implements Projectile {
 
 	@Override
 	public void launch(User user) {		
-		this.snowball = user.<Player>getPlayerObject().launchProjectile(Snowball.class);
+		this.snowball = user.<Player>getPlayer().launchProjectile(Snowball.class);
 		PacketEntityDestroy packet = new PacketEntityDestroy(snowball.getEntityId());
-		packet.send(user.<Player>getPlayerObject());
-		for (Player p : user.<Player>getPlayerObject().getWorld().getPlayers()) {
+		packet.send(user.<Player>getPlayer());
+		for (Player p : user.<Player>getPlayer().getWorld().getPlayers()) {
 			packet.send(p);
 		}
 		Zephyr.getProjectileManager().trackProjectile(this);
