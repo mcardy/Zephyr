@@ -16,7 +16,7 @@ public class BukkitSpellContext extends AbstractSpellContext {
 	public BukkitSpellContext(Spell spell, User user, String[] args) {
 		super(spell, user, args);
 		
-		if (this.spell.getClass().isAnnotationPresent(Targeted.class)) {
+		if (this.spell != null && this.spell.getClass().isAnnotationPresent(Targeted.class)) {
 			Player player = user.<Player> getPlayer();
 			int range = this.spell.getClass().getAnnotation(Targeted.class).range();
 			this.target = getTarget(this.spell.getClass().getAnnotation(Targeted.class).type(), player, range);	

@@ -114,6 +114,7 @@ public class BukkitItemManager implements ItemManager, Listener {
 		if (event.getItem() != null) {
 			ActionItem item = this.getActionItem(event.getItem());
 			if (item != null) {
+				event.setCancelled(true);
 				if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
 					item.onLeftClick(Zephyr.getUserManager().getUser(event.getPlayer().getUniqueId()));
 				} else if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {

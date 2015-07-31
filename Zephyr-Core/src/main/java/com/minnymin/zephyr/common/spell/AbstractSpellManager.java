@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Set;
 
 import com.minnymin.zephyr.api.aspect.AspectList;
+import com.minnymin.zephyr.api.spell.CastCondition;
 import com.minnymin.zephyr.api.spell.CastResult;
 import com.minnymin.zephyr.api.spell.ContinuousSpell;
 import com.minnymin.zephyr.api.spell.Spell;
 import com.minnymin.zephyr.api.spell.SpellContext;
 import com.minnymin.zephyr.api.spell.SpellManager;
-import com.minnymin.zephyr.api.spell.target.Targeted;
 import com.minnymin.zephyr.api.user.User;
+import com.minnymin.zephyr.api.util.ColorCharacter;
 
 public abstract class AbstractSpellManager implements SpellManager {
 
@@ -90,25 +91,17 @@ public abstract class AbstractSpellManager implements SpellManager {
 			return;
 		}
 		if (spell == null) {
-			user.sendMessage("That spell does not exist...");
+			user.sendMessage(ColorCharacter.RED + "That spell does not exist...");
 			return;
 		}
-		if (!user.getKnownSpells().contains(spell.getName())) {
-			user.sendMessage("You have not learned that spell!");
-			return;
-		}
-		if (spell.getClass().isAnnotationPresent(Targeted.class)) {
-			Targeted target = spell.getClass().getAnnotation(Targeted.class);
-			if (!target.optional() && !context.hasTarget()) {
-				user.sendMessage("You do not have a target!");
+		
+		for (CastCondition condition : spell.getConditions()) {
+			if (!condition.canCast(context)) {
+				user.sendMessage(ColorCharacter.RED + condition.getMessage(context));
 				return;
 			}
 		}
-		if (!user.hasMana(spell.getManaCost())) {
-			user.sendMessage("You do not have enough mana to cast " + spell.getName() + "! " + user.getMana() + " / "
-					+ spell.getManaCost());
-			return;
-		}
+		
 		CastResult result = spell.cast(context);
 		if (result != CastResult.FAILURE) {
 			user.drainMana(spell.getManaCost());

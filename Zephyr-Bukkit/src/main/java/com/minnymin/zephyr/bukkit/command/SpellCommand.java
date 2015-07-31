@@ -31,10 +31,6 @@ public class SpellCommand {
 		}
 		SpellManager manager = Zephyr.getSpellManager();
 		Spell spell = manager.getSpell(context.getOptions()[0]);
-		if (spell == null) {
-			user.sendMessage("That spell does not exist...");
-			return;
-		}
 		List<String> list = Lists.newArrayList(context.getOptions());
 		list.remove(0);
 		String[] args = list.toArray(new String[list.size()]);

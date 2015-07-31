@@ -17,6 +17,7 @@ import com.minnymin.zephyr.api.spell.SpellContext;
 import com.minnymin.zephyr.api.spell.SpellRecipe;
 import com.minnymin.zephyr.api.spell.target.Targeted;
 import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
+import com.minnymin.zephyr.bukkit.conditions.TargetBlockAirCondition;
 import com.minnymin.zephyr.bukkit.spell.BukkitTargetUtils;
 import com.minnymin.zephyr.common.spell.BaseSpell;
 
@@ -25,18 +26,13 @@ public class PhaseSpell extends BaseSpell {
 
 	public PhaseSpell() {
 		super("phase", "Phase through a wall", 4, 100);
+		addCondition(new TargetBlockAirCondition("You cannot phase through air!"));
 	}
 
 	@Override
 	public CastResult cast(SpellContext context) {
 		Player player = context.<Player> getPlayer();
 		Block target = context.<Block> getTarget().get();
-
-		if (target.getType() == Material.AIR) {
-			player.sendMessage(ChatColor.RED + "You cannot phase through that block");
-			return CastResult.FAILURE;
-		}
-
 		BlockFace direction = getClickedFace(player);
 		Block phased = null;
 

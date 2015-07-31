@@ -1,5 +1,7 @@
 package com.minnymin.zephyr.api.spell;
 
+import java.util.Collection;
+
 import com.minnymin.zephyr.api.util.Configurable;
 
 /**
@@ -10,12 +12,24 @@ import com.minnymin.zephyr.api.util.Configurable;
 public interface Spell extends Configurable {
 
 	/**
+	 * Adds a cast condition to the collection of cast conditions
+	 * @param condition The condition to add
+	 */
+	public void addCondition(CastCondition condition);
+	
+	/**
 	 * Casts the spell
 	 * @param context The context of the spell cast
 	 * @return The {@link CastResult} of the spell cast
 	 */
 	public CastResult cast(SpellContext context);
 
+	/**
+	 * Returns a collection of cast conditions
+	 * @return A collection of cast conditions
+	 */
+	public Collection<CastCondition> getConditions();
+	
 	/**
 	 * @return The description of the spell
 	 */

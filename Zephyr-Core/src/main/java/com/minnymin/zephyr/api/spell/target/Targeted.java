@@ -80,7 +80,7 @@ public @interface Targeted {
 	 * @return Whether or not the target is optional
 	 */
 	public boolean optional() default false;
-
+	
 	/**
 	 * @return The range of the target
 	 */
