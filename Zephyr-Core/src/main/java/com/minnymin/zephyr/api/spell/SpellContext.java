@@ -1,6 +1,6 @@
 package com.minnymin.zephyr.api.spell;
 
-import com.minnymin.zephyr.api.spell.target.TargetHolder;
+import com.google.common.base.Optional;
 import com.minnymin.zephyr.api.user.User;
 
 /**
@@ -33,7 +33,7 @@ public interface SpellContext {
 	/**
 	 * @return Gets the target holder of the target. If target is not of type T, the TargetHolder will be empty.
 	 */
-	public <T> TargetHolder<T> getTarget();
+	public <T> Optional<T> getTarget();
 
 	/**
 	 * @return The caster of the spell

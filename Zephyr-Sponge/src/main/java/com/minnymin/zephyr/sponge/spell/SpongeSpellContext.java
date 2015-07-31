@@ -2,8 +2,8 @@ package com.minnymin.zephyr.sponge.spell;
 
 import org.spongepowered.api.entity.player.Player;
 
+import com.google.common.base.Optional;
 import com.minnymin.zephyr.api.spell.Spell;
-import com.minnymin.zephyr.api.spell.target.TargetHolder;
 import com.minnymin.zephyr.api.spell.target.Targeted;
 import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
 import com.minnymin.zephyr.api.user.User;
@@ -27,12 +27,17 @@ public class SpongeSpellContext extends AbstractSpellContext {
 
 	@Override
 	public boolean hasTarget() {
-		return !getTarget().isAbsent();
+		return getTarget().isPresent();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public <T> TargetHolder<T> getTarget() {
-		return new TargetHolder<T>(this.target);
+	public <T> Optional<T> getTarget() {
+		if (this.target != null) {
+			return Optional.of((T) this.target);
+		} else {
+			return Optional.<T>absent();
+		}
 	}
 	
 	public Object getTarget(TargetType type, Player player, int range) {

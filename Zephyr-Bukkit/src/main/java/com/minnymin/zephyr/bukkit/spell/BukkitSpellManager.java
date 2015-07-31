@@ -15,6 +15,8 @@ import com.minnymin.zephyr.bukkit.spell.attack.FirechargeSpell;
 import com.minnymin.zephyr.bukkit.spell.attack.HomingArrowSpell;
 import com.minnymin.zephyr.bukkit.spell.attack.PoisonCloudSpell;
 import com.minnymin.zephyr.bukkit.spell.attack.PoisonSpell;
+import com.minnymin.zephyr.bukkit.spell.creation.CraftSpell;
+import com.minnymin.zephyr.bukkit.spell.creation.EnderchestSpell;
 import com.minnymin.zephyr.bukkit.spell.mobility.BlinkSpell;
 import com.minnymin.zephyr.bukkit.spell.mobility.HomeSpell;
 import com.minnymin.zephyr.bukkit.spell.mobility.PhaseSpell;
@@ -22,6 +24,8 @@ import com.minnymin.zephyr.bukkit.spell.restoration.FeedSpell;
 import com.minnymin.zephyr.bukkit.spell.restoration.FeederSpell;
 import com.minnymin.zephyr.bukkit.spell.restoration.HealSpell;
 import com.minnymin.zephyr.bukkit.spell.restoration.HealerSpell;
+import com.minnymin.zephyr.bukkit.spell.world.DigSpell;
+import com.minnymin.zephyr.bukkit.spell.world.MineSpell;
 import com.minnymin.zephyr.bukkit.spell.world.ProspectSpell;
 import com.minnymin.zephyr.bukkit.util.BukkitConfiguration;
 import com.minnymin.zephyr.bukkit.util.YmlConfigFile;
@@ -50,6 +54,10 @@ public class BukkitSpellManager extends AbstractSpellManager {
 		registerSpell(new PoisonCloudSpell());
 		registerSpell(new PoisonSpell());
 		
+		// Creation spells
+		registerSpell(new CraftSpell());
+		registerSpell(new EnderchestSpell());
+		
 		// Mobility spells
 		registerSpell(new BlinkSpell());
 		registerSpell(new HomeSpell());
@@ -62,6 +70,8 @@ public class BukkitSpellManager extends AbstractSpellManager {
 		registerSpell(new HealSpell());
 		
 		// World spells
+		registerSpell(new DigSpell());
+		registerSpell(new MineSpell());
 		registerSpell(new ProspectSpell());
 	}
 	
@@ -74,7 +84,5 @@ public class BukkitSpellManager extends AbstractSpellManager {
 		spell.defaultConfiguration(config);
 		spell.loadConfiguration(config);
 	}
-
-	
 	
 }
