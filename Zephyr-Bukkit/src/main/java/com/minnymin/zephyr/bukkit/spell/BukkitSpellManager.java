@@ -24,6 +24,7 @@ import com.minnymin.zephyr.bukkit.spell.restoration.FeedSpell;
 import com.minnymin.zephyr.bukkit.spell.restoration.FeederSpell;
 import com.minnymin.zephyr.bukkit.spell.restoration.HealSpell;
 import com.minnymin.zephyr.bukkit.spell.restoration.HealerSpell;
+import com.minnymin.zephyr.bukkit.spell.state.SpeedSpell;
 import com.minnymin.zephyr.bukkit.spell.world.DigSpell;
 import com.minnymin.zephyr.bukkit.spell.world.MineSpell;
 import com.minnymin.zephyr.bukkit.spell.world.ProspectSpell;
@@ -42,7 +43,7 @@ public class BukkitSpellManager extends AbstractSpellManager {
 		super.onEnable();
 		
 		this.spellFile = new YmlConfigFile("spells.yml");
-		
+				
 		// Attack spells
 		registerSpell(new ArrowSpell());
 		registerSpell(new ArrowStormSpell());
@@ -69,6 +70,9 @@ public class BukkitSpellManager extends AbstractSpellManager {
 		registerSpell(new HealerSpell());
 		registerSpell(new HealSpell());
 		
+		// State spells
+		registerSpell(new SpeedSpell());
+		
 		// World spells
 		registerSpell(new DigSpell());
 		registerSpell(new MineSpell());
@@ -83,6 +87,10 @@ public class BukkitSpellManager extends AbstractSpellManager {
 		Configuration config = new BukkitConfiguration(spellFile, spell.getName());
 		spell.defaultConfiguration(config);
 		spell.loadConfiguration(config);
+		
+		if (ZephyrPlugin.DEBUG && spell.getRecipe() == null) {
+			ZephyrPlugin.getInstance().getLogger().warning(spell.getName() + " does not have a recipe!");
+		}
 	}
 	
 }

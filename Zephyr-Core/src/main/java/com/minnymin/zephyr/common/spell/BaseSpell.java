@@ -1,16 +1,22 @@
 package com.minnymin.zephyr.common.spell;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import com.minnymin.zephyr.api.Zephyr;
 import com.minnymin.zephyr.api.spell.CastCondition;
 import com.minnymin.zephyr.api.spell.Spell;
 import com.minnymin.zephyr.api.spell.target.Targeted;
+import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
 import com.minnymin.zephyr.api.util.Configuration;
 import com.minnymin.zephyr.common.spell.condition.LearnedCondition;
 import com.minnymin.zephyr.common.spell.condition.ManaCondition;
 import com.minnymin.zephyr.common.spell.condition.RequiredTargetCondition;
+import com.minnymin.zephyr.common.spell.condition.WorldGuardTargetBlockCondition;
+import com.minnymin.zephyr.common.spell.condition.WorldGuardTargetEntityCondition;
 
 public abstract class BaseSpell implements Spell {
 
@@ -23,7 +29,7 @@ public abstract class BaseSpell implements Spell {
 	private int manaCost;
 	private int experienceReward;
 	
-	private Set<CastCondition> conditions;
+	private List<CastCondition> conditions;
 
 	public BaseSpell(String name, String description, int requiredLevel, int manaCost) {
 		// Don't want experience reward to surpass level * 10 to avoid OP spells
@@ -39,13 +45,22 @@ public abstract class BaseSpell implements Spell {
 		this.manaCost = manaCost;
 		this.experienceReward = experienceReward;
 		
-		conditions = new HashSet<CastCondition>();
+		conditions = new ArrayList<CastCondition>();
 		conditions.add(new ManaCondition());
 		conditions.add(new LearnedCondition());
 		
 		if (this.getClass().isAnnotationPresent(Targeted.class)) {
-			if (!this.getClass().getAnnotation(Targeted.class).optional()) {
+			Targeted targeted = this.getClass().getAnnotation(Targeted.class);
+			if (!targeted.optional()) {
 				conditions.add(new RequiredTargetCondition());
+			}
+			
+			if (Zephyr.getHookManager().getWorldGuardHook() != null) {
+				if (targeted.type() == TargetType.BLOCK) {
+					conditions.add(new WorldGuardTargetBlockCondition());
+				} else {
+					conditions.add(new WorldGuardTargetEntityCondition());
+				}
 			}
 		}
 	}

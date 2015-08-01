@@ -1,6 +1,7 @@
 package com.minnymin.zephyr.api.spell;
 
 import com.google.common.base.Optional;
+import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
 import com.minnymin.zephyr.api.user.User;
 
 /**
@@ -35,6 +36,11 @@ public interface SpellContext {
 	 */
 	public <T> Optional<T> getTarget();
 
+	/**
+	 * @return The target type of the target
+	 */
+	public TargetType getTargetType();
+	
 	/**
 	 * @return The caster of the spell
 	 */

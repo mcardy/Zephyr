@@ -11,6 +11,7 @@ import com.minnymin.zephyr.common.spell.AbstractSpellContext;
 
 public class SpongeSpellContext extends AbstractSpellContext {
 	
+	private TargetType type;
 	private Object target;
 	
 	public SpongeSpellContext(Spell spell, User user, String[] args) {
@@ -19,7 +20,8 @@ public class SpongeSpellContext extends AbstractSpellContext {
 		if (this.spell.getClass().isAnnotationPresent(Targeted.class)) {
 			Player player = user.<Player> getPlayer();
 			int range = this.spell.getClass().getAnnotation(Targeted.class).range();
-			this.target = getTarget(this.spell.getClass().getAnnotation(Targeted.class).type(), player, range);	
+			this.type = this.spell.getClass().getAnnotation(Targeted.class).type();
+			this.target = getTarget(type, player, range);	
 		} else {
 			this.target = null;
 		}
@@ -38,6 +40,11 @@ public class SpongeSpellContext extends AbstractSpellContext {
 		} else {
 			return Optional.<T>absent();
 		}
+	}
+	
+	@Override
+	public TargetType getTargetType() {
+		return null;
 	}
 	
 	public Object getTarget(TargetType type, Player player, int range) {

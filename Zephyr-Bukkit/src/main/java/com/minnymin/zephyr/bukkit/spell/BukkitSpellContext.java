@@ -11,6 +11,7 @@ import com.minnymin.zephyr.common.spell.AbstractSpellContext;
 
 public class BukkitSpellContext extends AbstractSpellContext {
 
+	private TargetType type;
 	private Object target;
 	
 	public BukkitSpellContext(Spell spell, User user, String[] args) {
@@ -19,7 +20,8 @@ public class BukkitSpellContext extends AbstractSpellContext {
 		if (this.spell != null && this.spell.getClass().isAnnotationPresent(Targeted.class)) {
 			Player player = user.<Player> getPlayer();
 			int range = this.spell.getClass().getAnnotation(Targeted.class).range();
-			this.target = getTarget(this.spell.getClass().getAnnotation(Targeted.class).type(), player, range);	
+			this.type = this.spell.getClass().getAnnotation(Targeted.class).type();
+			this.target = getTarget(type, player, range);	
 		} else {
 			this.target = null;
 		}
@@ -42,6 +44,11 @@ public class BukkitSpellContext extends AbstractSpellContext {
 		} catch (ClassCastException ex) {
 			return Optional.<T>absent();
 		}
+	}
+	
+	@Override
+	public TargetType getTargetType() {
+		return this.type;
 	}
 
 	public Object getTarget(TargetType type, Player player, int range) {

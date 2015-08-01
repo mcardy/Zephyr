@@ -17,7 +17,7 @@ import com.minnymin.zephyr.api.spell.SpellContext;
 import com.minnymin.zephyr.api.spell.SpellRecipe;
 import com.minnymin.zephyr.api.spell.target.Targeted;
 import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
-import com.minnymin.zephyr.bukkit.conditions.TargetBlockAirCondition;
+import com.minnymin.zephyr.bukkit.conditions.TargetBlockCondition;
 import com.minnymin.zephyr.bukkit.spell.BukkitTargetUtils;
 import com.minnymin.zephyr.common.spell.BaseSpell;
 
@@ -26,7 +26,7 @@ public class PhaseSpell extends BaseSpell {
 
 	public PhaseSpell() {
 		super("phase", "Phase through a wall", 4, 100);
-		addCondition(new TargetBlockAirCondition("You cannot phase through air!"));
+		addCondition(new TargetBlockCondition(false, "You cannot phase through air!", Material.AIR));
 	}
 
 	@Override

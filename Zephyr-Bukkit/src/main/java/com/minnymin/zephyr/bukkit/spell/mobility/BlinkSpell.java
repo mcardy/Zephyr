@@ -14,7 +14,7 @@ import com.minnymin.zephyr.api.spell.SpellContext;
 import com.minnymin.zephyr.api.spell.SpellRecipe;
 import com.minnymin.zephyr.api.spell.target.Targeted;
 import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
-import com.minnymin.zephyr.bukkit.conditions.TargetBlockAirCondition;
+import com.minnymin.zephyr.bukkit.conditions.TargetBlockCondition;
 import com.minnymin.zephyr.bukkit.util.ParticleEffects;
 import com.minnymin.zephyr.bukkit.util.ParticleEffects.Particle;
 import com.minnymin.zephyr.common.spell.BaseSpell;
@@ -24,7 +24,7 @@ public class BlinkSpell extends BaseSpell {
 
 	public BlinkSpell() {
 		super("blink", "Blink far away", 2, 80);
-		addCondition(new TargetBlockAirCondition("You cannot blink to air!"));
+		addCondition(new TargetBlockCondition(false, "You cannot blink to air!", Material.AIR));
 	}
 
 	@Override

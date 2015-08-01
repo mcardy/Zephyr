@@ -11,6 +11,7 @@ import com.minnymin.zephyr.api.Zephyr;
 import com.minnymin.zephyr.api.ZephyrAPI;
 import com.minnymin.zephyr.bukkit.aspect.BukkitAspectRegister;
 import com.minnymin.zephyr.bukkit.command.BukkitCommandManager;
+import com.minnymin.zephyr.bukkit.hook.BukkitHookManager;
 import com.minnymin.zephyr.bukkit.item.BukkitItemManager;
 import com.minnymin.zephyr.bukkit.projectile.BukkitProjectileHandler;
 import com.minnymin.zephyr.bukkit.spell.BukkitSpellManager;
@@ -45,6 +46,7 @@ public class ZephyrPlugin extends JavaPlugin implements ZephyrAPI {
 	public void onLoad() {
 		Zephyr.addManager(new BukkitAspectRegister());
 		Zephyr.addManager(new BukkitCommandManager());
+		Zephyr.addManager(new BukkitHookManager());
 		Zephyr.addManager(new BukkitItemManager());
 		Zephyr.addManager(new BukkitProjectileHandler());
 		Zephyr.addManager(new BukkitSpellManager());

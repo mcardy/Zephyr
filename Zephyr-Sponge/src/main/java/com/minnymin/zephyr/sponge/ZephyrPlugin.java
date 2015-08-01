@@ -19,6 +19,7 @@ import com.minnymin.zephyr.api.Zephyr;
 import com.minnymin.zephyr.api.ZephyrAPI;
 import com.minnymin.zephyr.common.PluginInfo;
 import com.minnymin.zephyr.sponge.command.SpongeCommandManager;
+import com.minnymin.zephyr.sponge.hook.SpongeHookManager;
 import com.minnymin.zephyr.sponge.projectile.SpongeProjectileHandler;
 import com.minnymin.zephyr.sponge.spell.SpongeSpellManager;
 import com.minnymin.zephyr.sponge.user.SpongeUserManager;
@@ -62,6 +63,7 @@ public class ZephyrPlugin implements ZephyrAPI {
 		// TODO implement once Inventory API is complete
 		// Zephyr.addManager(new SpongeAspectRegister());
 		Zephyr.addManager(new SpongeCommandManager());
+		Zephyr.addManager(new SpongeHookManager());
 		Zephyr.addManager(new SpongeProjectileHandler());
 		Zephyr.addManager(new SpongeSpellManager());
 		Zephyr.addManager(new SpongeUserManager());

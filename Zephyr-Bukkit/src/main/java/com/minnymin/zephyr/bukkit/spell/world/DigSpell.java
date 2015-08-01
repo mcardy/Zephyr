@@ -11,7 +11,7 @@ import com.minnymin.zephyr.api.spell.SpellContext;
 import com.minnymin.zephyr.api.spell.SpellRecipe;
 import com.minnymin.zephyr.api.spell.target.Targeted;
 import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
-import com.minnymin.zephyr.bukkit.conditions.TargetBlockAirCondition;
+import com.minnymin.zephyr.bukkit.conditions.TargetBlockCondition;
 import com.minnymin.zephyr.common.spell.BaseSpell;
 
 @Targeted(type = TargetType.BLOCK)
@@ -19,7 +19,7 @@ public class DigSpell extends BaseSpell {
 
 	public DigSpell() {
 		super("dig", "Digs your target block", 1, 5);
-		addCondition(new TargetBlockAirCondition("You cannot dig air!"));
+		addCondition(new TargetBlockCondition(false, "You cannot dig air!", Material.AIR));
 	}
 
 	@Override

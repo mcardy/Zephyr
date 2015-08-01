@@ -17,7 +17,7 @@ import com.minnymin.zephyr.api.spell.SpellContext;
 import com.minnymin.zephyr.api.spell.SpellRecipe;
 import com.minnymin.zephyr.api.spell.target.Targeted;
 import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
-import com.minnymin.zephyr.bukkit.conditions.TargetBlockAirCondition;
+import com.minnymin.zephyr.bukkit.conditions.TargetBlockCondition;
 import com.minnymin.zephyr.common.spell.BaseSpell;
 
 @Targeted(type = TargetType.BLOCK, range = 5)
@@ -25,7 +25,7 @@ public class ProspectSpell extends BaseSpell {
 
 	public ProspectSpell() {
 		super("prospect", "Prospects the earth through the block in front of you", 5, 100);
-		addCondition(new TargetBlockAirCondition("You cannot prospect air"));
+		addCondition(new TargetBlockCondition(false, "You cannot prospect air", Material.AIR));
 	}
 
 	@Override

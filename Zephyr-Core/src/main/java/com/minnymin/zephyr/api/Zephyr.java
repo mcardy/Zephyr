@@ -3,6 +3,7 @@ package com.minnymin.zephyr.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.minnymin.zephyr.api.hook.HookManager;
 import com.minnymin.zephyr.api.item.ItemManager;
 import com.minnymin.zephyr.api.projectile.ProjectileManager;
 import com.minnymin.zephyr.api.spell.SpellManager;
@@ -47,6 +48,14 @@ public class Zephyr {
 	 */
 	public static ItemManager getItemManager() {
 		return Zephyr.api.getManager(ItemManager.class);
+	}
+	
+	/**
+	 * Gets the {@link HookManager} for the implementation
+	 * @return The HookManager singleton
+	 */
+	public static HookManager getHookManager() {
+		return Zephyr.api.getManager(HookManager.class);
 	}
 	
 	/**

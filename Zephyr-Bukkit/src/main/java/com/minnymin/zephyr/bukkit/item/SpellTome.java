@@ -37,7 +37,7 @@ public class SpellTome extends BaseActionItem {
 			}
 			SpellRecipe recipe;
 			Spell prerequisite;
-			if ((recipe = spell.getRecipe()).hasPrerequisite()
+			if ((recipe = spell.getRecipe()) != null && recipe.hasPrerequisite()
 					&& !user.isSpellKnown(prerequisite = recipe.getPrerequisite())) {
 				player.sendMessage(ChatColor.RED + "You must know " + prerequisite.getName() + " before you can learn "
 						+ spell.getName());

@@ -16,7 +16,7 @@ import com.minnymin.zephyr.api.spell.SpellContext;
 import com.minnymin.zephyr.api.spell.SpellRecipe;
 import com.minnymin.zephyr.api.spell.target.Targeted;
 import com.minnymin.zephyr.api.spell.target.Targeted.TargetType;
-import com.minnymin.zephyr.bukkit.conditions.TargetBlockAirCondition;
+import com.minnymin.zephyr.bukkit.conditions.TargetBlockCondition;
 import com.minnymin.zephyr.common.spell.BaseSpell;
 
 @Targeted(type = TargetType.BLOCK)
@@ -24,7 +24,7 @@ public class MineSpell extends BaseSpell {
 
 	public MineSpell() {
 		super("mine", "Mines out a 3x3 square around your target block", 4, 25);
-		addCondition(new TargetBlockAirCondition("You cannot mine air!"));
+		addCondition(new TargetBlockCondition(false, "You cannot mine air!", Material.AIR));
 	}
 
 	@Override
